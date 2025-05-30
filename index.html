@@ -4,41 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bee Alpha AI实习营 - 学AI，创未来</title>
-    <!-- EmailJS SDK -->
-    <script type="text/javascript">
-        (function() {
-            // 动态加载EmailJS
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-            script.onload = function() {
-                // EmailJS加载成功后初始化
-                if (typeof emailjs !== 'undefined') {
-                    emailjs.init({
-                        publicKey: "B2gEaR0ySBdY6MP21",
-                    });
-                    console.log('EmailJS loaded and initialized');
-                }
-            };
-            script.onerror = function() {
-                console.error('Failed to load EmailJS from CDN');
-                // 尝试备用CDN
-                var backupScript = document.createElement('script');
-                backupScript.type = 'text/javascript';
-                backupScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/email.min.js';
-                backupScript.onload = function() {
-                    if (typeof emailjs !== 'undefined') {
-                        emailjs.init({
-                            publicKey: "B2gEaR0ySBdY6MP21",
-                        });
-                        console.log('EmailJS loaded from backup CDN and initialized');
-                    }
-                };
-                document.head.appendChild(backupScript);
-            };
-            document.head.appendChild(script);
-        })();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -949,6 +915,15 @@
                 font-size: 28px;
             }
             
+            .mentor-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .mentor-section h3 {
+                font-size: 24px;
+            }
+            
             .feature-grid {
                 gap: 20px;
             }
@@ -973,15 +948,6 @@
             .faq-question {
                 padding: 15px 20px;
                 font-size: 16px;
-            }
-            
-            .mentor-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .mentor-section h3 {
-                font-size: 24px;
             }
             
             .mission-cards {
@@ -1302,7 +1268,7 @@
                         <div class="mission-card">
                             <div class="mission-number">②</div>
                             <h5 data-en="Master Enterprise AI System Deployment" data-zh="掌握企业级 AI 系统私有化部署">Master Enterprise AI System Deployment</h5>
-                            <p data-en="Deploy 'Model + Application + Object Storage' in local/cloud environments hands-on" data-zh="亲手把「模型 + 应用 + 对象存储」在本地/云端跑通">Deploy 'Model + Application + Object Storage' in local/cloud environments hands-on</p>
+                            <p data-en="Deploy 'Model + Application + Object Storage' in local/cloud environments hands-on" data-zh="亲手把「模型 + 应用 + 对象存储」在本地/云端跑通">Deploy "Model + Application + Object Storage" in local/cloud environments hands-on</p>
                         </div>
                         <div class="mission-card">
                             <div class="mission-number">③</div>
@@ -1389,7 +1355,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons." data-zh="我们会每周进行项目实习生Review，实习督导会对无法准时提交成绩的实习生进行情况分析。只有一种情况，如果发生3次，我们会对实习生进行劝退并按比例退回剩余费用：<strong>'我不会或我有事（无论何种原因），到了时间达不到目标，且从不就此与导师或督导进行沟通'。</strong>任何参与人中途有事退出，我们不承诺退费。">We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons.</p>
+                    <p data-en="We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons." data-zh="我们会每周进行项目实习生Review，实习督导会对无法准时提交成绩的实习生进行情况分析。只有一种情况，如果发生3次，我们会对实习生进行劝退并按比例退回剩余费用：<strong>"我不会或我有事（无论何种原因），到了时间达不到目标，且从不就此与导师或督导进行沟通"。</strong>任何参与人中途有事退出，我们不承诺退费。">We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: "I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it." We do not guarantee refunds for mid-program withdrawals for other reasons.</p>
                 </div>
             </div>
             
@@ -1481,6 +1447,9 @@
     </div>
 
     <script>
+        // 初始化EmailJS
+        emailjs.init('B2gEaR0ySBdY6MP21');
+        
         // 语言和区域切换功能
         let currentLang = 'us';
         
@@ -1619,25 +1588,23 @@
         });
 
         // 平滑滚动 - 只处理页内锚点链接
-        document.querySelectorAll('a[href^="#"]:not(.inquiry-btn)').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        const navHeight = document.querySelector('nav').offsetHeight;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // 移动端关闭菜单
-                        if (window.innerWidth <= 768) {
-                            document.querySelector('.nav-links').classList.remove('active');
-                        }
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端关闭菜单
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').classList.remove('active');
                     }
                 }
             });
@@ -1718,12 +1685,27 @@
         
         // 验证邮箱或电话
         function validateContact(contact) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            // 去除首尾空格
+            contact = contact.trim();
             
-            if (emailRegex.test(contact) || (phoneRegex.test(contact) && contact.replace(/\D/g, '').length >= 7)) {
+            // 邮箱验证 - 更宽松的规则
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            // 电话验证 - 支持多种格式
+            // 支持：纯数字、带+号、带空格、带横线、带括号等
+            const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/;
+            
+            // 检查是否为有效邮箱
+            if (emailRegex.test(contact)) {
                 return true;
             }
+            
+            // 检查是否为有效电话（至少包含7位数字）
+            const digitsOnly = contact.replace(/\D/g, '');
+            if (digitsOnly.length >= 7 && digitsOnly.length <= 20) {
+                return true;
+            }
+            
             return false;
         }
         
