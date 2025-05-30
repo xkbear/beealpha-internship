@@ -1594,18 +1594,20 @@
                 e.preventDefault();
                 e.stopPropagation();
                 const targetId = this.getAttribute('href');
+                if (!targetId || targetId === '#') return; // 跳过无效锚点
                 const target = document.querySelector(targetId);
                 if (target) {
-                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const nav = document.querySelector('nav');
+                    const navHeight = nav ? nav.offsetHeight : 0;
                     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
-                    
                     // 移动端关闭菜单
                     if (window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').classList.remove('active');
+                        const navLinks = document.querySelector('.nav-links');
+                        if (navLinks) navLinks.classList.remove('active');
                     }
                 }
             });
@@ -1686,44 +1688,42 @@
         
         // 验证邮箱或电话
         function validateContact(contact) {
+            if (!contact) return false;
             // 去除首尾空格
             contact = contact.trim();
-            
             // 邮箱验证 - 更宽松的规则
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
             // 电话验证 - 支持多种格式
             // 支持：纯数字、带+号、带空格、带横线、带括号等
             const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/;
-            
             // 检查是否为有效邮箱
             if (emailRegex.test(contact)) {
                 return true;
             }
-            
             // 检查是否为有效电话（至少包含7位数字）
             const digitsOnly = contact.replace(/\D/g, '');
             if (digitsOnly.length >= 7 && digitsOnly.length <= 20) {
                 return true;
             }
-            
             return false;
         }
         
         // 表单提交
         inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const contactInput = document.getElementById('contact');
             const contactError = document.getElementById('contactError');
             const submitButton = inquiryForm.querySelector('.submit-button');
-            
+            // 检查DOM元素
+            if (!contactInput || !contactError || !submitButton) {
+                alert('表单加载异常，请刷新页面重试');
+                return;
+            }
             // 清除之前的错误信息
             contactError.textContent = '';
             contactInput.style.borderColor = '#e0e0e0';
-            
             // 验证联系方式
-            if (!validateContact(contactInput.value)) {
+            if (!validateContact(contactInput.value || '')) {
                 contactError.textContent = currentLang === 'cn' ? '请输入有效的邮箱或电话号码' : 'Please enter a valid email or phone number';
                 contactInput.style.borderColor = '#ff4444';
                 contactInput.focus();
