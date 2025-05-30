@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bee Alpha AI实习营 - 学AI，创未来</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <style>
         * {
             margin: 0;
@@ -208,6 +209,8 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .course-card:hover {
@@ -242,6 +245,9 @@
         
         .course-body {
             padding: 30px;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
         }
         
         .course-info {
@@ -269,6 +275,10 @@
             padding-left: 25px;
         }
         
+        .course-features li:last-child {
+            border-bottom: none;
+        }
+        
         .course-features li:before {
             content: '✓';
             position: absolute;
@@ -288,6 +298,7 @@
             border-radius: 10px;
             font-weight: bold;
             transition: opacity 0.3s;
+            margin-top: auto;
         }
         
         .enroll-button:hover {
@@ -1421,7 +1432,7 @@
                 
                 <div class="form-group">
                     <label data-en="Message *" data-zh="咨询说明 *">Message *</label>
-                    <textarea id="message" name="message" rows="4" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me" data-zh="我想咨询Bee Alpha暑期实习，请联系我">I would like to inquire about Bee Alpha summer internship, please contact me</textarea>
+                    <textarea id="message" name="message" rows="4" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me." data-zh="我想咨询Bee Alpha暑期实习，请联系我。">I would like to inquire about Bee Alpha summer internship, please contact me.</textarea>
                 </div>
                 
                 <div style="display: flex; gap: 16px; margin-top: 10px;">
@@ -1436,6 +1447,10 @@
     <script>
         // 初始化EmailJS
         emailjs.init('B2gEaR0ySBdY6MP21');
+        // 初始化Supabase
+        const supabaseUrl = 'https://hzimjwfaeitpodmlfayn.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6aW1qd2ZhZWl0cG9kbWxmYXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MTEyNTAsImV4cCI6MjA2NDE4NzI1MH0.TXmUC1MCysuhPMtYGMTacgWRptuPunexiqxk1Z1cZJU';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
         
         // 语言和区域切换功能
         let currentLang = 'us';
@@ -1687,16 +1702,12 @@
         inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitButton = inquiryForm.querySelector('.submit-button');
-            // 检查DOM元素
             if (!submitButton) {
                 alert('表单加载异常，请刷新页面重试');
                 return;
             }
-            // 禁用提交按钮
             submitButton.disabled = true;
             submitButton.textContent = currentLang === 'cn' ? '发送中...' : 'Sending...';
-            
-            // 准备邮件数据
             const templateParams = {
                 name: document.getElementById('name').value,
                 country: document.getElementById('country').value,
@@ -1707,8 +1718,24 @@
                 submit_time: new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }),
                 source_region: currentLang.toUpperCase()
             };
-            // 调试输出
-            console.log('templateParams:', templateParams);
+            // 写入supabase数据库
+            const { data, error } = await supabase
+                .from('inquiries')
+                .insert([
+                    {
+                        name: templateParams.name,
+                        country: templateParams.country,
+                        grade: templateParams.grade,
+                        contact_email: templateParams['contact-email'],
+                        message: templateParams.message,
+                        camptype: templateParams.camptype,
+                        submit_time: templateParams.submit_time,
+                        source_region: templateParams.source_region
+                    }
+                ]);
+            if (error) {
+                console.error('Supabase insert error:', error);
+            }
             
             try {
                 // 发送邮件
