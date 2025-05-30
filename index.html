@@ -809,9 +809,10 @@
         
         .error-message {
             color: #ff4444;
-            font-size: 14px;
+            font-size: 13px;
             margin-top: 5px;
             display: block;
+            min-height: 20px;
         }
         
         .submit-button {
@@ -1717,14 +1718,16 @@
             const contactError = document.getElementById('contactError');
             const submitButton = inquiryForm.querySelector('.submit-button');
             
+            // 清除之前的错误信息
+            contactError.textContent = '';
+            contactInput.style.borderColor = '#e0e0e0';
+            
             // 验证联系方式
             if (!validateContact(contactInput.value)) {
                 contactError.textContent = currentLang === 'cn' ? '请输入有效的邮箱或电话号码' : 'Please enter a valid email or phone number';
                 contactInput.style.borderColor = '#ff4444';
+                contactInput.focus();
                 return;
-            } else {
-                contactError.textContent = '';
-                contactInput.style.borderColor = '#e0e0e0';
             }
             
             // 禁用提交按钮
@@ -1763,6 +1766,8 @@
                 }, 3000);
                 
             } catch (error) {
+                console.error('EmailJS error:', error);
+                
                 // 显示错误消息
                 submitMessage.className = 'submit-message error';
                 submitMessage.textContent = currentLang === 'cn' ? 
