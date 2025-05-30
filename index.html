@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee Alpha AI实习营 - 学AI，创未来</title>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript">
+        (function() {
+            // 动态加载EmailJS
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+            script.onload = function() {
+                // EmailJS加载成功后初始化
+                if (typeof emailjs !== 'undefined') {
+                    emailjs.init({
+                        publicKey: "B2gEaR0ySBdY6MP21",
+                    });
+                    console.log('EmailJS loaded and initialized');
+                }
+            };
+            script.onerror = function() {
+                console.error('Failed to load EmailJS from CDN');
+                // 尝试备用CDN
+                var backupScript = document.createElement('script');
+                backupScript.type = 'text/javascript';
+                backupScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/email.min.js';
+                backupScript.onload = function() {
+                    if (typeof emailjs !== 'undefined') {
+                        emailjs.init({
+                            publicKey: "B2gEaR0ySBdY6MP21",
+                        });
+                        console.log('EmailJS loaded from backup CDN and initialized');
+                    }
+                };
+                document.head.appendChild(backupScript);
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6B35;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #FFF5F0 0%, #FFE5D9 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(10px) translateX(-10px); }
+            75% { transform: translateY(-10px) translateX(5px); }
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero .highlight {
+            color: #FF6B35;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* 特色卡片 */
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        /* 课程卡片 */
+        .courses {
+            padding: 80px 20px;
+            background: #FAFAFA;
+        }
+        
+        .courses h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .course-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2);
+        }
+        
+        .course-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+        }
+        
+        .course-level {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .course-header h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .course-price {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .course-body {
+            padding: 30px;
+        }
+        
+        .course-info {
+            margin-bottom: 20px;
+        }
+        
+        .course-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .course-info strong {
+            color: #333;
+        }
+        
+        .course-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .course-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .course-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF6B35;
+            font-weight: bold;
+        }
+        
+        .enroll-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        
+        .enroll-button:hover {
+            opacity: 0.9;
+        }
+        
+        /* 学生作品展示 */
+        .portfolio {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .portfolio h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        a.portfolio-card {
+            display: block;
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+        
+        .portfolio-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #FFE5D9, #FFF5F0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        
+        .portfolio-content {
+            padding: 25px;
+        }
+        
+        .portfolio-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .portfolio-content .student-info {
+            color: #FF6B35;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        /* 导师团队 */
+        .mentors {
+            padding: 80px 20px;
+            background: #FAFAFA;
+        }
+        
+        .mentors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .mentors h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        
+        .mentor-section {
+            margin-bottom: 80px;
+        }
+        
+        .mentor-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .mentor-section h3 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #FF6B35;
+        }
+        
+        .section-desc {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .mentor-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .mentor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.15);
+        }
+        
+        .mentor-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .mentor-card h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .mentor-title {
+            font-size: 16px;
+            color: #FF6B35;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .mentor-desc {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        /* 关于我们 */
+        .about {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .about-content {
+            display: grid;
+            gap: 60px;
+        }
+        
+        .company-intro {
+            background: #FAFAFA;
+            padding: 40px;
+            border-radius: 20px;
+            line-height: 1.8;
+        }
+        
+        .company-intro p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .company-intro p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .mission-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .mission-section h4 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .mission-card {
+            background: linear-gradient(135deg, #FFF5F0 0%, #FFE5D9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mission-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h5 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .mission-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .mission-highlight {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .mission-highlight p {
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        /* 常见问题 */
+        .faq {
+            padding: 80px 20px;
+            background: #FAFAFA;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            padding: 20px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #333;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #FFF5F0;
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px 30px;
+            max-height: 300px;
+        }
+        
+        .faq-toggle {
+            font-size: 24px;
+            color: #FF6B35;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #333;
+            color: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            margin: 40px 0;
+        }
+        
+        .contact-info h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #FF6B35;
+        }
+        
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .contact-item:hover {
+            color: #FF6B35;
+        }
+        
+        .contact-item span {
+            font-size: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #FF6B35;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: #555;
+            margin: 30px 0;
+        }
+        
+        /* 语言切换器 */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+        
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+        
+        .lang-btn:hover {
+            color: #FF6B35;
+        }
+        
+        .lang-btn.active {
+            color: #FF6B35;
+            font-weight: 600;
+        }
+        
+        .lang-divider {
+            color: #ddd;
+            margin: 0 5px;
+        }
+        
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #FF6B35;
+        }
+        
+        .modal-content h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .submit-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .submit-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+        
+        .submit-message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #f44336;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #333;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero .subtitle {
+                font-size: 18px;
+            }
+            
+            .cta-button {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
+            
+            .features h2,
+            .courses h2,
+            .portfolio h2,
+            .mentors h2,
+            .about h2,
+            .faq h2 {
+                font-size: 28px;
+            }
+            
+            .feature-grid {
+                gap: 20px;
+            }
+            
+            .course-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-header h3 {
+                font-size: 24px;
+            }
+            
+            .course-price {
+                font-size: 32px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .faq-question {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+            
+            .mentor-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .mentor-section h3 {
+                font-size: 24px;
+            }
+            
+            .mission-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-item {
+                font-size: 16px;
+            }
+            
+            .language-switcher {
+                display: none;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        /* 默认隐藏移动菜单按钮 */
+        .mobile-menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Bee Alpha</div>
+            <button class="mobile-menu-toggle" aria-label="菜单">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home" data-en="Home" data-zh="首页">Home</a></li>
+                <li><a href="#courses" data-en="Courses" data-zh="课程介绍">Courses</a></li>
+                <li><a href="#portfolio" data-en="Portfolio" data-zh="学生作品">Portfolio</a></li>
+                <li><a href="#mentors" data-en="Mentors" data-zh="导师团队">Mentors</a></li>
+                <li><a href="#about" data-en="About Us" data-zh="关于我们">About Us</a></li>
+                <li><a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a></li>
+                <li><a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="us">US</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="nz">NZ</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="cn">中国</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero">
+        <h1 data-en="Master <span class='highlight'>AI Era</span> Core Skills" data-zh="让您的孩子掌握<span class='highlight'>AI时代</span>的核心技能">Master <span class='highlight'>AI Era</span> Core Skills</h1>
+        <p class="subtitle" data-en="Bee Alpha High School AI Internship - Learn AI, Future Inside" data-zh="Bee Alpha 高中AI实习营 - 学AI，创未来">Bee Alpha High School AI Internship - Learn AI, Future Inside</p>
+        <a href="#courses" class="cta-button" data-en="Explore Courses" data-zh="了解课程详情">Explore Courses</a>
+    </section>
+
+    <!-- 特色介绍 -->
+    <section class="features">
+        <h2 data-en="Why Choose Bee Alpha?" data-zh="为什么选择 Bee Alpha？">Why Choose Bee Alpha?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 data-en="Real Project Experience" data-zh="真实项目经验">Real Project Experience</h3>
+                <p data-en="Not just theory, but completing deployable AI products with real-world startup experience" data-zh="不只是学习理论，而是完成可上线的AI产品，获得全球型AI创业公司的工作经历">Not just theory, but completing deployable AI products with real-world startup experience</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h3 data-en="Global Expert Mentors" data-zh="全球顶尖导师">Global Expert Mentors</h3>
+                <p data-en="15 professional mentors worldwide, providing 24-hour 1-on-1 Q&A and weekly group sessions" data-zh="15位来自世界各地的专业导师，提供24小时内1对1答疑和每周集中辅导">15 professional mentors worldwide, providing 24-hour 1-on-1 Q&A and weekly group sessions</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📜</div>
+                <h3 data-en="Recommendation Letters" data-zh="推荐信认证">Recommendation Letters</h3>
+                <p data-en="Receive recommendation letters from company founders and mentors to enhance college applications" data-zh="完成课程可获得公司创始人及导师的推荐信，为大学申请增添亮点">Receive recommendation letters from company founders and mentors to enhance college applications</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3 data-en="Startup Incubation" data-zh="创业孵化机会">Startup Incubation</h3>
+                <p data-en="Outstanding projects may receive early investment from BEEBEE, turning students into founders" data-zh="优秀项目有机会获得BEEBEE的早期投资，从学生到创始人的可能">Outstanding projects may receive early investment from BEEBEE, turning students into founders</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 课程介绍 -->
+    <section id="courses" class="courses">
+        <h2 data-en="Three Camps to Cultivate Future AI Leaders" data-zh="三大实习营，培养AI时代的未来领袖">Three Camps to Cultivate Future AI Leaders</h2>
+        <div class="course-container">
+            <!-- A营 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <span class="course-level" data-en="Grade 8+" data-zh="8年级以上">Grade 8+</span>
+                    <h3 data-en="Camp A: Enterprise AI Agent Applications" data-zh="A营：企业级智能体应用">Camp A: Enterprise AI Agent Applications</h3>
+                    <div class="course-price" data-us="$1,699" data-nz="$2,699" data-cn="¥11,999">$1,699</div>
+                </div>
+                <div class="course-body">
+                    <div class="course-info">
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×2 hours per week" data-zh="6周，每周2×2小时">6 weeks, 2×2 hours per week</span></p>
+                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Beginners interested in AI applications" data-zh="对AI应用感兴趣的初学者">Beginners interested in AI applications</span></p>
+                    </div>
+                    <ul class="course-features">
+                        <li data-en="Master enterprise productivity agent construction" data-zh="掌握企业生产力智能体构造方法">Master enterprise productivity agent construction</li>
+                        <li data-en="Create customer service bots and training systems" data-zh="学会创建客服机器人、培训系统">Create customer service bots and training systems</li>
+                        <li data-en="AI data analysis for business insights" data-zh="AI智能数据分析，输出商业洞察">AI data analysis for business insights</li>
+                        <li data-en="Create AI applications that generate traffic or revenue" data-zh="创造实际流量或收益的AI应用">Create AI applications that generate traffic or revenue</li>
+                    </ul>
+                    <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
+                </div>
+            </div>
+
+            <!-- B营 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <span class="course-level" data-en="Grade 9+" data-zh="9年级以上">Grade 9+</span>
+                    <h3 data-en="Camp B: Private LLM Deployment" data-zh="B营：大模型私有化部署">Camp B: Private LLM Deployment</h3>
+                    <div class="course-price" data-us="$2,699" data-nz="$4,399" data-cn="¥18,999">$2,699</div>
+                </div>
+                <div class="course-body">
+                    <div class="course-info">
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×3 hours per week" data-zh="6周，每周2×3小时">6 weeks, 2×3 hours per week</span></p>
+                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Students with programming basics wanting to dive into AI" data-zh="有编程基础，想深入AI技术">Students with programming basics wanting to dive into AI</span></p>
+                    </div>
+                    <ul class="course-features">
+                        <li data-en="Assess enterprise needs and deploy private LLMs" data-zh="评估企业需求并私有化部署大模型">Assess enterprise needs and deploy private LLMs</li>
+                        <li data-en="Master Transformer, LLM core technologies" data-zh="掌握Transformer、LLM等核心技术">Master Transformer, LLM core technologies</li>
+                        <li data-en="Deploy Whisper voice transcription, RAG retrieval" data-zh="部署Whisper语音转写、RAG检索">Deploy Whisper voice transcription, RAG retrieval</li>
+                        <li data-en="Provide knowledge base and app integration services" data-zh="为企业提供知识库和应用接入服务">Provide knowledge base and app integration services</li>
+                    </ul>
+                    <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
+                </div>
+            </div>
+
+            <!-- C营 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <span class="course-level" data-en="Grade 10+" data-zh="10年级以上">Grade 10+</span>
+                    <h3 data-en="Camp C: AI Full-Stack Development" data-zh="C营：AI全栈开发及发布">Camp C: AI Full-Stack Development</h3>
+                    <div class="course-price" data-us="$3,999" data-nz="$6,699" data-cn="¥28,999">$3,999</div>
+                </div>
+                <div class="course-body">
+                    <div class="course-info">
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×4 hours per week" data-zh="6周，每周2×4小时">6 weeks, 2×4 hours per week</span></p>
+                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Aspiring AI developers or entrepreneurs" data-zh="目标成为AI开发者或创业者">Aspiring AI developers or entrepreneurs</span></p>
+                    </div>
+                    <ul class="course-features">
+                        <li data-en="Build complete AI development environment from scratch" data-zh="从0搭建完整AI开发环境">Build complete AI development environment from scratch</li>
+                        <li data-en="Master full-stack: frontend + backend + database + LLM" data-zh="掌握前后端+数据库+大模型全栈">Master full-stack: frontend + backend + database + LLM</li>
+                        <li data-en="Learn product definition to market launch process" data-zh="学习产品定义到市场发布全流程">Learn product definition to market launch process</li>
+                        <li data-en="Opportunity for BEEBEE early investment" data-zh="有机会获得BEEBEE早期投资">Opportunity for BEEBEE early investment</li>
+                    </ul>
+                    <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学生作品展示 -->
+    <section id="portfolio" class="portfolio">
+        <h2 data-en="Outstanding Student Projects" data-zh="学生优秀作品展示">Outstanding Student Projects</h2>
+        <div class="portfolio-grid">
+            <a href="https://mytraqr.com" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
+                <div class="portfolio-image">⛳</div>
+                <div class="portfolio-content">
+                    <h3 data-en="AI Golf Performance Analysis" data-zh="AI高尔夫成绩分析系统">AI Golf Performance Analysis</h3>
+                    <p class="student-info" data-en="Peter, 14, Grade 9" data-zh="Peter，14岁，9年级">Peter, 14, Grade 9</p>
+                    <p data-en="AI analysis of golf swing data providing personalized training advice, with paying users" data-zh="通过AI分析高尔夫挥杆数据，提供个性化训练建议，已有付费用户使用">AI analysis of golf swing data providing personalized training advice, with paying users</p>
+                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
+                </div>
+            </a>
+            <a href="https://aloft.gift" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
+                <div class="portfolio-image">🎁</div>
+                <div class="portfolio-content">
+                    <h3 data-en="AI Gift Recommendation Platform" data-zh="AI智能礼物推荐平台">AI Gift Recommendation Platform</h3>
+                    <p class="student-info" data-en="Ivan, 14, Grade 9" data-zh="Ivan，14岁，9年级">Ivan, 14, Grade 9</p>
+                    <p data-en="Smart gift recommendations based on relationships and budget, solving gift selection challenges" data-zh="基于用户关系和预算，智能推荐最合适的礼物，解决选礼难题">Smart gift recommendations based on relationships and budget, solving gift selection challenges</p>
+                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
+                </div>
+            </a>
+            <a href="https://beebee.com" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
+                <div class="portfolio-image">🔍</div>
+                <div class="portfolio-content">
+                    <h3 data-en="AI Business Opportunity Search Engine" data-zh="AI商机搜索引擎">AI Business Opportunity Search Engine</h3>
+                    <p class="student-info" data-en="Student Team Project" data-zh="学员团队作品">Student Team Project</p>
+                    <p data-en="Automatically collects and analyzes global startup data, providing business insights for investors" data-zh="自动搜集分析全球新成立的优秀创业公司数据，为投资者提供商机洞察">Automatically collects and analyzes global startup data, providing business insights for investors</p>
+                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 导师团队 -->
+    <section id="mentors" class="mentors">
+        <div class="mentors-container">
+            <h2 data-en="Our Mentor Team" data-zh="导师团队">Our Mentor Team</h2>
+            
+            <!-- 项目导师 -->
+            <div class="mentor-section">
+                <h3 data-en="Project Mentors" data-zh="项目导师">Project Mentors</h3>
+                <p class="section-desc" data-en="Full-time engineers providing daily guidance and hands-on project support" data-zh="全职工程师，提供日常指导和项目实战支持">Full-time engineers providing daily guidance and hands-on project support</p>
+                
+                <div class="mentor-grid">
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🏗️</div>
+                        <h4 data-en="Dr. H" data-zh="H博士">Dr. H</h4>
+                        <p class="mentor-title" data-en="Chief Scientist" data-zh="首席科学家">Chief Scientist</p>
+                        <p class="mentor-desc" data-en="Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars" data-zh="顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星">Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">💻</div>
+                        <h4 data-en="Master C" data-zh="C大师">Master C</h4>
+                        <p class="mentor-title" data-en="Chief Architect" data-zh="首席架构师">Chief Architect</p>
+                        <p class="mentor-desc" data-en="25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems" data-zh="25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家">25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🤖</div>
+                        <h4 data-en="Engineer X" data-zh="X工程师">Engineer X</h4>
+                        <p class="mentor-title" data-en="Senior AI Engineer" data-zh="高级AI工程师">Senior AI Engineer</p>
+                        <p class="mentor-desc" data-en="2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development" data-zh="2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发">2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">📊</div>
+                        <h4 data-en="Dr. K" data-zh="K博士">Dr. K</h4>
+                        <p class="mentor-title" data-en="Algorithm Engineer" data-zh="算法工程师">Algorithm Engineer</p>
+                        <p class="mentor-desc" data-en="Imperial College MSc (Distinction), Edinburgh BSc (First Class), specialist in large-scale data processing and ML algorithms" data-zh="帝国理工硕士(Distinction)，爱丁堡本科(一等荣誉)，大规模数据处理和ML算法专家">Imperial College MSc (Distinction), Edinburgh BSc (First Class), specialist in large-scale data processing and ML algorithms</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🔍</div>
+                        <h4 data-en="Engineer S" data-zh="S工程师">Engineer S</h4>
+                        <p class="mentor-title" data-en="Data Engineer" data-zh="数据工程师">Data Engineer</p>
+                        <p class="mentor-desc" data-en="Expert in asynchronous web crawling, AI-driven data analysis, proficient in BFS algorithms and concurrent programming" data-zh="异步爬虫专家，AI数据分析工程师，精通BFS算法和并发编程">Expert in asynchronous web crawling, AI-driven data analysis, proficient in BFS algorithms and concurrent programming</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🚀</div>
+                        <h4 data-en="Engineer V" data-zh="V工程师">Engineer V</h4>
+                        <p class="mentor-title" data-en="Full-Stack Developer" data-zh="全栈开发工程师">Full-Stack Developer</p>
+                        <p class="mentor-desc" data-en="Top North American university CS graduate, RAG SaaS developer, expert in prompt engineering and API development" data-zh="北美顶尖大学CS毕业，RAG SaaS开发者，Prompt工程和API开发专家">Top North American university CS graduate, RAG SaaS developer, expert in prompt engineering and API development</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专业讲师 -->
+            <div class="mentor-section">
+                <h3 data-en="Guest Lecturers" data-zh="专业讲师">Guest Lecturers</h3>
+                <p class="section-desc" data-en="Industry experts sharing cutting-edge technology and real-world experience" data-zh="行业专家，分享前沿技术和实战经验">Industry experts sharing cutting-edge technology and real-world experience</p>
+                
+                <div class="mentor-grid">
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🌟</div>
+                        <h4 data-en="Mr. A" data-zh="A老师">Mr. A</h4>
+                        <p class="mentor-title" data-en="Tech Giant Senior AI Specialist" data-zh="大厂高级AI专家">Tech Giant Senior AI Specialist</p>
+                        <p class="mentor-desc" data-en="Former search engine architect (8 years), led 20+ engineers, built billion-scale systems, now developing AI applications for gaming" data-zh="前搜索引擎架构师(8年)，领导20+工程师团队，构建10亿级系统，现负责游戏AI应用">Former search engine architect (8 years), led 20+ engineers, built billion-scale systems, now developing AI applications for gaming</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">📚</div>
+                        <h4 data-en="Mr. M" data-zh="M老师">Mr. M</h4>
+                        <p class="mentor-title" data-en="AI Educator & Developer" data-zh="AI教育专家">AI Educator & Developer</p>
+                        <p class="mentor-desc" data-en="Former senior engineer at global tech company, author of popular AI tutorials, open source contributor with significant following" data-zh="前跨国科技公司高级工程师，知名AI教程作者，开源项目贡献者">Former senior engineer at global tech company, author of popular AI tutorials, open source contributor with significant following</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">💳</div>
+                        <h4 data-en="Mr. R" data-zh="R老师">Mr. R</h4>
+                        <p class="mentor-title" data-en="Fintech Architect" data-zh="金融科技架构师">Fintech Architect</p>
+                        <p class="mentor-desc" data-en="15 years in banking sector, architected systems handling millions of daily transactions, now at international fintech company" data-zh="15年银行业经验，设计千万级日交易系统，现任国际金融科技公司架构师">15 years in banking sector, architected systems handling millions of daily transactions, now at international fintech company</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">🎤</div>
+                        <h4 data-en="Dr. Y" data-zh="Y博士">Dr. Y</h4>
+                        <p class="mentor-title" data-en="Voice AI Scientist" data-zh="语音AI科学家">Voice AI Scientist</p>
+                        <p class="mentor-desc" data-en="PhD from top research institute, international competition champion, 20+ top conference papers, voice algorithm expert at leading AI companies" data-zh="顶尖研究所博士，国际竞赛冠军，20+顶会论文，头部AI公司语音算法专家">PhD from top research institute, international competition champion, 20+ top conference papers, voice algorithm expert at leading AI companies</p>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <div class="mentor-icon">💼</div>
+                        <h4 data-en="Mr. N" data-zh="N老师">Mr. N</h4>
+                        <p class="mentor-title" data-en="AI Product Expert" data-zh="AI产业化专家">AI Product Expert</p>
+                        <p class="mentor-desc" data-en="17 years tech experience, led multi-million dollar AI projects, AI startup co-founder, expert in AI commercialization" data-zh="17年技术经验，主导数亿级AI项目，AI创业公司合伙人，AI商业化专家">17 years tech experience, led multi-million dollar AI projects, AI startup co-founder, expert in AI commercialization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <h2 data-en="About BeeBee AI" data-zh="关于 BeeBee AI">About BeeBee AI</h2>
+            <div class="about-content">
+                <div class="company-intro">
+                    <p data-en="BeeBee AI LTD is an international technology company headquartered in New Zealand, with teams distributed across New Zealand, the UK, Canada, the US, and China. The company focuses on GenAI intelligent product development and was founded in 2022 by veterans with over 20 years of Internet/IT experience and 8 years of AI multimodal application development experience." data-zh="BeeBee AI LTD是一家总部位于新西兰的国际科技公司，团队分布在新西兰、英国、加拿大、美国、中国。公司专注于GenAI智能产品开发，由具有20年以上互联网/IT经验及8年AI全模态应用开发经验的资深人士于2022年创立。">BeeBee AI LTD is an international technology company headquartered in New Zealand, with teams distributed across New Zealand, the UK, Canada, the US, and China. The company focuses on GenAI intelligent product development and was founded in 2022 by veterans with over 20 years of Internet/IT experience and 8 years of AI multimodal application development experience.</p>
+                    <p data-en="The company's mission is to enhance personal and organizational productivity through 'AI × Private Knowledge'. Its core product 2Brain, launched in 2024, allows enterprises to import multimodal content (documents, audio/video, websites, chat logs) to form private knowledge bases, visualized in real-time as dynamic knowledge graphs, enabling deployment of RAG-based chatbots and business flow agents within minutes." data-zh="公司的使命是通过'AI × 私域知识'提升个人与组织的生产力。其核心产品2Brain于2024年推出，可以让企业导入多模态内容（文档、音频/视频、网站、聊天记录）形成私有知识库，并实时可视化为动态知识图谱，几分钟内即可部署基于RAG（检索增强生成）的聊天机器人和各类业务流智能体。">The company's mission is to enhance personal and organizational productivity through 'AI × Private Knowledge'. Its core product 2Brain, launched in 2024, allows enterprises to import multimodal content (documents, audio/video, websites, chat logs) to form private knowledge bases, visualized in real-time as dynamic knowledge graphs, enabling deployment of RAG-based chatbots and business flow agents within minutes.</p>
+                    <p data-en="2Brain has provided enterprise-level application implementation services to dozens of global clients, redefining how knowledge is applied in various scenarios from Fortune 500 training programs to key customer support assistants." data-zh="2Brain已经为全球数十家客户提供企业级应用落地服务，正在从世界500强企业的培训项目到关键客户支持助手等多种场景中，重新定义知识的应用方式。">2Brain has provided enterprise-level application implementation services to dozens of global clients, redefining how knowledge is applied in various scenarios from Fortune 500 training programs to key customer support assistants.</p>
+                </div>
+                
+                <div class="mission-section">
+                    <h3 data-en="Our Practice Philosophy" data-zh="我们的实践宗旨">Our Practice Philosophy</h3>
+                    <h4 data-en="What do we want students to achieve?" data-zh="我们想让孩子获得什么？">What do we want students to achieve?</h4>
+                    <div class="mission-cards">
+                        <div class="mission-card">
+                            <div class="mission-number">①</div>
+                            <h5 data-en="Build Complete LLM Industry Vision" data-zh="建立大模型产业全景视野">Build Complete LLM Industry Vision</h5>
+                            <p data-en="Understand the principles, ecosystem and application scenarios of models like GPT/DeepSeek" data-zh="理解 GPT/DeepSeek 等模型的原理、生态与应用场景">Understand the principles, ecosystem and application scenarios of models like GPT/DeepSeek</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-number">②</div>
+                            <h5 data-en="Master Enterprise AI System Deployment" data-zh="掌握企业级 AI 系统私有化部署">Master Enterprise AI System Deployment</h5>
+                            <p data-en="Deploy 'Model + Application + Object Storage' in local/cloud environments hands-on" data-zh="亲手把「模型 + 应用 + 对象存储」在本地/云端跑通">Deploy 'Model + Application + Object Storage' in local/cloud environments hands-on</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-number">③</div>
+                            <h5 data-en="Independently Develop and Launch AI Products" data-zh="独立开发并发布 AI 产品">Independently Develop and Launch AI Products</h5>
+                            <p data-en="From requirements research, coding to Demo Day launch for real users" data-zh="从需求调研、编码到上线 Demo Day，面向真实用户">From requirements research, coding to Demo Day launch for real users</p>
+                        </div>
+                    </div>
+                    <div class="mission-highlight">
+                        <p><strong data-en="Our Goal: " data-zh="一句话目标：">Our Goal: </strong><span data-en="We don't just teach basic AI tools, but guide students from coding to deploying complete AI applications, creating their own products." data-zh="我们不教您使用基础AI工具，而是从编码到部署一整套AI应用，拥有一款属于自己的产品。">We don't just teach basic AI tools, but guide students from coding to deploying complete AI applications, creating their own products.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section id="faq" class="faq">
+        <div class="faq-container">
+            <h2 data-en="Frequently Asked Questions" data-zh="家长常见问题">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can my child join Bee Alpha without programming experience?" data-zh="我的孩子没有编程基础，能参加Bee Alpha训练营吗？">Can my child join Bee Alpha without programming experience?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Camp A is designed for beginners and provides necessary programming guidance. We recommend learning basic Python before joining to better understand the 2Brain architecture modules. For students with no programming background, we focus on their mathematical and logical abilities during the interview. Camps B and C require some programming foundation, but we assess student levels during interviews to ensure they can keep up with the course." data-zh="A营专为初学者设计，会提供必要的编程基础指导。我们建议参营前学习基本的Python知识，这样能更好地理解2Brain架构中的各个模块。对于完全没有编程基础的学生，我们在面试时会着重考量其数理逻辑。B营和C营需要一定的编程基础，但我们会在面试时评估学生水平，确保能够跟上课程进度。">Camp A is designed for beginners and provides necessary programming guidance. We recommend learning basic Python before joining to better understand the 2Brain architecture modules. For students with no programming background, we focus on their mathematical and logical abilities during the interview. Camps B and C require some programming foundation, but we assess student levels during interviews to ensure they can keep up with the course.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What equipment and technical environment are needed?" data-zh="训练营需要什么设备和技术环境？">What equipment and technical environment are needed?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Camp A only requires a standard development laptop (16GB+ RAM). Camps B and C involve model deployment, so we recommend using a computer with NVIDIA GPU or our provided cloud development environment. We provide necessary API KEYs for LLMs and cloud/local GPU resources for deployment. All necessary software and environment setup guides will be provided before the course starts." data-zh="A营只需要一台标准适合开发的笔记本电脑（16GB内存以上）。B营和C营涉及模型部署，建议使用带有NVIDIA显卡的电脑或我们提供的云端开发环境。我们将提供大模型所需API KEY和部署所需的云端GPU，以及本地GPU服务器资源。所有必要的软件和环境配置指南将在课程开始前提供。">Camp A only requires a standard development laptop (16GB+ RAM). Camps B and C involve model deployment, so we recommend using a computer with NVIDIA GPU or our provided cloud development environment. We provide necessary API KEYs for LLMs and cloud/local GPU resources for deployment. All necessary software and environment setup guides will be provided before the course starts.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How is 2Brain architecture different from other AI frameworks?" data-zh="2Brain架构与其他AI框架有什么不同？">How is 2Brain architecture different from other AI frameworks?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="2Brain is a complete enterprise-level knowledge intelligence system architecture, not just an AI framework. It integrates the complete CODE process from data Collection, knowledge Organization, information Distillation to intelligent Expression, validated in multiple large enterprise projects. Students will learn industry-proven technical architecture, not just theoretical or experimental frameworks." data-zh="2Brain是一个完整的企业级知识智能体系统架构，区别于单纯的AI框架。它整合了从数据采集（C）、知识组织（O）、信息提炼（D）到智能表达（E）的完整CODE流程，已在多个大型企业项目中验证。学员将学习实际产业中使用的技术架构，而非仅限于理论或实验性框架。">2Brain is a complete enterprise-level knowledge intelligence system architecture, not just an AI framework. It integrates the complete CODE process from data Collection, knowledge Organization, information Distillation to intelligent Expression, validated in multiple large enterprise projects. Students will learn industry-proven technical architecture, not just theoretical or experimental frameworks.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How does this help with school and college applications?" data-zh="训练营如何与学校学习和申请大学结合？">How does this help with school and college applications?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Bee Alpha projects serve as important portfolio pieces, especially demonstrating practical abilities in AI and software development. Projects based on 2Brain architecture significantly help applications for Computer Science, Data Science, AI and related majors. We also provide project certificates and mentor recommendation letters, adding extra value to applications." data-zh="Bee Alpha训练营的项目可作为个人作品集的重要组成部分，特别是展示学生在AI和软件开发领域的实际能力。基于2Brain架构开发的项目对计算机科学、数据科学、AI等相关专业的大学申请有显著帮助。我们也为学生提供项目证书和导师推荐信，这在申请过程中具有额外价值。">Bee Alpha projects serve as important portfolio pieces, especially demonstrating practical abilities in AI and software development. Projects based on 2Brain architecture significantly help applications for Computer Science, Data Science, AI and related majors. We also provide project certificates and mentor recommendation letters, adding extra value to applications.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How is class time arranged? Will it affect school?" data-zh="上课时间如何安排？会影响学校学习吗？">How is class time arranged? Will it affect school?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Classes are scheduled on weekends, only 2 half-days per week, not affecting regular school courses. We offer multiple timezone options for students from different regions. Our 15 global mentors cover New Zealand, UK, US, Canada, China timezones, ensuring students can find suitable class times." data-zh="课程安排在周末，每周仅需2个半天，不会影响正常学校课程。我们还提供多个时区的课程安排，方便不同地区的学生参加。15位全球导师覆盖新西兰、英国、美国、加拿大、中国等时区，确保学生能找到合适的上课时间。">Classes are scheduled on weekends, only 2 half-days per week, not affecting regular school courses. We offer multiple timezone options for students from different regions. Our 15 global mentors cover New Zealand, UK, US, Canada, China timezones, ensuring students can find suitable class times.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How do you ensure teaching quality?" data-zh="如何保证教学质量？">How do you ensure teaching quality?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="We have 15 experienced global mentors providing 24-hour 1-on-1 Q&A and weekly group sessions. Weekly intern reviews monitor student progress closely. Our mentor team has rich enterprise AI project experience, providing the most practical guidance." data-zh="我们有15位经验丰富的全球导师，提供24小时内1对1答疑和每周集中辅导。每周进行项目实习生Review，实习督导会密切关注学生进度。我们的导师团队都有丰富的企业AI项目经验，能够提供最实用的指导。">We have 15 experienced global mentors providing 24-hour 1-on-1 Q&A and weekly group sessions. Weekly intern reviews monitor student progress closely. Our mentor team has rich enterprise AI project experience, providing the most practical guidance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can students complete the program? What about withdrawals?" data-zh="录取后一定能坚持到结束吗？中途有事退出怎么办？">Can students complete the program? What about withdrawals?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons." data-zh="我们会每周进行项目实习生Review，实习督导会对无法准时提交成绩的实习生进行情况分析。只有一种情况，如果发生3次，我们会对实习生进行劝退并按比例退回剩余费用：<strong>'我不会或我有事（无论何种原因），到了时间达不到目标，且从不就此与导师或督导进行沟通'。</strong>任何参与人中途有事退出，我们不承诺退费。">We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What will students gain after completing the course?" data-zh="课程结束后能获得什么？">What will students gain after completing the course?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Students will gain: 1) Complete AI project portfolio and deployment experience; 2) Internship certificate from a global AI startup; 3) Mentor recommendation letters; 4) Practical AI application development skills; 5) Comprehensive understanding of LLMs and AI applications; 6) Ability to read top papers and apply them in practice; 7) Outstanding projects may receive BEEBEE early investment. Most importantly, students will own their own AI product." data-zh="学生将获得：1）完整的AI项目作品和部署经验；2）全球型AI创业公司的实习证明；3）导师推荐信；4）实际的AI应用开发能力；5）对大模型和AI应用的全面理解；6）学会读顶尖论文并用于实践的能力；7）优秀项目还有机会获得BEEBEE的早期投资。最重要的是，学生将拥有一款属于自己的AI产品。">Students will gain: 1) Complete AI project portfolio and deployment experience; 2) Internship certificate from a global AI startup; 3) Mentor recommendation letters; 4) Practical AI application development skills; 5) Comprehensive understanding of LLMs and AI applications; 6) Ability to read top papers and apply them in practice; 7) Outstanding projects may receive BEEBEE early investment. Most importantly, students will own their own AI product.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h3 style="margin-bottom: 20px;" data-en="Join Bee Alpha Now, Start Your AI Journey" data-zh="立即加入 Bee Alpha，开启AI学习之旅">Join Bee Alpha Now, Start Your AI Journey</h3>
+            <p style="margin-bottom: 30px;" data-en="Help Your Child Excel in the AI Era" data-zh="让您的孩子在AI时代赢在起跑线">Help Your Child Excel in the AI Era</p>
+            
+            <div class="contact-info">
+                <h4 data-en="Contact Us" data-zh="联系我们">Contact Us</h4>
+                <div class="contact-details" id="contact-emails">
+                    <a href="mailto:internprogram@beebee.ai" class="contact-item">
+                        <span>📧</span> internprogram@beebee.ai
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#home" data-en="Home" data-zh="首页">Home</a>
+                <a href="#courses" data-en="Courses" data-zh="课程介绍">Courses</a>
+                <a href="#portfolio" data-en="Portfolio" data-zh="学生作品">Portfolio</a>
+                <a href="#mentors" data-en="Mentors" data-zh="导师团队">Mentors</a>
+                <a href="#about" data-en="About Us" data-zh="关于我们">About Us</a>
+                <a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a>
+                <a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>&copy; 2025 Bee Alpha. All rights reserved. Learn AI, Future Inside.</p>
+        </div>
+    </footer>
+
+    <!-- 咨询表单弹窗 -->
+    <div id="inquiryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 data-en="Inquiry Form" data-zh="咨询表单">Inquiry Form</h3>
+            <form id="inquiryForm">
+                <div class="form-group">
+                    <label data-en="Your or your child's name *" data-zh="您或孩子的名字 *">Your or your child's name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label data-en="Country *" data-zh="所在国家 *">Country *</label>
+                    <input type="text" id="country" name="country" required>
+                </div>
+                
+                <div class="form-group">
+                    <label data-en="Child's Grade (Optional)" data-zh="孩子年级（选填）">Child's Grade (Optional)</label>
+                    <select id="grade" name="grade">
+                        <option value="" data-en="Please select" data-zh="请选择">Please select</option>
+                        <option value="Grade 8" data-en="Grade 8" data-zh="8年级">Grade 8</option>
+                        <option value="Grade 9" data-en="Grade 9" data-zh="9年级">Grade 9</option>
+                        <option value="Grade 10" data-en="Grade 10" data-zh="10年级">Grade 10</option>
+                        <option value="Grade 11" data-en="Grade 11" data-zh="11年级">Grade 11</option>
+                        <option value="Grade 12" data-en="Grade 12" data-zh="12年级">Grade 12</option>
+                        <option value="Grade 13" data-en="Grade 13" data-zh="13年级">Grade 13</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label data-en="Contact (Email or Phone) *" data-zh="联系方式（邮箱或电话）*">Contact (Email or Phone) *</label>
+                    <input type="text" id="contact" name="contact" required>
+                    <span class="error-message" id="contactError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label data-en="Message *" data-zh="咨询说明 *">Message *</label>
+                    <textarea id="message" name="message" rows="4" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me" data-zh="我想咨询Bee Alpha暑期实习，请联系我">I would like to inquire about Bee Alpha summer internship, please contact me</textarea>
+                </div>
+                
+                <button type="submit" class="submit-button" data-en="Submit" data-zh="提交">Submit</button>
+            </form>
+            <div id="submitMessage" class="submit-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // 语言和区域切换功能
+        let currentLang = 'us';
+        
+        // 安全的 localStorage 操作
+        const safeLocalStorage = {
+            setItem: (key, value) => {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {
+                    // 忽略 localStorage 错误
+                }
+            },
+            getItem: (key) => {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    return null;
+                }
+            }
+        };
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // 更新语言按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            
+            // 更新所有带有双语属性的元素
+            document.querySelectorAll('[data-en], [data-zh]').forEach(element => {
+                if (lang === 'cn') {
+                    // 中国
+                    const zhText = element.getAttribute('data-zh');
+                    if (zhText) {
+                        if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3') {
+                            element.innerHTML = zhText;
+                        } else {
+                            element.textContent = zhText;
+                        }
+                    }
+                } else {
+                    // US 或 NZ 都显示英文
+                    const enText = element.getAttribute('data-en');
+                    if (enText) {
+                        if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3') {
+                            element.innerHTML = enText;
+                        } else {
+                            element.textContent = enText;
+                        }
+                    }
+                }
+            });
+            
+            // 更新价格
+            document.querySelectorAll('[data-us][data-nz][data-cn]').forEach(element => {
+                let price = '';
+                let currency = '';
+                
+                switch(lang) {
+                    case 'us':
+                        price = element.getAttribute('data-us');
+                        currency = ' USD';
+                        break;
+                    case 'nz':
+                        price = element.getAttribute('data-nz');
+                        currency = ' NZD';
+                        break;
+                    case 'cn':
+                        price = element.getAttribute('data-cn');
+                        currency = '';  // 人民币符号已包含在价格中
+                        break;
+                }
+                
+                element.textContent = price + currency;
+            });
+            
+            // 更新联系邮箱
+            const contactEmails = document.getElementById('contact-emails');
+            if (contactEmails) {
+                contactEmails.innerHTML = '';
+                
+                if (lang === 'us') {
+                    // US只显示一个邮箱
+                    contactEmails.innerHTML = `
+                        <a href="mailto:internprogram@beebee.ai" class="contact-item">
+                            <span>📧</span> internprogram@beebee.ai
+                        </a>
+                    `;
+                } else {
+                    // NZ和中国显示两个邮箱
+                    contactEmails.innerHTML = `
+                        <a href="mailto:brinny@beebee.ai" class="contact-item">
+                            <span>📧</span> brinny@beebee.ai
+                        </a>
+                        <a href="mailto:internprogram@beebee.ai" class="contact-item">
+                            <span>📧</span> internprogram@beebee.ai
+                        </a>
+                    `;
+                }
+            }
+            
+            // 保存语言偏好
+            safeLocalStorage.setItem('preferred-language', lang);
+        }
+        
+        // 语言切换按钮事件
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+        
+        // 页面加载时检查语言偏好
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = safeLocalStorage.getItem('preferred-language') || 'us';
+            if (savedLang !== 'us') {
+                switchLanguage(savedLang);
+            }
+        });
+        
+        // FAQ 交互
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // 关闭其他打开的FAQ
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // 平滑滚动 - 只处理页内锚点链接
+        document.querySelectorAll('a[href^="#"]:not(.inquiry-btn)').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 移动端关闭菜单
+                        if (window.innerWidth <= 768) {
+                            document.querySelector('.nav-links').classList.remove('active');
+                        }
+                    }
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const nav = document.querySelector('nav');
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // 移动端菜单切换
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            // 点击页面其他地方关闭菜单
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('nav') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+        
+        // 咨询表单功能
+        const modal = document.getElementById('inquiryModal');
+        const inquiryBtns = document.querySelectorAll('.inquiry-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const inquiryForm = document.getElementById('inquiryForm');
+        const submitMessage = document.getElementById('submitMessage');
+        
+        // 打开弹窗
+        inquiryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'block';
+                // 更新表单语言
+                updateFormLanguage();
+            });
+        });
+        
+        // 关闭弹窗
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            resetForm();
+        });
+        
+        // 点击弹窗外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                resetForm();
+            }
+        });
+        
+        // 更新表单语言
+        function updateFormLanguage() {
+            const messageTextarea = document.getElementById('message');
+            if (currentLang === 'cn') {
+                messageTextarea.value = messageTextarea.getAttribute('data-zh');
+            } else {
+                messageTextarea.value = messageTextarea.getAttribute('data-en');
+            }
+        }
+        
+        // 验证邮箱或电话
+        function validateContact(contact) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            
+            if (emailRegex.test(contact) || (phoneRegex.test(contact) && contact.replace(/\D/g, '').length >= 7)) {
+                return true;
+            }
+            return false;
+        }
+        
+        // 表单提交
+        inquiryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const contactInput = document.getElementById('contact');
+            const contactError = document.getElementById('contactError');
+            const submitButton = inquiryForm.querySelector('.submit-button');
+            
+            // 验证联系方式
+            if (!validateContact(contactInput.value)) {
+                contactError.textContent = currentLang === 'cn' ? '请输入有效的邮箱或电话号码' : 'Please enter a valid email or phone number';
+                contactInput.style.borderColor = '#ff4444';
+                return;
+            } else {
+                contactError.textContent = '';
+                contactInput.style.borderColor = '#e0e0e0';
+            }
+            
+            // 禁用提交按钮
+            submitButton.disabled = true;
+            submitButton.textContent = currentLang === 'cn' ? '发送中...' : 'Sending...';
+            
+            // 准备邮件数据
+            const templateParams = {
+                name: document.getElementById('name').value,
+                country: document.getElementById('country').value,
+                grade: document.getElementById('grade').value || (currentLang === 'cn' ? '未填写' : 'Not specified'),
+                contact: document.getElementById('contact').value,
+                message: document.getElementById('message').value,
+                submit_time: new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }),
+                source_region: currentLang.toUpperCase()
+            };
+            
+            try {
+                // 发送邮件
+                await emailjs.send('service_or46bak', 'template_4ticelj', templateParams);
+                
+                // 显示成功消息
+                submitMessage.className = 'submit-message success';
+                submitMessage.textContent = currentLang === 'cn' ? 
+                    '提交成功！感谢您的咨询，稍后会有专人联系您。' : 
+                    'Submitted successfully! Thank you for your inquiry. We will contact you soon.';
+                submitMessage.style.display = 'block';
+                
+                // 隐藏表单
+                inquiryForm.style.display = 'none';
+                
+                // 3秒后关闭弹窗
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    resetForm();
+                }, 3000);
+                
+            } catch (error) {
+                // 显示错误消息
+                submitMessage.className = 'submit-message error';
+                submitMessage.textContent = currentLang === 'cn' ? 
+                    '发送失败，请稍后重试或直接发送邮件至 internprogram@beebee.ai' : 
+                    'Failed to send. Please try again later or email directly to internprogram@beebee.ai';
+                submitMessage.style.display = 'block';
+                
+                // 重新启用提交按钮
+                submitButton.disabled = false;
+                submitButton.textContent = currentLang === 'cn' ? '提交' : 'Submit';
+            }
+        });
+        
+        // 重置表单
+        function resetForm() {
+            inquiryForm.reset();
+            inquiryForm.style.display = 'block';
+            submitMessage.style.display = 'none';
+            submitMessage.className = 'submit-message';
+            document.getElementById('contactError').textContent = '';
+            document.getElementById('contact').style.borderColor = '#e0e0e0';
+            const submitButton = inquiryForm.querySelector('.submit-button');
+            submitButton.disabled = false;
+            submitButton.textContent = currentLang === 'cn' ? '提交' : 'Submit';
+        }
+    </script>
+</body>
+</html>
