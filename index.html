@@ -1408,32 +1408,34 @@
             <h3 data-en="Inquiry Form" data-zh="咨询表单">Inquiry Form</h3>
             <form id="inquiryForm">
                 <div class="form-group">
+                    <div id="campTypeDisplay" style="font-weight:bold;color:#FF6B35;margin-bottom:10px;"></div>
+                </div>
+                <div class="form-group">
                     <label data-en="Your or your child's name *" data-zh="您或孩子的名字 *">Your or your child's name *</label>
                     <input type="text" id="name" name="name" required>
                 </div>
-                
-                <div class="form-group">
-                    <label data-en="Country *" data-zh="所在国家 *">Country *</label>
-                    <input type="text" id="country" name="country" required>
+                <div class="form-group" style="display: flex; gap: 16px; align-items: flex-end;">
+                    <div style="flex:1;">
+                        <label data-en="Country *" data-zh="所在国家 *">Country *</label>
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div style="flex:1;">
+                        <label data-en="Child's Grade (Optional)" data-zh="孩子年级（选填）">Child's Grade (Optional)</label>
+                        <select id="grade" name="grade">
+                            <option value="" data-en="Please select" data-zh="请选择">Please select</option>
+                            <option value="Grade 8" data-en="Grade 8" data-zh="8年级">Grade 8</option>
+                            <option value="Grade 9" data-en="Grade 9" data-zh="9年级">Grade 9</option>
+                            <option value="Grade 10" data-en="Grade 10" data-zh="10年级">Grade 10</option>
+                            <option value="Grade 11" data-en="Grade 11" data-zh="11年级">Grade 11</option>
+                            <option value="Grade 12" data-en="Grade 12" data-zh="12年级">Grade 12</option>
+                            <option value="Grade 13" data-en="Grade 13" data-zh="13年级">Grade 13</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">
-                    <label data-en="Child's Grade (Optional)" data-zh="孩子年级（选填）">Child's Grade (Optional)</label>
-                    <select id="grade" name="grade">
-                        <option value="" data-en="Please select" data-zh="请选择">Please select</option>
-                        <option value="Grade 8" data-en="Grade 8" data-zh="8年级">Grade 8</option>
-                        <option value="Grade 9" data-en="Grade 9" data-zh="9年级">Grade 9</option>
-                        <option value="Grade 10" data-en="Grade 10" data-zh="10年级">Grade 10</option>
-                        <option value="Grade 11" data-en="Grade 11" data-zh="11年级">Grade 11</option>
-                        <option value="Grade 12" data-en="Grade 12" data-zh="12年级">Grade 12</option>
-                        <option value="Grade 13" data-en="Grade 13" data-zh="13年级">Grade 13</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label data-en="Contact (Email or Phone) *" data-zh="联系方式（邮箱或电话）*">Contact (Email) *</label>
-                    <input type="text" id="contact" name="contact" required placeholder="example@email.com">
-                    <span class="error-message" id="contactError"></span>
+                    <label data-en="Email" data-zh="电子邮件">Email</label>
+                    <input type="text" id="contact-email" name="contact-email" placeholder="example@email.com">
                 </div>
                 
                 <div class="form-group">
@@ -1441,7 +1443,10 @@
                     <textarea id="message" name="message" rows="4" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me" data-zh="我想咨询Bee Alpha暑期实习，请联系我">I would like to inquire about Bee Alpha summer internship, please contact me</textarea>
                 </div>
                 
-                <button type="submit" class="submit-button" data-en="Submit" data-zh="提交">Submit</button>
+                <div style="display: flex; gap: 16px; margin-top: 10px;">
+                    <button type="button" class="cancel-button" data-en="Cancel" data-zh="取消" style="flex:1; background: #ccc; color: #333; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; padding: 15px; cursor: pointer; transition: background 0.3s;">Cancel</button>
+                    <button type="submit" class="submit-button" data-en="Submit" data-zh="提交" style="flex:1;">Submit</button>
+                </div>
             </form>
             <div id="submitMessage" class="submit-message"></div>
         </div>
@@ -1652,11 +1657,24 @@
         const inquiryForm = document.getElementById('inquiryForm');
         const submitMessage = document.getElementById('submitMessage');
         
+        // 记录当前咨询的营类型
+        let currentCampType = '';
+        
         // 打开弹窗
         inquiryBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 modal.style.display = 'block';
+                // 自动识别营类型
+                const card = btn.closest('.course-card');
+                let campType = '';
+                if (card) {
+                    const h3 = card.querySelector('.course-header h3');
+                    if (h3) campType = h3.textContent.trim();
+                }
+                currentCampType = campType;
+                // 显示当前营类型在表单顶部
+                document.getElementById('campTypeDisplay').textContent = campType ? campType : '';
                 // 更新表单语言
                 updateFormLanguage();
             });
@@ -1668,12 +1686,10 @@
             resetForm();
         });
         
-        // 点击弹窗外部关闭
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                resetForm();
-            }
+        // 取消按钮关闭弹窗
+        document.querySelector('.cancel-button').addEventListener('click', () => {
+            modal.style.display = 'none';
+            resetForm();
         });
         
         // 更新表单语言
@@ -1686,37 +1702,15 @@
             }
         }
         
-        // 验证邮箱（不再允许电话）
-        function validateContact(contact) {
-            if (!contact) return false;
-            contact = contact.trim();
-            // 只允许邮箱格式
-            const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-            return emailRegex.test(contact);
-        }
-        
         // 表单提交
         inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const contactInput = document.getElementById('contact');
-            const contactError = document.getElementById('contactError');
             const submitButton = inquiryForm.querySelector('.submit-button');
             // 检查DOM元素
-            if (!contactInput || !contactError || !submitButton) {
+            if (!submitButton) {
                 alert('表单加载异常，请刷新页面重试');
                 return;
             }
-            // 清除之前的错误信息
-            contactError.textContent = '';
-            contactInput.style.borderColor = '#e0e0e0';
-            // 验证联系方式
-            if (!validateContact(contactInput.value || '')) {
-                contactError.textContent = currentLang === 'cn' ? '请输入有效的邮箱地址' : 'Please enter a valid email address';
-                contactInput.style.borderColor = '#ff4444';
-                contactInput.focus();
-                return;
-            }
-            
             // 禁用提交按钮
             submitButton.disabled = true;
             submitButton.textContent = currentLang === 'cn' ? '发送中...' : 'Sending...';
@@ -1726,11 +1720,14 @@
                 name: document.getElementById('name').value,
                 country: document.getElementById('country').value,
                 grade: document.getElementById('grade').value || (currentLang === 'cn' ? '未填写' : 'Not specified'),
-                contact: document.getElementById('contact').value,
+                'contact-email': document.getElementById('contact-email').value,
                 message: document.getElementById('message').value,
+                camptype: currentCampType,
                 submit_time: new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }),
                 source_region: currentLang.toUpperCase()
             };
+            // 调试输出
+            console.log('templateParams:', templateParams);
             
             try {
                 // 发送邮件
@@ -1774,12 +1771,20 @@
             inquiryForm.style.display = 'block';
             submitMessage.style.display = 'none';
             submitMessage.className = 'submit-message';
-            document.getElementById('contactError').textContent = '';
-            document.getElementById('contact').style.borderColor = '#e0e0e0';
             const submitButton = inquiryForm.querySelector('.submit-button');
             submitButton.disabled = false;
             submitButton.textContent = currentLang === 'cn' ? '提交' : 'Submit';
+            // 清空营类型显示
+            document.getElementById('campTypeDisplay').textContent = '';
         }
+        
+        // 允许ESC键关闭弹窗
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                resetForm();
+            }
+        });
     </script>
 </body>
 </html>
