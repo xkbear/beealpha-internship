@@ -874,17 +874,22 @@
         @media (max-width: 768px) {
             .nav-container {
                 position: relative;
+                flex-direction: row;
+                align-items: center;
             }
             .nav-links {
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 60px;
                 left: 0;
                 right: 0;
+                width: 100vw;
                 background: white;
                 flex-direction: column;
-                padding: 20px;
+                padding: 30px 0 30px 0;
                 box-shadow: 0 5px 20px rgba(0,0,0,0.1);
                 display: none;
+                align-items: center;
+                z-index: 2001;
             }
             .nav-links.active {
                 display: flex;
@@ -896,6 +901,7 @@
                 font-size: 24px;
                 cursor: pointer;
                 color: #333;
+                margin-left: 10px;
             }
             .hero {
                 padding: 60px 20px;
@@ -963,13 +969,35 @@
                 margin: 10px 0 0 0;
             }
             .footer-links {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 18px 30px;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .footer-links a {
+                min-width: 90px;
+                text-align: center;
+                margin-bottom: 6px;
             }
         }
         /* 默认隐藏移动菜单按钮 */
         .mobile-menu-toggle {
             display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+                margin-left: 10px;
+            }
+            .nav-container {
+                flex-direction: row;
+                align-items: center;
+            }
+            .logo {
+                margin-right: 8px;
+            }
         }
     </style>
 </head>
