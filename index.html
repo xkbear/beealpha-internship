@@ -423,6 +423,9 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         .mentor-card:hover {
@@ -452,6 +455,7 @@
             color: #666;
             line-height: 1.6;
             font-size: 14px;
+            flex-grow: 1;
         }
         
         /* 关于我们 */
@@ -1022,7 +1026,7 @@
                 <span class="lang-divider">|</span>
                 <button class="lang-btn" data-lang="nz">NZ</button>
                 <span class="lang-divider">|</span>
-                <button class="lang-btn" data-lang="cn">中国</button>
+                <button class="lang-btn" data-lang="cn">中文</button>
             </div>
         </div>
     </nav>
@@ -1185,29 +1189,29 @@
                 
                 <div class="mentor-grid">
                     <div class="mentor-card">
-                        <div class="mentor-icon">🏗️</div>
-                        <h4 data-en="Dr. H" data-zh="H博士">Dr. H</h4>
-                        <p class="mentor-title" data-en="Chief Scientist" data-zh="首席科学家">Chief Scientist</p>
-                        <p class="mentor-desc" data-en="Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars" data-zh="顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星">Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars</p>
+                      <div class="mentor-icon">🏗️</div>
+                      <h4 data-en="Dr. H" data-zh="H博士">H博士</h4>
+                      <p class="mentor-title" data-en="Chief Scientist" data-zh="首席科学家">首席科学家</p>
+                      <p class="mentor-desc" data-en="Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars" data-zh="顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星">顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星</p>
                     </div>
                     
                     <div class="mentor-card">
-                        <div class="mentor-icon">💻</div>
-                        <h4 data-en="Master C" data-zh="C大师">Master C</h4>
-                        <p class="mentor-title" data-en="Chief Architect" data-zh="首席架构师">Chief Architect</p>
-                        <p class="mentor-desc" data-en="25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems" data-zh="25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家">25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems</p>
+                      <div class="mentor-icon">💻</div>
+                      <h4 data-en="Master C" data-zh="C大师">C大师</h4>
+                      <p class="mentor-title" data-en="Chief Architect" data-zh="首席架构师">首席架构师</p>
+                      <p class="mentor-desc" data-en="25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems" data-zh="25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家">25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家</p>
                     </div>
                     
                     <div class="mentor-card">
-                        <div class="mentor-icon">🤖</div>
-                        <h4 data-en="Engineer X" data-zh="X工程师">Engineer X</h4>
-                        <p class="mentor-title" data-en="Senior AI Engineer" data-zh="高级AI工程师">Senior AI Engineer</p>
-                        <p class="mentor-desc" data-en="2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development" data-zh="2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发">2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development</p>
+                      <div class="mentor-icon">🤖</div>
+                      <h4 data-en="Engineer X" data-zh="X工程师">X工程师</h4>
+                      <p class="mentor-title" data-en="Senior AI Engineer" data-zh="高级AI工程师">高级AI工程师</p>
+                      <p class="mentor-desc" data-en="2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development" data-zh="2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发">2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发</p>
                     </div>
                     
                     <div class="mentor-card">
                         <div class="mentor-icon">📊</div>
-                        <h4 data-en="Dr. K" data-zh="K博士">Dr. K</h4>
+                        <h4 data-en="Master K" data-zh="K硕士">K硕士</h4>
                         <p class="mentor-title" data-en="Algorithm Engineer" data-zh="算法工程师">Algorithm Engineer</p>
                         <p class="mentor-desc" data-en="Imperial College MSc (Distinction), Edinburgh BSc (First Class), specialist in large-scale data processing and ML algorithms" data-zh="帝国理工硕士(Distinction)，爱丁堡本科(一等荣誉)，大规模数据处理和ML算法专家">Imperial College MSc (Distinction), Edinburgh BSc (First Class), specialist in large-scale data processing and ML algorithms</p>
                     </div>
