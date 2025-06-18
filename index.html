@@ -153,8 +153,26 @@
         
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 移动端优化：6个卡片在小屏幕上显示为2列 */
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        /* 超小屏幕优化：显示为1列 */
+        @media (max-width: 480px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
         
         .feature-card {
@@ -237,6 +255,18 @@
         .course-header h3 {
             font-size: 28px;
             margin-bottom: 10px;
+        }
+        
+        /* 英文标题字体大小优化，确保模块高度一致 */
+        .course-header h3[data-en] {
+            font-size: 24px;
+            line-height: 1.3;
+        }
+        
+        /* 针对C营特别长的英文标题进一步优化 */
+        .course-card:nth-child(3) .course-header h3[data-en] {
+            font-size: 22px;
+            line-height: 1.2;
         }
         
         .course-price {
@@ -1004,6 +1034,253 @@
                 margin-right: 8px;
             }
         }
+        
+        /* 邀请码验证按钮样式 */
+        .invite-code-btn {
+            color: #FF6B35 !important;
+            font-weight: 600 !important;
+            position: relative;
+        }
+        
+        .invite-code-btn:hover {
+            color: #F7931E !important;
+        }
+        
+        .invite-code-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #FF6B35;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .invite-code-btn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* 验证弹窗样式 */
+        #inviteCodeModal .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        #inviteCodeModal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        #inviteCodeModal .modal-header h3 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        
+        #inviteCodeModal .form-group {
+            margin-bottom: 20px;
+        }
+        
+        #inviteCodeModal .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        #inviteCodeModal .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        #inviteCodeModal .form-group input:focus {
+            border-color: #FF6B35;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
+        }
+        
+        #inviteCodeModal .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        #inviteCodeModal .submit-button {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        #inviteCodeModal .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        #inviteCodeModal .submit-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        #inviteCodeModal .cancel-button {
+            flex: 1;
+            padding: 12px;
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #inviteCodeModal .cancel-button:hover {
+            background: #eee;
+        }
+        
+        #inviteCodeModal .submit-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        #inviteCodeModal .submit-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        #inviteCodeModal .submit-message.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        @media (max-width: 768px) {
+            #inviteCodeModal .modal-content {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            #inviteCodeModal .form-actions {
+                flex-direction: column;
+            }
+            
+            #inviteCodeModal .submit-button,
+            #inviteCodeModal .cancel-button {
+                width: 100%;
+            }
+        }
+        
+        /* 表单提示文字样式 */
+        .form-hint {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        /* 手机号输入框样式 */
+        #phoneNumber {
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        #phoneNumber:invalid {
+            border-color: #ff6b6b;
+        }
+        
+        #phoneNumber:invalid + .form-hint {
+            color: #ff6b6b;
+        }
+        
+        /* 教学模式模块样式 */
+        .teaching-mode {
+            padding: 80px 20px 60px 20px;
+            background: #181A20;
+        }
+        .teaching-mode h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        }
+        .teaching-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .teaching-feature {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            padding: 38px 28px 32px 28px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .teaching-feature:hover {
+            box-shadow: 0 16px 48px rgba(255,107,53,0.18);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .teaching-icon {
+            font-size: 48px;
+            margin-bottom: 18px;
+        }
+        .teaching-feature h3 {
+            font-size: 20px;
+            color: #181A20;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        .teaching-feature p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+        }
+        @media (max-width: 900px) {
+            .teaching-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .teaching-mode {
+                padding: 60px 10px 40px 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .teaching-feature {
+                padding: 28px 10px 22px 10px;
+            }
+            .teaching-mode h2 {
+                font-size: 26px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1020,6 +1297,7 @@
                 <li><a href="#about" data-en="About Us" data-zh="关于我们">About Us</a></li>
                 <li><a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a></li>
                 <li><a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a></li>
+                <li><a href="#" class="invite-code-btn" data-en="Invite Code" data-zh="邀请码验证">Invite Code</a></li>
             </ul>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="us">US</button>
@@ -1033,59 +1311,85 @@
 
     <!-- 英雄区域 -->
     <section id="home" class="hero">
-        <h1 data-en="Master <span class='highlight'>AI Era</span> Core Skills" data-zh="让您的孩子掌握<span class='highlight'>AI时代</span>的核心技能">Master <span class='highlight'>AI Era</span> Core Skills</h1>
+        <h1 data-en="Learn to <span class='highlight'>Output Productivity</span> with AI, Not Just Be a Consumer" data-zh="学习用<span class='highlight'>AI输出生产力</span>，而不只是成为消费者">学习用<span class='highlight'>AI输出生产力</span>，而不只是成为消费者</h1>
         <p class="subtitle" data-en="Bee Alpha High School AI Internship - Learn AI, Future Inside" data-zh="Bee Alpha 高中AI实习营 - 学AI，创未来">Bee Alpha High School AI Internship - Learn AI, Future Inside</p>
         <a href="#courses" class="cta-button" data-en="Explore Courses" data-zh="了解课程详情">Explore Courses</a>
     </section>
 
     <!-- 特色介绍 -->
     <section class="features">
-        <h2 data-en="Why Choose Bee Alpha?" data-zh="为什么选择 Bee Alpha？">Why Choose Bee Alpha?</h2>
+        <h2 data-en="What You'll Get from BEE Alpha?" data-zh="参加 BEE Alpha 你能得到什么？">参加 BEE Alpha 你能得到什么？</h2>
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3 data-en="Real Project Experience" data-zh="真实项目经验">Real Project Experience</h3>
-                <p data-en="Not just theory, but completing deployable AI products with real-world startup experience" data-zh="不只是学习理论，而是完成可上线的AI产品，获得全球型AI创业公司的工作经历">Not just theory, but completing deployable AI products with real-world startup experience</p>
+                <div class="feature-icon">🏢</div>
+                <h3 data-en="Global AI Startup Team Experience" data-zh="全球型AI创业公司的团队工作经历">全球型AI创业公司的团队工作经历</h3>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">👨‍🏫</div>
-                <h3 data-en="Global Expert Mentors" data-zh="全球顶尖导师">Global Expert Mentors</h3>
-                <p data-en="15 professional mentors worldwide, providing 24-hour 1-on-1 Q&A and weekly group sessions" data-zh="15位来自世界各地的专业导师，提供24小时内1对1答疑和每周集中辅导">15 professional mentors worldwide, providing 24-hour 1-on-1 Q&A and weekly group sessions</p>
+                <div class="feature-icon">🧠</div>
+                <h3 data-en="Deep Understanding of AI Models & Applications" data-zh="对各类模型和AI应用的深入理解">对各类模型和AI应用的深入理解</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3 data-en="Full-Stack AI Project Development & Market Launch" data-zh="全栈开发并市场化一个AI项目">全栈开发并市场化一个AI项目</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 data-en="Read Top Papers & Apply in Practice" data-zh="学会读顶尖论文并用于实践">学会读顶尖论文并用于实践</h3>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📜</div>
-                <h3 data-en="Recommendation Letters" data-zh="推荐信认证">Recommendation Letters</h3>
-                <p data-en="Receive recommendation letters from company founders and mentors to enhance college applications" data-zh="完成课程可获得公司创始人及导师的推荐信，为大学申请增添亮点">Receive recommendation letters from company founders and mentors to enhance college applications</p>
+                <h3 data-en="Recommendation Letters from Founders & Mentors" data-zh="公司创始人及导师的推荐信">公司创始人及导师的推荐信</h3>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <h3 data-en="Startup Incubation" data-zh="创业孵化机会">Startup Incubation</h3>
-                <p data-en="Outstanding projects may receive early investment from BEEBEE, turning students into founders" data-zh="优秀项目有机会获得BEEBEE的早期投资，从学生到创始人的可能">Outstanding projects may receive early investment from BEEBEE, turning students into founders</p>
+                <div class="feature-icon">👥</div>
+                <h3 data-en="Curious & Like-minded Peers" data-zh="和你一样充满好奇心的同学">和你一样充满好奇心的同学</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教学模式 -->
+    <section class="teaching-mode">
+        <h2 data-en="All-Time-Zone Teaching Model" data-zh="全时段覆盖的教学模式">全时段覆盖的教学模式</h2>
+        <div class="teaching-features">
+            <div class="teaching-feature">
+                <div class="teaching-icon">🎯</div>
+                <h3 data-en="Main Class + Practice: Real-World Project Mode" data-zh="主课+陪练的实战模式课">主课+陪练的实战模式课</h3>
+                <p data-en="2 main classes (2h each) + 1 practice class (1-2h) per week" data-zh="每周2次主课（每次2小时）+1次陪练课（1-2小时）">每周2次主课（每次2小时）+1次陪练课（1-2小时）</p>
+            </div>
+            <div class="teaching-feature">
+                <div class="teaching-icon">🤖</div>
+                <h3 data-en="Instant Q&A Support" data-zh="及时答疑的课后支撑体系">及时答疑的课后支撑体系</h3>
+                <p data-en="Enterprise-level knowledge base AI assistant + TA 24h response" data-zh="基于企业级知识库打造的培训智能体实时答疑+助教24小时内回复学生问题。">基于企业级知识库打造的培训智能体实时答疑+助教24小时内回复学生问题。</p>
+            </div>
+            <div class="teaching-feature">
+                <div class="teaching-icon">🌍</div>
+                <h3 data-en="Global Multi-Timezone Scheduling Tool" data-zh="全球多时区排课工具">全球多时区排课工具</h3>
+                <p data-en="Self-developed system for flexible scheduling and calendar sync" data-zh="自主研发全球多地多时区师生共用排课系统，可灵活同步课时和个人日历">自主研发全球多地多时区师生共用排课系统，可灵活同步课时和个人日历</p>
             </div>
         </div>
     </section>
 
     <!-- 课程介绍 -->
     <section id="courses" class="courses">
-        <h2 data-en="Three Camps to Cultivate Future AI Leaders" data-zh="三大实习营，培养AI时代的未来领袖">Three Camps to Cultivate Future AI Leaders</h2>
+        <h2 data-en="Three Camps to Make AI Toolchain Work for You" data-zh="三大实习营，让AI工具链为你所用">三大实习营，让AI工具链为你所用</h2>
         <div class="course-container">
             <!-- A营 -->
             <div class="course-card">
                 <div class="course-header">
-                    <span class="course-level" data-en="Grade 8+" data-zh="8年级以上">Grade 8+</span>
-                    <h3 data-en="Camp A: Enterprise AI Agent Applications" data-zh="A营：企业级智能体应用">Camp A: Enterprise AI Agent Applications</h3>
-                    <div class="course-price" data-us="$1,699" data-nz="$2,699" data-cn="¥11,999">$1,699</div>
+                    <span class="course-level" data-en="Recommended: Grade 8+" data-zh="建议8年级以上">建议8年级以上</span>
+                    <h3 data-en="Camp A: Zero-Code AI Product Development" data-zh="A营：零代码AI产品开发">A营：零代码AI产品开发</h3>
+                    <div class="course-suit" data-en="Suitable for: Beginners interested in AI applications" data-zh="适合学生：对AI应用感兴趣的初学者">适合学生：对AI应用感兴趣的初学者</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
-                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×2 hours per week" data-zh="6周，每周2×2小时">6 weeks, 2×2 hours per week</span></p>
-                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Beginners interested in AI applications" data-zh="对AI应用感兴趣的初学者">Beginners interested in AI applications</span></p>
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2 days × 2 hours + 1 hour practice per week" data-zh="6周，每周2天×2小时+1小时陪练">6周，每周2天×2小时+1小时陪练</span></p>
+                        <p class="course-req" data-en="Admission: Good math and language skills, basic coding preferred." data-zh="招生要求：数学和语言能力良好，会简单编程更优。">招生要求：数学和语言能力良好，会简单编程更优。</p>
                     </div>
                     <ul class="course-features">
-                        <li data-en="Master enterprise productivity agent construction" data-zh="掌握企业生产力智能体构造方法">Master enterprise productivity agent construction</li>
-                        <li data-en="Create customer service bots and training systems" data-zh="学会创建客服机器人、培训系统">Create customer service bots and training systems</li>
-                        <li data-en="AI data analysis for business insights" data-zh="AI智能数据分析，输出商业洞察">AI data analysis for business insights</li>
-                        <li data-en="Create AI applications that generate traffic or revenue" data-zh="创造实际流量或收益的AI应用">Create AI applications that generate traffic or revenue</li>
+                        <li data-en="Zero-code creation of intelligent agents and knowledge bases" data-zh="零代码制作智能体和知识库">✓ 零代码制作智能体和知识库</li>
+                        <li data-en="Use Claude to automatically generate various programs" data-zh="用Claude自动生成各种程序">✓ 用Claude自动生成各种程序</li>
+                        <li data-en="Connect MCP to implement more functions" data-zh="连接MCP实现更多功能">✓ 连接MCP实现更多功能</li>
+                        <li data-en="Own a publicly released AI product" data-zh="拥有公开发布的AI产品">✓ 拥有公开发布的AI产品</li>
                     </ul>
                     <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
                 </div>
@@ -1094,20 +1398,20 @@
             <!-- B营 -->
             <div class="course-card">
                 <div class="course-header">
-                    <span class="course-level" data-en="Grade 9+" data-zh="9年级以上">Grade 9+</span>
-                    <h3 data-en="Camp B: Private LLM Deployment" data-zh="B营：大模型私有化部署">Camp B: Private LLM Deployment</h3>
-                    <div class="course-price" data-us="$2,699" data-nz="$4,399" data-cn="¥18,999">$2,699</div>
+                    <span class="course-level" data-en="Recommended: Grade 10+" data-zh="建议10年级以上">建议10年级以上</span>
+                    <h3 data-en="Camp B: AI Model Deployment & Architecture" data-zh="B营：AI模型部署与架构">B营：AI模型部署与架构</h3>
+                    <div class="course-suit" data-en="Suitable for: Enthusiasts interested in AI model principles" data-zh="适合学生：对AI模型原理感兴趣的爱好者">适合学生：对AI模型原理感兴趣的爱好者</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
-                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×3 hours per week" data-zh="6周，每周2×3小时">6 weeks, 2×3 hours per week</span></p>
-                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Students with programming basics wanting to dive into AI" data-zh="有编程基础，想深入AI技术">Students with programming basics wanting to dive into AI</span></p>
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2 days × 2 hours + 2 hours practice per week" data-zh="6周，每周2天×2小时+2小时陪练">6周，每周2天×2小时+2小时陪练</span></p>
+                        <p class="course-req" data-en="Admission: Clear logic, hands-on ability, GPU experience preferred." data-zh="招生要求：逻辑清晰，动手能力较强，有GPU硬件接触经验更优。">招生要求：逻辑清晰，动手能力较强，有GPU硬件接触经验更优。</p>
                     </div>
                     <ul class="course-features">
-                        <li data-en="Assess enterprise needs and deploy private LLMs" data-zh="评估企业需求并私有化部署大模型">Assess enterprise needs and deploy private LLMs</li>
-                        <li data-en="Master Transformer, LLM core technologies" data-zh="掌握Transformer、LLM等核心技术">Master Transformer, LLM core technologies</li>
-                        <li data-en="Deploy Whisper voice transcription, RAG retrieval" data-zh="部署Whisper语音转写、RAG检索">Deploy Whisper voice transcription, RAG retrieval</li>
-                        <li data-en="Provide knowledge base and app integration services" data-zh="为企业提供知识库和应用接入服务">Provide knowledge base and app integration services</li>
+                        <li data-en="Understand AI model architecture and deployment principles" data-zh="理解AI模型架构和部署原理">✓ 理解AI模型架构和部署原理</li>
+                        <li data-en="Master voice, image, and OCR model deployment" data-zh="掌握语音、图像、OCR模型部署">✓ 掌握语音、图像、OCR模型部署</li>
+                        <li data-en="Learn text and video large model deployment" data-zh="学会文本和视频大模型部署">✓ 学会文本和视频大模型部署</li>
+                        <li data-en="Possess enterprise-level AI deployment solution capabilities" data-zh="具备企业级AI部署方案能力">✓ 具备企业级AI部署方案能力</li>
                     </ul>
                     <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
                 </div>
@@ -1116,66 +1420,164 @@
             <!-- C营 -->
             <div class="course-card">
                 <div class="course-header">
-                    <span class="course-level" data-en="Grade 10+" data-zh="10年级以上">Grade 10+</span>
-                    <h3 data-en="Camp C: AI Full-Stack Development" data-zh="C营：AI全栈开发及发布">Camp C: AI Full-Stack Development</h3>
-                    <div class="course-price" data-us="$3,999" data-nz="$6,699" data-cn="¥28,999">$3,999</div>
+                    <span class="course-level" data-en="Recommended: Grade 12+" data-zh="建议12年级以上">建议12年级以上</span>
+                    <h3 data-en="Camp C: AI Full-Stack Product Development" data-zh="C营：AI全栈产品开发">C营：AI全栈产品开发</h3>
+                    <div class="course-suit" data-en="Suitable for: Aspiring AI developers or entrepreneurs" data-zh="适合学生：目标成为AI开发者或创业者">适合学生：目标成为AI开发者或创业者</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
-                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 2×4 hours per week" data-zh="6周，每周2×4小时">6 weeks, 2×4 hours per week</span></p>
-                        <p><strong data-en="Suitable for: " data-zh="适合学生：">Suitable for: </strong><span data-en="Aspiring AI developers or entrepreneurs" data-zh="目标成为AI开发者或创业者">Aspiring AI developers or entrepreneurs</span></p>
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="8 weeks, 2 days × 2 hours + 2 hours practice per week" data-zh="8周，每周2天×2小时+2小时陪练">8周，每周2天×2小时+2小时陪练</span></p>
+                        <p class="course-req" data-en="Admission: Any backend or frontend coding foundation, with code samples preferred." data-zh="招生要求：任意后端或前端语言基础，有相对完整代码展示更优。">招生要求：任意后端或前端语言基础，有相对完整代码展示更优。</p>
                     </div>
                     <ul class="course-features">
-                        <li data-en="Build complete AI development environment from scratch" data-zh="从0搭建完整AI开发环境">Build complete AI development environment from scratch</li>
-                        <li data-en="Master full-stack: frontend + backend + database + LLM" data-zh="掌握前后端+数据库+大模型全栈">Master full-stack: frontend + backend + database + LLM</li>
-                        <li data-en="Learn product definition to market launch process" data-zh="学习产品定义到市场发布全流程">Learn product definition to market launch process</li>
-                        <li data-en="Opportunity for BEEBEE early investment" data-zh="有机会获得BEEBEE早期投资">Opportunity for BEEBEE early investment</li>
+                        <li data-en="Master Cursor AI-assisted full-stack development" data-zh="掌握Cursor AI辅助全栈开发">✓ 掌握Cursor AI辅助全栈开发</li>
+                        <li data-en="Learn GitHub + Cloudflare + Firebase full pipeline" data-zh="学会GitHub+Cloudflare+Firebase全链路">✓ 学会GitHub+Cloudflare+Firebase全链路</li>
+                        <li data-en="Complete commercial AI product launch and deployment" data-zh="完成商业级AI产品发布上线">✓ 完成商业级AI产品发布上线</li>
+                        <li data-en="Opportunity for CVC/BEEBEE seed investment" data-zh="有机会获得CVC/BEEBEE 种子投资">✓ 有机会获得CVC/BEEBEE 种子投资</li>
                     </ul>
                     <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
                 </div>
             </div>
         </div>
+        <div class="course-notes" style="max-width:800px;margin:40px auto 0 auto;text-align:center;color:#888;font-size:15px;line-height:2;">
+            <div data-en="Age & Language: No age limit, recommended for Grade 8+, both Chinese and English supported." data-zh="年龄和语言：没有年龄限制，建议8年级以上考虑，中英文均可。">年龄和语言：没有年龄限制，建议8年级以上考虑，中英文均可。</div>
+            <div data-en="Interview: All applicants will be interviewed. If unable to complete the course, remaining tuition will be refunded." data-zh="面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。">面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。</div>
+        </div>
     </section>
 
     <!-- 学生作品展示 -->
     <section id="portfolio" class="portfolio">
-        <h2 data-en="Outstanding Student Projects" data-zh="学生优秀作品展示">Outstanding Student Projects</h2>
+        <h2 data-en="Outstanding Student Projects" data-zh="学生优秀作品展示">学生优秀作品展示</h2>
         <div class="portfolio-grid">
-            <a href="https://mytraqr.com" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
-                <div class="portfolio-image" style="padding:0; background:none;">
-                    <img src="project/mytraqr.png" alt="AI Golf Performance Analysis" style="width:100%;height:200px;object-fit:cover;border-radius:18px;">
-                </div>
-                <div class="portfolio-content">
-                    <h3 data-en="AI Golf Performance Analysis" data-zh="AI高尔夫成绩分析系统">AI Golf Performance Analysis</h3>
-                    <p class="student-info" data-en="Peter, 14, Grade 9" data-zh="Peter，14岁，9年级">Peter, 14, Grade 9</p>
-                    <p data-en="AI analysis of golf swing data providing personalized training advice, with paying users" data-zh="通过AI分析高尔夫挥杆数据，提供个性化训练建议，已有付费用户使用">AI analysis of golf swing data providing personalized training advice, with paying users</p>
-                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
-                </div>
-            </a>
-            <a href="https://aloft.gift" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
-                <div class="portfolio-image" style="padding:0; background:none;">
-                    <img src="project/aloft.png" alt="AI Gift Recommendation Platform" style="width:100%;height:200px;object-fit:cover;border-radius:18px;">
-                </div>
-                <div class="portfolio-content">
-                    <h3 data-en="AI Gift Recommendation Platform" data-zh="AI智能礼物推荐平台">AI Gift Recommendation Platform</h3>
-                    <p class="student-info" data-en="Ivan, 14, Grade 9" data-zh="Ivan，14岁，9年级">Ivan, 14, Grade 9</p>
-                    <p data-en="Smart gift recommendations based on relationships and budget, solving gift selection challenges" data-zh="基于用户关系和预算，智能推荐最合适的礼物，解决选礼难题">Smart gift recommendations based on relationships and budget, solving gift selection challenges</p>
-                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
-                </div>
-            </a>
-            <a href="https://beebee.com" target="_blank" class="portfolio-card" style="text-decoration: none; color: inherit;">
-                <div class="portfolio-image" style="padding:0; background:none;">
-                    <img src="project/beebee.png" alt="AI Business Opportunity Search Engine" style="width:100%;height:200px;object-fit:cover;border-radius:18px;">
-                </div>
-                <div class="portfolio-content">
-                    <h3 data-en="AI Business Opportunity Search Engine" data-zh="AI商机搜索引擎">AI Business Opportunity Search Engine</h3>
-                    <p class="student-info" data-en="Student Team Project" data-zh="学员团队作品">Student Team Project</p>
-                    <p data-en="Automatically collects and analyzes global startup data, providing business insights for investors" data-zh="自动搜集分析全球新成立的优秀创业公司数据，为投资者提供商机洞察">Automatically collects and analyzes global startup data, providing business insights for investors</p>
-                    <p style="color: #FF6B35; font-size: 14px; margin-top: 10px;" data-en="View Project →" data-zh="点击查看作品 →">View Project →</p>
-                </div>
-            </a>
+            <!-- 1. AI高尔夫成绩分析 -->
+            <div class="portfolio-card">
+                <a href="https://mytraqr.com" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/mytraqr1.png","project/mytraqr2.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="AI Golf Performance Analysis" data-zh="AI高尔夫成绩分析">AI高尔夫成绩分析</h3>
+                        <p class="student-info" data-en="Peter, 14, Grade 9" data-zh="Peter，14岁，9年级">Peter，14岁，9年级</p>
+                    </div>
+                </a>
+            </div>
+            <!-- 2. 众筹网站 -->
+            <div class="portfolio-card">
+                <a href="https://overflow.cash" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/overflow1.png","project/overflow2.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="Overflow: Crowdfunding for Young Dreams" data-zh="一个帮年轻人实现梦想的众筹网站">一个帮助年轻人实现梦想的众筹网站</h3>
+                        <p class="student-info" data-en="Peter, 14, Grade 9" data-zh="Peter，14岁，9年级">Peter，14岁，9年级</p>
+                    </div>
+                </a>
+            </div>
+            <!-- 3. 音乐生自我介绍网站 -->
+            <div class="portfolio-card">
+                <a href="https://yuqiaochen.uk" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/yq1.png","project/yq2.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="Music Student's Personal Website" data-zh="音乐生的自我介绍网站">音乐生的自我介绍网站</h3>
+                        <p class="student-info" data-en="Yuqiao, 17, Grade 12" data-zh="Yuqiao，17岁，12年级">Yuqiao，17岁，12年级</p>
+                    </div>
+                </a>
+            </div>
+            <!-- 4. AI自动礼物推荐 -->
+            <div class="portfolio-card">
+                <a href="https://aloft.gift" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/aloft1.png","project/aloft2.png","project/aloft3.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="AI Gift Recommendation" data-zh="AI自动礼物推荐">AI自动礼物推荐</h3>
+                        <p class="student-info" data-en="Ivan, 14, Grade 9" data-zh="Ivan，14岁，9年级">Ivan，14岁，9年级</p>
+                    </div>
+                </a>
+            </div>
+            <!-- 5. beebee.com -->
+            <div class="portfolio-card">
+                <a href="https://beebee.com" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/beebee.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="BeeBee: Team Project" data-zh="BeeBee 团队作品">BeeBee 团队作品</h3>
+                        <p class="student-info" data-en="Alan (Team), 19, Math Foundation, Low-Code Experience" data-zh="Alan（团队作品），19岁，数学基础低代码经验">Alan（团队作品），19岁，数学基础低代码经验</p>
+                    </div>
+                </a>
+            </div>
+            <!-- 6. 儿童生活积分奖励工具 -->
+            <div class="portfolio-card">
+                <a href="https://kidspoint.cc" target="_blank" style="text-decoration:none;color:inherit;">
+                    <div class="portfolio-slider" data-images='["project/k1.png","project/k2.png"]'></div>
+                    <div class="portfolio-content">
+                        <h3 data-en="KidsPoint: Life Points Reward Tool" data-zh="儿童生活积分奖励工具">儿童生活积分奖励工具</h3>
+                        <p class="student-info" data-en="Tutu, 50, No Coding Experience" data-zh="Tutu，50岁，无代码经验">Tutu，50岁，无代码经验</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
+
+    <script>
+    // 简单轮播功能，苹果风格
+    document.querySelectorAll('.portfolio-slider').forEach(function(slider) {
+        const images = JSON.parse(slider.getAttribute('data-images'));
+        let idx = 0;
+        const img = document.createElement('img');
+        img.src = images[0];
+        img.style.width = '100%';
+        img.style.height = '300px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '18px';
+        img.style.transition = 'opacity 0.4s';
+        slider.appendChild(img);
+        if(images.length > 1) {
+            const left = document.createElement('button');
+            left.innerHTML = '‹';
+            left.style.position = 'absolute';
+            left.style.left = '10px';
+            left.style.top = '50%';
+            left.style.transform = 'translateY(-50%)';
+            left.style.background = 'rgba(255,255,255,0.7)';
+            left.style.border = 'none';
+            left.style.borderRadius = '50%';
+            left.style.width = '32px';
+            left.style.height = '32px';
+            left.style.fontSize = '22px';
+            left.style.cursor = 'pointer';
+            left.style.zIndex = '2';
+            slider.appendChild(left);
+            const right = document.createElement('button');
+            right.innerHTML = '›';
+            right.style.position = 'absolute';
+            right.style.right = '10px';
+            right.style.top = '50%';
+            right.style.transform = 'translateY(-50%)';
+            right.style.background = 'rgba(255,255,255,0.7)';
+            right.style.border = 'none';
+            right.style.borderRadius = '50%';
+            right.style.width = '32px';
+            right.style.height = '32px';
+            right.style.fontSize = '22px';
+            right.style.cursor = 'pointer';
+            right.style.zIndex = '2';
+            slider.appendChild(right);
+            slider.style.position = 'relative';
+            left.onclick = function(e){
+                e.preventDefault();
+                idx = (idx-1+images.length)%images.length;
+                img.style.opacity = 0.3;
+                setTimeout(()=>{
+                    img.src = images[idx];
+                    img.style.opacity = 1;
+                },200);
+            };
+            right.onclick = function(e){
+                e.preventDefault();
+                idx = (idx+1)%images.length;
+                img.style.opacity = 0.3;
+                setTimeout(()=>{
+                    img.src = images[idx];
+                    img.style.opacity = 1;
+                },200);
+            };
+        }
+    });
+    </script>
 
     <!-- 导师团队 -->
     <section id="mentors" class="mentors">
@@ -1189,21 +1591,21 @@
                 
                 <div class="mentor-grid">
                     <div class="mentor-card">
-                      <div class="mentor-icon">🏗️</div>
+                        <div class="mentor-icon">🏗️</div>
                       <h4 data-en="Dr. H" data-zh="H博士">H博士</h4>
                       <p class="mentor-title" data-en="Chief Scientist" data-zh="首席科学家">首席科学家</p>
                       <p class="mentor-desc" data-en="Top university associate professor, NLP expert with 40+ papers in ACL/EMNLP, creator of Chinese word vectors with 10k+ GitHub stars" data-zh="顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星">顶尖高校副教授，NLP专家，ACL/EMNLP发表40+篇论文，中文词向量创建者，GitHub万星</p>
                     </div>
                     
                     <div class="mentor-card">
-                      <div class="mentor-icon">💻</div>
+                        <div class="mentor-icon">💻</div>
                       <h4 data-en="Master C" data-zh="C大师">C大师</h4>
                       <p class="mentor-title" data-en="Chief Architect" data-zh="首席架构师">首席架构师</p>
                       <p class="mentor-desc" data-en="25 years C/C++ experience, core developer of legendary software, expert in audio/video encoding, P2P networks, distributed systems" data-zh="25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家">25年C/C++经验，传奇软件核心开发者，音视频编解码、P2P网络、分布式系统专家</p>
                     </div>
                     
                     <div class="mentor-card">
-                      <div class="mentor-icon">🤖</div>
+                        <div class="mentor-icon">🤖</div>
                       <h4 data-en="Engineer X" data-zh="X工程师">X工程师</h4>
                       <p class="mentor-title" data-en="Senior AI Engineer" data-zh="高级AI工程师">高级AI工程师</p>
                       <p class="mentor-desc" data-en="2Brain core developer, NLP specialist, expert in Transformer architecture, RAG systems, and intelligent agent development" data-zh="2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发">2Brain核心开发者，NLP算法专家，精通Transformer架构、RAG系统、智能体开发</p>
@@ -1321,85 +1723,77 @@
     <!-- 常见问题 -->
     <section id="faq" class="faq">
         <div class="faq-container">
-            <h2 data-en="Frequently Asked Questions" data-zh="家长常见问题">Frequently Asked Questions</h2>
-            
+            <h2 data-en="Frequently Asked Questions" data-zh="常见问题">常见问题</h2>
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="Can my child join Bee Alpha without programming experience?" data-zh="我的孩子没有编程基础，能参加Bee Alpha训练营吗？">Can my child join Bee Alpha without programming experience?</span>
+                    <span data-en="Do I need programming experience to join Bee Alpha?" data-zh="没有编程基础可以参加Bee Alpha吗？">没有编程基础可以参加Bee Alpha吗？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Camp A is designed for beginners and provides necessary programming guidance. We recommend learning basic Python before joining to better understand the 2Brain architecture modules. For students with no programming background, we focus on their mathematical and logical abilities during the interview. Camps B and C require some programming foundation, but we assess student levels during interviews to ensure they can keep up with the course." data-zh="A营专为初学者设计，会提供必要的编程基础指导。我们建议参营前学习基本的Python知识，这样能更好地理解2Brain架构中的各个模块。对于完全没有编程基础的学生，我们在面试时会着重考量其数理逻辑。B营和C营需要一定的编程基础，但我们会在面试时评估学生水平，确保能够跟上课程进度。">Camp A is designed for beginners and provides necessary programming guidance. We recommend learning basic Python before joining to better understand the 2Brain architecture modules. For students with no programming background, we focus on their mathematical and logical abilities during the interview. Camps B and C require some programming foundation, but we assess student levels during interviews to ensure they can keep up with the course.</p>
+                    <p data-en="No worries! Camp A is designed for beginners and will teach you the basics. If you want to get ahead, learning some Python is helpful, but not required. For Camps B and C, some coding experience is better, but we'll help you catch up if you're motivated!" data-zh="没关系！A营专为零基础同学设计，会带你入门。如果想提前预习，学点Python会更顺利。B营和C营建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！">没关系！A营专为零基础同学设计，会带你入门。如果想提前预习，学点Python会更顺利。B营和C营建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="What equipment and technical environment are needed?" data-zh="训练营需要什么设备和技术环境？">What equipment and technical environment are needed?</span>
+                    <span data-en="What kind of computer or equipment do I need?" data-zh="需要什么电脑或设备？">需要什么电脑或设备？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Camp A only requires a standard development laptop (16GB+ RAM). Camps B and C involve model deployment, so we recommend using a computer with NVIDIA GPU or our provided cloud development environment. We provide necessary API KEYs for LLMs and cloud/local GPU resources for deployment. All necessary software and environment setup guides will be provided before the course starts." data-zh="A营只需要一台标准适合开发的笔记本电脑（16GB内存以上）。B营和C营涉及模型部署，建议使用带有NVIDIA显卡的电脑或我们提供的云端开发环境。我们将提供大模型所需API KEY和部署所需的云端GPU，以及本地GPU服务器资源。所有必要的软件和环境配置指南将在课程开始前提供。">Camp A only requires a standard development laptop (16GB+ RAM). Camps B and C involve model deployment, so we recommend using a computer with NVIDIA GPU or our provided cloud development environment. We provide necessary API KEYs for LLMs and cloud/local GPU resources for deployment. All necessary software and environment setup guides will be provided before the course starts.</p>
+                    <p data-en="For Camp A, any laptop with 16GB+ RAM is fine. For B and C, a computer with an NVIDIA GPU is best, but we also provide cloud environments. We'll help you set up everything before class!" data-zh="A营用普通笔记本（16G内存以上）就行。B营和C营建议有NVIDIA显卡的电脑，或者用我们提供的云端环境。开课前我们会帮你全部配置好！">A营用普通笔记本（16G内存以上）就行。B营和C营建议有NVIDIA显卡的电脑，或者用我们提供的云端环境。开课前我们会帮你全部配置好！</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="How is 2Brain architecture different from other AI frameworks?" data-zh="2Brain架构与其他AI框架有什么不同？">How is 2Brain architecture different from other AI frameworks?</span>
+                    <span data-en="What's special about 2Brain architecture?" data-zh="2Brain架构有什么特别？">2Brain架构有什么特别？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="2Brain is a complete enterprise-level knowledge intelligence system architecture, not just an AI framework. It integrates the complete CODE process from data Collection, knowledge Organization, information Distillation to intelligent Expression, validated in multiple large enterprise projects. Students will learn industry-proven technical architecture, not just theoretical or experimental frameworks." data-zh="2Brain是一个完整的企业级知识智能体系统架构，区别于单纯的AI框架。它整合了从数据采集（C）、知识组织（O）、信息提炼（D）到智能表达（E）的完整CODE流程，已在多个大型企业项目中验证。学员将学习实际产业中使用的技术架构，而非仅限于理论或实验性框架。">2Brain is a complete enterprise-level knowledge intelligence system architecture, not just an AI framework. It integrates the complete CODE process from data Collection, knowledge Organization, information Distillation to intelligent Expression, validated in multiple large enterprise projects. Students will learn industry-proven technical architecture, not just theoretical or experimental frameworks.</p>
+                    <p data-en="2Brain is a real-world, enterprise-level AI system. You'll learn how companies actually use AI, not just theory. It covers everything from data collection to building your own AI agent!" data-zh="2Brain是企业级AI系统，和真实公司用的一样。你能学到从数据采集到做出自己的AI智能体的全流程，不只是理论！">2Brain是企业级AI系统，和真实公司用的一样。你能学到从数据采集到做出自己的AI智能体的全流程，不只是理论！</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="How does this help with school and college applications?" data-zh="训练营如何与学校学习和申请大学结合？">How does this help with school and college applications?</span>
+                    <span data-en="How does this help with school or college applications?" data-zh="对升学有帮助吗？">对升学有帮助吗？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Bee Alpha projects serve as important portfolio pieces, especially demonstrating practical abilities in AI and software development. Projects based on 2Brain architecture significantly help applications for Computer Science, Data Science, AI and related majors. We also provide project certificates and mentor recommendation letters, adding extra value to applications." data-zh="Bee Alpha训练营的项目可作为个人作品集的重要组成部分，特别是展示学生在AI和软件开发领域的实际能力。基于2Brain架构开发的项目对计算机科学、数据科学、AI等相关专业的大学申请有显著帮助。我们也为学生提供项目证书和导师推荐信，这在申请过程中具有额外价值。">Bee Alpha projects serve as important portfolio pieces, especially demonstrating practical abilities in AI and software development. Projects based on 2Brain architecture significantly help applications for Computer Science, Data Science, AI and related majors. We also provide project certificates and mentor recommendation letters, adding extra value to applications.</p>
+                    <p data-en="Definitely! You'll build real AI projects for your portfolio, get certificates and recommendation letters, and show colleges you have hands-on AI experience." data-zh="当然有！你能做出真实AI项目，拿到证书和推荐信，申请大学时能展示自己的AI能力和作品。">当然有！你能做出真实AI项目，拿到证书和推荐信，申请大学时能展示自己的AI能力和作品。</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="How is class time arranged? Will it affect school?" data-zh="上课时间如何安排？会影响学校学习吗？">How is class time arranged? Will it affect school?</span>
+                    <span data-en="Will classes affect my schoolwork?" data-zh="上课会影响学校学习吗？">上课会影响学校学习吗？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Classes are scheduled on weekends, only 2 half-days per week, not affecting regular school courses. We offer multiple timezone options for students from different regions. Our 15 global mentors cover New Zealand, UK, US, Canada, China timezones, ensuring students can find suitable class times." data-zh="课程安排在周末，每周仅需2个半天，不会影响正常学校课程。我们还提供多个时区的课程安排，方便不同地区的学生参加。15位全球导师覆盖新西兰、英国、美国、加拿大、中国等时区，确保学生能找到合适的上课时间。">Classes are scheduled on weekends, only 2 half-days per week, not affecting regular school courses. We offer multiple timezone options for students from different regions. Our 15 global mentors cover New Zealand, UK, US, Canada, China timezones, ensuring students can find suitable class times.</p>
+                    <p data-en="Nope! Classes are on weekends, just two half-days per week. We have time slots for different time zones, so you can always find a schedule that fits you." data-zh="不会！课程安排在周末，每周只占两半天。我们有多时区排课，大家都能找到合适的时间。">不会！课程安排在周末，每周只占两半天。我们有多时区排课，大家都能找到合适的时间。</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="How do you ensure teaching quality?" data-zh="如何保证教学质量？">How do you ensure teaching quality?</span>
+                    <span data-en="How do you make sure the teaching quality is good?" data-zh="教学质量有保障吗？">教学质量有保障吗？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="We have 15 experienced global mentors providing 24-hour 1-on-1 Q&A and weekly group sessions. Weekly intern reviews monitor student progress closely. Our mentor team has rich enterprise AI project experience, providing the most practical guidance." data-zh="我们有15位经验丰富的全球导师，提供24小时内1对1答疑和每周集中辅导。每周进行项目实习生Review，实习督导会密切关注学生进度。我们的导师团队都有丰富的企业AI项目经验，能够提供最实用的指导。">We have 15 experienced global mentors providing 24-hour 1-on-1 Q&A and weekly group sessions. Weekly intern reviews monitor student progress closely. Our mentor team has rich enterprise AI project experience, providing the most practical guidance.</p>
+                    <p data-en="We have 15+ experienced mentors from all over the world, 1-on-1 Q&A, and weekly reviews to help you. Our mentors have real AI project experience!" data-zh="我们有15位全球导师，1对1答疑，每周有项目review，导师都是有实战经验的AI工程师！">我们有15位全球导师，1对1答疑，每周有项目review，导师都是有实战经验的AI工程师！</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="Can students complete the program? What about withdrawals?" data-zh="录取后一定能坚持到结束吗？中途有事退出怎么办？">Can students complete the program? What about withdrawals?</span>
+                    <span data-en="What if I can't finish the program?" data-zh="如果中途有事没法坚持怎么办？">如果中途有事没法坚持怎么办？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: 'I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it.' We do not guarantee refunds for mid-program withdrawals for other reasons." data-zh="我们会每周进行项目实习生Review，实习督导会对无法准时提交成绩的实习生进行情况分析。只有一种情况，如果发生3次，我们会对实习生进行劝退并按比例退回剩余费用。"我不会或我有事（无论何种原因），到了时间达不到目标，且从不就此与导师或督导进行沟通"。任何参与人中途有事退出，我们不承诺退费。">We conduct weekly intern reviews. The internship supervisor analyzes cases where students cannot submit work on time. Only one situation, if it occurs 3 times, leads to dismissal with proportional refund: "I can't do it or I'm busy (regardless of reason), can't meet deadlines, and never communicate with mentors or supervisors about it." We do not guarantee refunds for mid-program withdrawals for other reasons.</p>
+                    <p data-en="If you really can't continue, just let us know. If you communicate and have a good reason, we'll refund the remaining tuition. We want everyone to have a great experience!" data-zh="如果真的坚持不了，记得和我们沟通。有合理原因会退剩余学费，我们希望每个人都能有好体验！">如果真的坚持不了，记得和我们沟通。有合理原因会退剩余学费，我们希望每个人都能有好体验！</p>
                 </div>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question">
-                    <span data-en="What will students gain after completing the course?" data-zh="课程结束后能获得什么？">What will students gain after completing the course?</span>
+                    <span data-en="What will I get after finishing the course?" data-zh="结业后能收获什么？">结业后能收获什么？</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Students will gain: 1) Complete AI project portfolio and deployment experience; 2) Internship certificate from a global AI startup; 3) Mentor recommendation letters; 4) Practical AI application development skills; 5) Comprehensive understanding of LLMs and AI applications; 6) Ability to read top papers and apply them in practice; 7) Outstanding projects may receive BEEBEE early investment. Most importantly, students will own their own AI product." data-zh="学生将获得：1）完整的AI项目作品和部署经验；2）全球型AI创业公司的实习证明；3）导师推荐信；4）实际的AI应用开发能力；5）对大模型和AI应用的全面理解；6）学会读顶尖论文并用于实践的能力；7）优秀项目还有机会获得BEEBEE的早期投资。最重要的是，学生将拥有一款属于自己的AI产品。">Students will gain: 1) Complete AI project portfolio and deployment experience; 2) Internship certificate from a global AI startup; 3) Mentor recommendation letters; 4) Practical AI application development skills; 5) Comprehensive understanding of LLMs and AI applications; 6) Ability to read top papers and apply them in practice; 7) Outstanding projects may receive BEEBEE early investment. Most importantly, students will own their own AI product.</p>
+                    <p data-en="You'll have a complete AI project, internship certificate, recommendation letters, and real skills. Outstanding projects may even get investment! Most importantly, you'll have your own AI product." data-zh="你会有完整AI项目、实习证明、推荐信和实战能力，优秀项目还有机会拿到投资。最重要的是，你会拥有属于自己的AI产品！">你会有完整AI项目、实习证明、推荐信和实战能力，优秀项目还有机会拿到投资。最重要的是，你会拥有属于自己的AI产品！</p>
                 </div>
             </div>
         </div>
@@ -1408,8 +1802,8 @@
     <!-- 页脚 -->
     <footer id="contact">
         <div class="footer-content">
-            <h3 style="margin-bottom: 20px;" data-en="Join Bee Alpha Now, Start Your AI Journey" data-zh="立即加入 Bee Alpha，开启AI学习之旅">Join Bee Alpha Now, Start Your AI Journey</h3>
-            <p style="margin-bottom: 30px;" data-en="Help Your Child Excel in the AI Era" data-zh="让您的孩子在AI时代赢在起跑线">Help Your Child Excel in the AI Era</p>
+            <h3 style="margin-bottom: 20px;" data-en="Join Bee Alpha Internship Now!" data-zh="立即加入 Bee Alpha 实习营！">立即加入 Bee Alpha 实习营！</h3>
+            <p style="margin-bottom: 30px;" data-en="Learn to output productivity with AI, not just be a consumer" data-zh="学习用AI输出生产力，而不只是成为消费者">学习用AI输出生产力，而不只是成为消费者</p>
             
             <div class="contact-info">
                 <h4 data-en="Contact Us" data-zh="联系我们">Contact Us</h4>
@@ -1428,6 +1822,7 @@
                 <a href="#about" data-en="About Us" data-zh="关于我们">About Us</a>
                 <a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a>
                 <a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a>
+                <a href="#" class="invite-code-btn" data-en="Invite Code" data-zh="邀请码验证">Invite Code</a>
             </div>
             <div class="footer-divider"></div>
             <p>&copy; 2025 Bee Alpha. All rights reserved. Learn AI, Future Inside.</p>
@@ -1482,6 +1877,35 @@
                 </div>
             </form>
             <div id="submitMessage" class="submit-message"></div>
+        </div>
+    </div>
+
+    <!-- 邀请码验证弹窗 -->
+    <div id="inviteCodeModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 data-en="Invite Code Verification" data-zh="邀请码验证">Invite Code Verification</h3>
+                <button class="close-button">&times;</button>
+            </div>
+            <form id="inviteCodeForm" class="modal-form">
+                <div class="form-group">
+                    <label for="phoneNumber" data-en="Phone Number (International Format)" data-zh="手机号（国际格式）">Phone Number (International Format)</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" 
+                           pattern="^\+?[1-9]\d{1,14}$" 
+                           placeholder="+8612345678901" 
+                           required>
+                    <small class="form-hint" data-en="Please enter your phone number in international format (e.g., +8612345678901)" data-zh="请输入国际格式的手机号（例如：+8612345678901）">Please enter your phone number in international format (e.g., +8612345678901)</small>
+                </div>
+                <div class="form-group">
+                    <label for="inviteCode" data-en="Invite Code" data-zh="邀请码">Invite Code</label>
+                    <input type="text" id="inviteCode" name="inviteCode" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button" data-en="Verify" data-zh="验证">Verify</button>
+                    <button type="button" class="cancel-button" data-en="Cancel" data-zh="取消">Cancel</button>
+                </div>
+                <div class="submit-message" style="display: none;"></div>
+            </form>
         </div>
     </div>
 
@@ -1834,6 +2258,159 @@
                 resetForm();
             }
         });
+        
+        // 邀请码验证相关
+        const inviteCodeModal = document.getElementById('inviteCodeModal');
+        const inviteCodeForm = document.getElementById('inviteCodeForm');
+        const inviteCodeBtns = document.querySelectorAll('.invite-code-btn');
+        
+        // 打开邀请码验证弹窗
+        inviteCodeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                inviteCodeModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // 关闭邀请码验证弹窗
+        inviteCodeModal.querySelector('.close-button').addEventListener('click', () => {
+            inviteCodeModal.style.display = 'none';
+            document.body.style.overflow = '';
+            resetInviteCodeForm();
+        });
+        
+        inviteCodeModal.querySelector('.cancel-button').addEventListener('click', () => {
+            inviteCodeModal.style.display = 'none';
+            document.body.style.overflow = '';
+            resetInviteCodeForm();
+        });
+        
+        // 重置邀请码表单
+        function resetInviteCodeForm() {
+            inviteCodeForm.reset();
+            const submitMessage = inviteCodeForm.querySelector('.submit-message');
+            submitMessage.style.display = 'none';
+            submitMessage.className = 'submit-message';
+            const submitButton = inviteCodeForm.querySelector('.submit-button');
+            submitButton.disabled = false;
+            submitButton.textContent = currentLang === 'cn' ? '验证' : 'Verify';
+        }
+        
+        // 邀请码表单提交
+        inviteCodeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitButton = inviteCodeForm.querySelector('.submit-button');
+            const submitMessage = inviteCodeForm.querySelector('.submit-message');
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            
+            // 验证手机号格式
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                submitMessage.textContent = currentLang === 'cn' ? 
+                    '请输入正确的国际格式手机号' : 
+                    'Please enter a valid international phone number';
+                submitMessage.className = 'submit-message error';
+                submitMessage.style.display = 'block';
+                return;
+            }
+            
+            submitButton.disabled = true;
+            submitButton.textContent = currentLang === 'cn' ? '验证中...' : 'Verifying...';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('invite_codes')
+                    .select('*')
+                    .eq('phone_number', phoneNumber)
+                    .eq('invite_code', document.getElementById('inviteCode').value.trim())
+                    .single();
+                
+                if (error) throw error;
+                
+                if (data) {
+                    // 验证成功
+                    submitMessage.textContent = currentLang === 'cn' ? 
+                        '验证成功！正在加载完整内容...' : 
+                        'Verification successful! Loading full content...';
+                    submitMessage.className = 'submit-message success';
+                    submitMessage.style.display = 'block';
+                    
+                    // 存储验证状态
+                    safeLocalStorage.setItem('invite_verified', 'true');
+                    safeLocalStorage.setItem('verified_phone', data.phone_number);
+                    
+                    // 3秒后关闭弹窗并刷新页面
+                    setTimeout(() => {
+                        inviteCodeModal.style.display = 'none';
+                        document.body.style.overflow = '';
+                        location.reload();
+                    }, 3000);
+                } else {
+                    // 验证失败
+                    submitMessage.textContent = currentLang === 'cn' ? 
+                        '验证失败：手机号或邀请码不正确' : 
+                        'Verification failed: Invalid phone number or invite code';
+                    submitMessage.className = 'submit-message error';
+                    submitMessage.style.display = 'block';
+                    submitButton.disabled = false;
+                    submitButton.textContent = currentLang === 'cn' ? '验证' : 'Verify';
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                submitMessage.textContent = currentLang === 'cn' ? 
+                    '验证出错，请稍后重试' : 
+                    'Verification error, please try again later';
+                submitMessage.className = 'submit-message error';
+                submitMessage.style.display = 'block';
+                submitButton.disabled = false;
+                submitButton.textContent = currentLang === 'cn' ? '验证' : 'Verify';
+            }
+        });
+        
+        // 检查验证状态
+        function checkVerificationStatus() {
+            const isVerified = safeLocalStorage.getItem('invite_verified') === 'true';
+            const verifiedPhone = safeLocalStorage.getItem('verified_phone');
+            
+            if (isVerified && verifiedPhone) {
+                // 更新UI显示已验证状态
+                inviteCodeBtns.forEach(btn => {
+                    btn.innerHTML = currentLang === 'cn' ? 
+                        `已验证 (${verifiedPhone})` : 
+                        `Verified (${verifiedPhone})`;
+                    btn.style.color = '#2e7d32 !important';
+                });
+            }
+        }
+        
+        // 语言切换时更新验证状态显示
+        function updateVerificationDisplay() {
+            const isVerified = safeLocalStorage.getItem('invite_verified') === 'true';
+            const verifiedPhone = safeLocalStorage.getItem('verified_phone');
+            
+            if (isVerified && verifiedPhone) {
+                inviteCodeBtns.forEach(btn => {
+                    btn.innerHTML = currentLang === 'cn' ? 
+                        `已验证 (${verifiedPhone})` : 
+                        `Verified (${verifiedPhone})`;
+                });
+            }
+        }
+        
+        // 页面加载时检查验证状态
+        document.addEventListener('DOMContentLoaded', () => {
+            checkVerificationStatus();
+        });
+        
+        // 在语言切换函数中添加验证状态更新
+        const originalSwitchLanguage = switchLanguage;
+        switchLanguage = function(lang) {
+            originalSwitchLanguage(lang);
+            updateVerificationDisplay();
+        };
     </script>
 </body>
 </html>
+
+rewritten_file>
