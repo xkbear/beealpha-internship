@@ -1,0 +1,10 @@
+From legendary software in the DOS era to modern AI applications, Teacher Chi has witnessed and driven the development journey of China's software industry. He perfectly combines profound low-level technical expertise with modern AI technology, specializing in private model deployment, distributed system architecture, and high-performance data processing.
+Core Expertise:
+
+25 years of C/C++ system architecture experience, cross-platform development expert
+Proficient in modern backend technology stacks including Python
+Private model localization deployment and optimization
+Audio/video codec, P2P networks, distributed web crawling
+NLP algorithm implementation and RAG system design
+
+Teaching Style: Uses hands-on projects to teach complex technical concepts, emphasizing the development of solid engineering fundamentals and systematic thinking.

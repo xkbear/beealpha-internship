@@ -1297,7 +1297,6 @@
                 <li><a href="#about" data-en="About Us" data-zh="关于我们">About Us</a></li>
                 <li><a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a></li>
                 <li><a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a></li>
-                <li><a href="#" class="invite-code-btn" data-en="Invite Code" data-zh="邀请码验证">Invite Code</a></li>
             </ul>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="en">EN</button>
@@ -1439,6 +1438,7 @@
         <div class="course-notes" style="max-width:800px;margin:40px auto 0 auto;text-align:center;color:#888;font-size:15px;line-height:2;">
             <div data-en="Age & Language: No age limit, recommended for Age 12+ (A), 14+ (B), 16+ (C), both Chinese and English supported." data-zh="年龄和语言：没有年龄限制，建议A营12岁以上，B营14岁以上，C营16岁以上，中英文均可。">年龄和语言：没有年龄限制，建议A营12岁以上，B营14岁以上，C营16岁以上，中英文均可。</div>
             <div data-en="Interview: All applicants will be interviewed. If unable to complete the course, remaining tuition will be refunded." data-zh="面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。">面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。</div>
+            <div style="margin-top:24px;font-size:18px;font-weight:bold;color:#FF6B35;text-align:center;letter-spacing:1px;">课程及导师详情请联系我们工作人员咨询</div>
         </div>
     </section>
 
@@ -1819,7 +1819,6 @@
                 <a href="#about" data-en="About Us" data-zh="关于我们">About Us</a>
                 <a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a>
                 <a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a>
-                <a href="#" class="invite-code-btn" data-en="Invite Code" data-zh="邀请码验证">Invite Code</a>
             </div>
             <div class="footer-divider"></div>
             <p>&copy; 2025 Bee Alpha. All rights reserved. Learn AI, Future Inside.</p>
@@ -1866,39 +1865,6 @@
                 </div>
             </form>
             <div id="submitMessage" class="submit-message"></div>
-        </div>
-    </div>
-
-    <!-- 邀请码验证弹窗 -->
-    <div id="inviteCodeModal" class="modal">
-        <div class="modal-content" style="max-width: 400px;">
-            <div class="modal-header">
-                <h3 data-en="Invite Code Verification" data-zh="邀请码验证">Invite Code Verification</h3>
-                <button class="close-button">&times;</button>
-            </div>
-            <form id="inviteCodeForm" class="modal-form">
-                <div class="form-group">
-                    <label for="phoneNumber" data-en="Phone Number (International Format)" data-zh="手机号（国际格式）">Phone Number (International Format)</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" 
-                           pattern="^\+?[1-9]\d{1,14}$" 
-                           placeholder="+8612345678901" 
-                           data-en-placeholder="+12025550123" data-zh-placeholder="+8612345678901"
-                           required>
-                    <small class="form-hint" data-en="Please enter your phone number in international format (e.g., +12025550123)" data-zh="请输入国际格式的手机号（例如：+8612345678901）">Please enter your phone number in international format (e.g., +12025550123)</small>
-                </div>
-                <div class="form-group">
-                    <label for="inviteCode" data-en="Invite Code" data-zh="邀请码">Invite Code</label>
-                    <input type="text" id="inviteCode" name="inviteCode" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="submit-button" data-en="Verify" data-zh="验证">Verify</button>
-                    <button type="button" class="cancel-button" data-en="Cancel" data-zh="取消">Cancel</button>
-                </div>
-                <div class="submit-message" style="display: none;"></div>
-                <div class="invite-desc" style="margin-top:18px;color:#bbb;font-size:15px;line-height:1.8;text-align:left;">
-                  <span data-en="The exclusive invite code is used to access detailed course information and mentor profiles. Please click 'Inquire' under the corresponding course, or email the program director to obtain your code." data-zh="专用邀请码用于获取课程详细信息，以及查看导师详情。请在对应课程下方点击'咨询'，或发邮件联系项目负责人，以便获得此邀请码。">专用邀请码用于获取课程详细信息，以及查看导师详情。请在对应课程下方点击'咨询'，或发邮件联系项目负责人，以便获得此邀请码。</span>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -2404,24 +2370,6 @@
             originalSwitchLanguage(lang);
             updateVerificationDisplay();
         };
-        
-        // 语言切换时动态切换手机号placeholder
-        function updatePhonePlaceholder() {
-          const phoneInput = document.getElementById('phoneNumber');
-          if (!phoneInput) return;
-          if (currentLang === 'cn') {
-            phoneInput.placeholder = phoneInput.getAttribute('data-zh-placeholder');
-          } else {
-            phoneInput.placeholder = phoneInput.getAttribute('data-en-placeholder');
-          }
-        }
-        // 在switchLanguage和页面加载时调用
-        const oldSwitchLanguage = switchLanguage;
-        switchLanguage = function(lang) {
-          oldSwitchLanguage(lang);
-          updatePhonePlaceholder();
-        }
-        document.addEventListener('DOMContentLoaded', updatePhonePlaceholder);
     </script>
 </body>
 </html>
