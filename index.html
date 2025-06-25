@@ -2031,9 +2031,11 @@
         
         // 页面加载时检查语言偏好
         document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = safeLocalStorage.getItem('preferred-language') || 'en';
-            if (savedLang !== 'en') {
+            const savedLang = safeLocalStorage.getItem('preferred-language');
+            if (savedLang) {
                 switchLanguage(savedLang);
+            } else {
+                switchLanguage('en'); // 强制默认英文
             }
         });
         
