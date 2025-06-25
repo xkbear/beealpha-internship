@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>培训老师介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 动态背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 119, 48, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 119, 198, 0.2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-20px, -20px) rotate(1deg); }
+            66% { transform: translate(20px, -10px) rotate(-1deg); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .header h1 {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 80px 0 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 3px;
+            display: inline-block;
+            padding: 0 40px;
+        }
+        
+        .teachers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 100px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 翻转卡片样式 - 简化版 */
+        .card-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        
+        .card-container:hover .card {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+        }
+        
+        .card-front {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .card-back {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: rotateY(180deg);
+        }
+        
+        /* 导师照片区域 */
+        .teacher-photo {
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .teacher-photo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 15s linear infinite;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .photo-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        /* 正面内容 */
+        .card-content-front {
+            flex: 1;
+            padding: 40px 50px;
+            color: white;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .teacher-name {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-title {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .teacher-summary {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .flip-hint {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        /* 背面内容 */
+        .card-content-back {
+            padding: 40px;
+            color: white;
+            height: 100%;
+            overflow-y: auto;
+            text-align: left;
+        }
+        
+        .card-content-back::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .card-content-back::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .card-content-back::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+        
+        .back-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .detail-section {
+            margin-bottom: 25px;
+        }
+        
+        .detail-section h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .detail-section p,
+        .detail-section ul {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .detail-section ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+        
+        .detail-section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .tech-quote {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 48px;
+            }
+            
+            .card-container {
+                height: 500px;
+            }
+            
+            .card-front {
+                flex-direction: column;
+            }
+            
+            .teacher-photo {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .photo-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 48px;
+            }
+            
+            .card-content-front {
+                padding: 30px;
+            }
+            
+            .teacher-name {
+                font-size: 28px;
+            }
+            
+            .teacher-title {
+                font-size: 16px;
+            }
+            
+            .teacher-summary {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>培训导师团队</h1>
+            <p>汇聚顶尖AI专家，引领技术创新之路</p>
+        </div>
+        
+        <div class="section-title">
+            <h2>项目导师</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 项目导师1 - H博士 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">H</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">H博士</h3>
+                            <p class="teacher-title">博士，BSU副教授，BT首席科学家</p>
+                            <p class="teacher-summary">
+                                NLP领域深耕专家，主持多项国家级科研项目。国际顶级会议论文40余篇，三次获得最佳论文奖，开源项目GitHub超万星。将前沿学术研究与产业应用完美结合。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">H博士 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>学术成就</h4>
+                                <ul>
+                                    <li>ACL、EMNLP、COLING等顶会论文40余篇</li>
+                                    <li>国家发明专利授权6项</li>
+                                    <li>主持国家社科基金、自科基金等重要项目</li>
+                                    <li>三次获得中国计算语言学大会最佳论文奖</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>技术贡献</h4>
+                                <p>中文词向量资源库等开源项目创建者，在GitHub获得超过一万星标，为中文NLP社区发展做出重要贡献。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "自然语言处理的终极目标不是让机器模仿人类，而是帮助人类更好地理解自己的思维方式。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>将前沿学术成果转化为实用技能，善于用实际案例帮助学生理解复杂的NLP概念。课程既有严谨的理论基础，又紧密结合最新技术发展趋势。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师2 - C老师 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">C</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">C老师</h3>
+                            <p class="teacher-title">BT首席程序员</p>
+                            <p class="teacher-summary">
+                                从DOS时代的传奇软件到现代AI应用，25年技术生涯见证中国软件业发展。精通底层系统架构，擅长私有模型部署、分布式系统设计和高性能数据处理。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">C老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术历程</h4>
+                                <p>HJ超级解霸核心程序员，参与开发影响一代中国用户的经典软件。深度参与底层音视频解码算法研发，为数百万用户带来流畅的多媒体体验。</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>核心专长</h4>
+                                <ul>
+                                    <li>25年C/C++系统架构经验，跨平台开发专家</li>
+                                    <li>精通Python、Go等现代后端技术栈</li>
+                                    <li>私有模型本地化部署和优化</li>
+                                    <li>音视频编解码、P2P网络、分布式爬虫</li>
+                                    <li>NLP算法实践和RAG系统设计</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "技术的本质是解决问题，而解决问题需要的是扎实的基础和开放的思维。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>AI时代先锋</h4>
+                                <p>深度理解LLM底层原理，设计过处理TB级数据的分布式爬虫集群，在去中心化网络架构方面有独到见解。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师3 - L老师 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">L</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">L老师</h3>
+                            <p class="teacher-title">高级AI工程师</p>
+                            <p class="teacher-summary">
+                                McGill大学计算机科学与数学双学位，BeeAI核心开发工程师。专注RAG系统和LLM应用开发，主导构建多个企业级知识管理系统。前游泳队选手，现力量举爱好者。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">L老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>RAG系统架构设计与优化</li>
+                                    <li>意图引擎开发，主动理解用户意图并进行门控路由</li>
+                                    <li>LLM提示工程和模型调优</li>
+                                    <li>Python/JavaScript全栈开发</li>
+                                    <li>ElasticSearch、AWS S3等技术集成</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>核心成就</h4>
+                                <p>设计并实现支持文本、图像等多种数据格式的智能检索系统。构建智能意图理解系统，确保查询被精准分发到最适合的处理模块。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "代码如力量举，每一行都要精准到位；AI如柔术，以巧制胜方能四两拨千斤。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>个人特色</h4>
+                                <p>McGill大学游泳队退役选手，50米蛙泳32.5秒。力量举总成绩550公斤（深蹲215kg、卧推125kg、硬拉210kg）。将运动员的坚韧精神融入技术攻坚。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <h2>专家导师</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 专家导师1 - Y老师 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">Y</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Y老师</h3>
+                            <p class="teacher-title">AI技术专家</p>
+                            <p class="teacher-summary">
+                                6年AI实战经验，产业化落地专家。从机器学习到多模态AIGC应用全周期覆盖，累计为企业创造超3.75亿元商业价值。XJU计算机专业，AI创业公司技术合伙人。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Y老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>核心项目</h4>
+                                <ul>
+                                    <li>韩国AIGC娱乐模拟人格：多模态大模型架构，拟真效果提升30%</li>
+                                    <li>AI生成游戏项目：基于Stable Diffusion的实时内容生成系统</li>
+                                    <li>企业级RAG咨询：知识库智能问答，提升检索效率60%以上</li>
+                                    <li>传统戏曲AI保护：多模态大模型实现戏曲唱腔识别与传承</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "AI不仅是技术工具，更是创造无限可能的魔法师——它能让游戏世界栩栩如生，让虚拟人格真实动人，让千年文化焕发新生。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <p>精通大语言模型（GPT系列、Claude、文心一言）、AIGC技术（Stable Diffusion、Midjourney、虚拟人技术）、RAG架构设计。熟悉多智能体协作框架。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专家导师2 - Y博士 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">Y</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Y博士</h3>
+                            <p class="teacher-title">ZP AI资深语音算法专家，CAS声学研究所联合培养博士</p>
+                            <p class="teacher-summary">
+                                语音AI全栈专家，从KS音视频技术部到ZP AI。专注语音合成、语音交互大模型和语音增强技术。多项国际顶级竞赛冠军，发表顶会论文20余篇。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Y博士 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>产业化成果</h4>
+                                <ul>
+                                    <li>语音交互大模型：端到端延时控制在0.75秒内，已上线KS直播连麦</li>
+                                    <li>语音合成大模型：zero-shot TTS音质达真人水平95%+，超越JY</li>
+                                    <li>深度音质修复：全量上线KS直播，大盘有效带宽提升15.03%</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>竞赛成绩</h4>
+                                <p>ICASSP 2024 SSI-Challenge双赛道冠军、Audio Deep PLC Challenge冠军、Interspeech 2021 DNS Challenge冠军等多项国际顶级竞赛冠军。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "语音是人类最自然的交互方式，我致力于让AI理解和生成的每一个声音都充满人性的温度与智慧的力量。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>学术背景</h4>
+                                <p>CUC通信与信息系统博士，CAS声学研究所联合培养，CUHK MMLab学术交流经历。发表顶会期刊论文20余篇。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专家导师3 - W老师 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">W</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">W老师</h3>
+                            <p class="teacher-title">AI布道者，技术极简主义者</p>
+                            <p class="teacher-summary">
+                                UESTC计算机硕士，前NK高级工程师7年，现居爱尔兰。成功转型AI技术科普自媒体人，B站「五里墩茶社」、微信「01麻瓜社」等多平台内容创作者。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">W老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>多平台矩阵</h4>
+                                <ul>
+                                    <li>B站频道「五里墩茶社」up主：深度技术解析视频</li>
+                                    <li>微信公众号「01麻瓜社」主理人：AI技术科普文章</li>
+                                    <li>知识星球「小木头的AI星球」创建者：AI学习社区</li>
+                                    <li>YouTube频道「01Coder」：面向国际用户的AI教程</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>代表作品</h4>
+                                <p>《LangChain极简入门》《MCP极简入门》等AI开发教程，chat-ollama项目：基于LangChain的开源AI聊天应用。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "用LangChain搭建应用，用MCP连接世界，用最极简的代码和最生动的教程，让AI成为每个人手中的创作利器。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>国际化视野</h4>
+                                <p>具备中英文双语能力，了解国内外AI技术发展趋势，能够为学生提供全球化的技术视角和职业发展建议。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专家导师4 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">L</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">L老师</h3>
+                            <p class="teacher-title">技术专家</p>
+                            <p class="teacher-summary">
+                                资深技术专家，在人工智能应用开发领域拥有丰富经验。专注于大模型应用、智能系统架构设计和技术创新，致力于推动AI技术的商业化落地。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">L老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>专业领域</h4>
+                                <ul>
+                                    <li>大语言模型应用开发与优化</li>
+                                    <li>企业级AI系统架构设计</li>
+                                    <li>智能化解决方案咨询与实施</li>
+                                    <li>AI产品商业化策略制定</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>项目经验</h4>
+                                <p>参与多个大型企业的AI转型项目，在金融、医疗、教育等多个行业积累了丰富的实战经验。擅长将前沿AI技术转化为实际可用的产品解决方案。</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学理念</h4>
+                                <p>通过实际项目案例，帮助学员深入理解AI技术原理，掌握实用的开发技能。注重培养学员的创新思维和问题解决能力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专家导师5 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">Z</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Z老师</h3>
+                            <p class="teacher-title">AI应用专家</p>
+                            <p class="teacher-summary">
+                                专注于AI技术的创新应用和产品化，在多个行业项目中积累了丰富的实战经验。擅长机器学习模型优化和智能化业务流程改造。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Z老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>AI产品设计与开发</li>
+                                    <li>机器学习模型优化</li>
+                                    <li>智能化业务流程改造</li>
+                                    <li>数据驱动决策系统构建</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>行业经验</h4>
+                                <p>在电商、物流、制造等多个行业有成功的AI项目落地经验。帮助企业通过AI技术实现降本增效，提升核心竞争力。</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>强调实践导向，通过真实案例分析和动手实验，让学员快速掌握AI应用开发的核心技能。注重培养学员的工程化思维。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专家导师6 -->
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">M</div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">M老师</h3>
+                            <p class="teacher-title">资深技术顾问</p>
+                            <p class="teacher-summary">
+                                在AI领域深耕多年，拥有扎实的理论基础和丰富的实践经验。专注于AI技术咨询与培训，帮助企业和个人掌握AI技术，实现技术赋能。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">M老师 - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>核心能力</h4>
+                                <ul>
+                                    <li>AI技术咨询与培训</li>
+                                    <li>解决方案架构设计</li>
+                                    <li>技术团队建设与管理</li>
+                                    <li>技术战略规划与实施</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>咨询经验</h4>
+                                <p>为多家知名企业提供AI技术咨询服务，帮助企业制定AI战略，建立技术团队，实施AI项目。在企业数字化转型方面有独到见解。</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特点</h4>
+                                <p>善于将复杂的技术概念简单化，让学员能够快速理解和应用。注重知识体系的完整性，帮助学员建立系统的AI知识框架。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
