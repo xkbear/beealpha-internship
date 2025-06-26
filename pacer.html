@@ -13,7 +13,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #23243a 0%, #3a1c71 100%);
             min-height: 100vh;
             padding: 40px 0;
             position: relative;
@@ -131,17 +131,17 @@
         }
         
         .card-front {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
         
         .card-back {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             transform: rotateY(180deg);
         }
         
@@ -187,6 +187,14 @@
             position: relative;
             z-index: 1;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .photo-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
             border: 3px solid rgba(255, 255, 255, 0.4);
         }
         
@@ -354,9 +362,86 @@
                 font-size: 14px;
             }
         }
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 180px;
+            height: 100vh;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 100px;
+            box-shadow: 2px 0 16px rgba(0,0,0,0.08);
+        }
+        .side-nav ul {
+            list-style: none;
+            width: 100%;
+            padding: 0 0 0 20px;
+        }
+        .side-nav li {
+            margin-bottom: 28px;
+        }
+        .side-nav a {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+            letter-spacing: 1px;
+        }
+        .side-nav a:hover {
+            color: #ff7730;
+        }
+        @media (max-width: 900px) {
+            .side-nav {
+                position: static;
+                width: 100%;
+                height: auto;
+                background: none;
+                box-shadow: none;
+                padding-top: 0;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            .side-nav ul {
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+                width: 100%;
+                justify-content: center;
+            }
+            .side-nav li {
+                margin: 0 18px 0 0;
+            }
+        }
+        .container {
+            margin-left: 200px;
+        }
+        @media (max-width: 900px) {
+            .container {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#mentor-h">H博士</a></li>
+            <li><a href="#mentor-c">C老师</a></li>
+            <li><a href="#mentor-vito">Vito</a></li>
+            <li><a href="#mentor-miles">Miles</a></li>
+            <li><a href="#mentor-ashlynn">Ashlynn</a></li>
+            <li><a href="#mentor-charlie">Charlie</a></li>
+            <li><a href="#mentor-bobby">Bobby</a></li>
+        </ul>
+    </nav>
     <div class="container">
         <div class="header">
             <h1>培训导师团队</h1>
@@ -369,11 +454,13 @@
         
         <div class="teachers-grid">
             <!-- 项目导师1 - H博士 -->
-            <div class="card-container">
+            <div class="card-container" id="mentor-h">
                 <div class="card">
                     <div class="card-front">
                         <div class="teacher-photo">
-                            <div class="photo-avatar">H</div>
+                            <div class="photo-avatar">
+                                <img src="project/mentor/1.jpg" alt="H博士">
+                            </div>
                         </div>
                         <div class="card-content-front">
                             <h3 class="teacher-name">H博士</h3>
@@ -420,11 +507,13 @@
             </div>
             
             <!-- 项目导师2 - C老师 -->
-            <div class="card-container">
+            <div class="card-container" id="mentor-c">
                 <div class="card">
                     <div class="card-front">
                         <div class="teacher-photo">
-                            <div class="photo-avatar">C</div>
+                            <div class="photo-avatar">
+                                <img src="project/mentor/2.png" alt="C老师">
+                            </div>
                         </div>
                         <div class="card-content-front">
                             <h3 class="teacher-name">C老师</h3>
@@ -471,18 +560,20 @@
                 </div>
             </div>
             
-            <!-- 项目导师3 - L老师 -->
-            <div class="card-container">
+            <!-- 项目导师4 - Vito -->
+            <div class="card-container" id="mentor-vito">
                 <div class="card">
                     <div class="card-front">
                         <div class="teacher-photo">
-                            <div class="photo-avatar">L</div>
+                            <div class="photo-avatar">
+                                <img src="project/mentor/Vito.jpg" alt="Vito">
+                            </div>
                         </div>
                         <div class="card-content-front">
-                            <h3 class="teacher-name">L老师</h3>
+                            <h3 class="teacher-name">Vito</h3>
                             <p class="teacher-title">高级AI工程师</p>
                             <p class="teacher-summary">
-                                McGill大学计算机科学与数学双学位，BeeAI核心开发工程师。专注RAG系统和LLM应用开发，主导构建多个企业级知识管理系统。前游泳队选手，现力量举爱好者。
+                                麦吉尔大学计算机科学与数学双学位，Beebee AI核心开发工程师，专注RAG系统和LLM应用开发。Vito拥有两年AI产品开发经验，主导构建多个企业级知识管理系统。
                             </p>
                             <div class="flip-hint">
                                 <span>查看详情</span>
@@ -492,7 +583,7 @@
                     </div>
                     <div class="card-back">
                         <div class="card-content-back">
-                            <h3 class="back-title">L老师 - 详细介绍</h3>
+                            <h3 class="back-title">Vito - 详细介绍</h3>
                             
                             <div class="detail-section">
                                 <h4>技术专长</h4>
@@ -517,6 +608,227 @@
                             <div class="detail-section">
                                 <h4>个人特色</h4>
                                 <p>McGill大学游泳队退役选手，50米蛙泳32.5秒。力量举总成绩550公斤（深蹲215kg、卧推125kg、硬拉210kg）。将运动员的坚韧精神融入技术攻坚。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师5 - Miles -->
+            <div class="card-container" id="mentor-miles">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/Miles.png" alt="Miles">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Miles</h3>
+                            <p class="teacher-title">AI大数据工程师</p>
+                            <p class="teacher-summary">
+                                重庆对外经贸学院数据科学与大数据技术专业，BEEBEE AI核心数据工程师，专注大规模数据采集和AI应用开发。在爬虫技术和并发编程方面经验丰富。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Miles - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>基于BFS算法的大规模异步并发爬虫系统</li>
+                                    <li>断点续传和增量更新机制设计</li>
+                                    <li>AI驱动的自然语言数据分析工具</li>
+                                    <li>Python并发编程和系统架构优化</li>
+                                    <li>数据全生命周期管理和质量保障</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>项目成果</h4>
+                                <p>通用爬虫系统成功部署生产环境，AI Excel解析工具显著提升用户工作效率。主导开发了多个生产级数据处理系统。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "异步并发让系统更快，断点续传让数据更安全，增量更新让资源更省——这就是工程优化的艺术。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>结合丰富项目实战经验，注重培养工程思维和产品化能力。善于用实际案例帮助学生理解复杂的算法原理和系统架构。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师6 - Ashlynn -->
+            <div class="card-container" id="mentor-ashlynn">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/ashlynn.jpg" alt="Ashlynn">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Ashlynn</h3>
+                            <p class="teacher-title">AI大数据工程师</p>
+                            <p class="teacher-summary">
+                                爱丁堡大学数学与统计学士（一等荣誉），帝国理工学院统计系数据科学硕士（卓越级），BEEBEE AI后端软件工程师。专注于基于大语言模型的生产力工具研发。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Ashlynn - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>学术成就</h4>
+                                <ul>
+                                    <li>爱丁堡大学Lawley奖获得者（统计学联合荣誉学位最杰出表现）</li>
+                                    <li>帝国理工学院统计系数据科学硕士（卓越级）</li>
+                                    <li>爱丁堡大学数学与统计学士（一等荣誉学位）</li>
+                                    <li>学院假期奖学金获得者</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>大规模异步爬虫系统设计与实现</li>
+                                    <li>LLM语义关键词提取和数据优化</li>
+                                    <li>MySQL、Elasticsearch多存储系统集成</li>
+                                    <li>贝叶斯优化和高维约束问题求解</li>
+                                    <li>Python/R数据分析和统计建模</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "数据科学的美妙之处在于用数学的严谨性去驾驭现实世界的复杂性，让每一个算法都有坚实的统计学根基。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>用统计学思维解读AI算法本质，注重数学基础与工程实践的平衡。将严谨的数学思维与实用的工程技能相结合。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师7 - Charlie -->
+            <div class="card-container" id="mentor-charlie">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/charlie.png" alt="Charlie">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Charlie</h3>
+                            <p class="teacher-title">AI算法工程师</p>
+                            <p class="teacher-summary">
+                                专注NLP算法开发和AI产品化，拥有两年AI算法开发经验。深度参与第二大脑考试/写作智能体开发，负责微信、飞书等外部应用对接。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Charlie - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>Transformer架构深度优化和NLP模型构建</li>
+                                    <li>提示词工程和大模型调优</li>
+                                    <li>多模态RAG系统和Elasticsearch向量检索</li>
+                                    <li>Python全栈开发（Flask/FastAPI/WebSocket）</li>
+                                    <li>Docker容器化部署和系统架构设计</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>项目成果</h4>
+                                <p>主导开发考试/写作智能体，成功对接微信、飞书等主流平台。在API集成和第三方服务对接方面有着丰富实战经验。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "Transformer的自注意力机制教会我：真正的智能不是记住所有信息，而是知道在什么时候关注什么。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>理论实践并重，善于化繁为简，提供个性化技术指导。注重理论与实践的深度结合，营造轻松活跃的学习氛围。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师8 - Bobby -->
+            <div class="card-container" id="mentor-bobby">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/bobby.png" alt="Bobby">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Bobby</h3>
+                            <p class="teacher-title">资深前端工程师</p>
+                            <p class="teacher-summary">
+                                拥有8年前端开发经验，精通多端开发和现代前端技术栈。具备全面的项目开发能力，熟练掌握微信小程序、H5、PC、App等多平台开发。
+                            </p>
+                            <div class="flip-hint">
+                                <span>查看详情</span>
+                                <span>↻</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <h3 class="back-title">Bobby - 详细介绍</h3>
+                            
+                            <div class="detail-section">
+                                <h4>技术专长</h4>
+                                <ul>
+                                    <li>Uniapp跨平台开发，一套代码多端运行</li>
+                                    <li>Vue全家桶技术栈（Vue2/Vue3 + Nuxt SSR）</li>
+                                    <li>JavaScript核心原理和响应式开发</li>
+                                    <li>WebSocket实时通信和数据交互</li>
+                                    <li>前端项目架构设计和组件封装</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>项目经验</h4>
+                                <p>在线商城、后台管理系统、SaaS工具、数据大屏等多个完整商业项目。深度参与多个完整项目的开发，积累了丰富的商业项目经验。</p>
+                            </div>
+                            
+                            <div class="tech-quote">
+                                "好的前端不仅要让界面美观易用，更要让代码优雅可维护，这样才能支撑产品的长期发展。"
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>教学特色</h4>
+                                <p>结合丰富商业项目经验，注重实战应用和代码质量培养。善于用实际案例帮助学生理解前端开发的核心概念和最佳实践。</p>
                             </div>
                         </div>
                     </div>
