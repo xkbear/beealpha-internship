@@ -1297,6 +1297,20 @@
                 padding: 10px 8px;
             }
         }
+        .invite-modal-mask {
+          position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+          background: rgba(30,30,40,0.32); z-index: 99999;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .invite-modal {
+          position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+          background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+          padding: 38px 32px 32px 32px; min-width: 320px; max-width: 92vw; text-align: center;
+          z-index: 100000;
+        }
+        @media (max-width: 600px) {
+          .invite-modal { padding: 18px 4vw; min-width: 0; }
+        }
     </style>
 </head>
 <body>
@@ -1694,7 +1708,10 @@
                         <p class="mentor-desc" data-en="17 years tech experience, led multi-million dollar AI projects, AI startup co-founder, expert in AI commercialization" data-zh="17年技术经验，主导数亿级AI项目，AI创业公司合伙人，AI商业化专家">17 years tech experience, led multi-million dollar AI projects, AI startup co-founder, expert in AI commercialization</p>
                     </div>
                     
-                    <div class="mentor-card" style="border:2px solid #FF6B35;background:#fff7f0;opacity:0.95;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:260px;"><div class="mentor-icon" style="font-size:40px;">...</div><h4 data-en="More AI Product & Tech Experts Are Coming" data-zh="更多AI产品和技术高手正在赶来" style="font-size:16px;font-weight:normal;">更多AI产品和技术高手正在赶来</h4><p class="mentor-title" data-en="Stay tuned" data-zh="敬请期待" style="color:#bbb;font-size:16px;margin-top:10px;">敬请期待</p></div>
+                    <div class="mentor-card" id="view-all-mentors-card" style="border:2px solid #FF6B35;background:#fff7f0;opacity:0.95;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:260px;cursor:pointer;">
+                      <div class="mentor-icon" style="font-size:40px;">🔒</div>
+                      <h4 data-en="View all mentor profiles (invite code required)" data-zh="查看所有导师详细介绍（需邀请码）" style="font-size:18px;font-weight:600;">查看所有导师详细介绍（需邀请码）</h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1899,7 +1916,7 @@
                 <button class="close-button">&times;</button>
             </div>
             <form id="inviteCodeForm" class="modal-form">
-                <div class="form-group">
+          <div class="form-group">
                     <label for="phoneNumber" data-en="Phone Number (International Format)" data-zh="手机号（国际格式）">Phone Number (International Format)</label>
                     <input type="tel" id="phoneNumber" name="phoneNumber" 
                            pattern="^\+?[1-9]\d{1,14}$" 
@@ -1907,7 +1924,7 @@
                            data-en-placeholder="+12025550123" data-zh-placeholder="+8612345678901"
                            required>
                     <small class="form-hint" data-en="Please enter your phone number in international format (e.g., +12025550123)" data-zh="请输入国际格式的手机号（例如：+8612345678901）">Please enter your phone number in international format (e.g., +12025550123)</small>
-                </div>
+          </div>
                 <div class="form-group">
                     <label for="inviteCode" data-en="Invite Code" data-zh="邀请码">Invite Code</label>
                     <input type="text" id="inviteCode" name="inviteCode" required>
@@ -1920,8 +1937,24 @@
                 <div class="invite-desc" style="margin-top:18px;color:#bbb;font-size:15px;line-height:1.8;text-align:left;">
                   <span data-en="The exclusive invite code is used to access detailed course information and mentor profiles. Please click 'Inquire' under the corresponding course, or email the program director to obtain your code." data-zh="专用邀请码用于获取课程详细信息，以及查看导师详情。请在对应课程下方点击'咨询'，或发邮件联系项目负责人，以便获得此邀请码。">专用邀请码用于获取课程详细信息，以及查看导师详情。请在对应课程下方点击'咨询'，或发邮件联系项目负责人，以便获得此邀请码。</span>
                 </div>
-            </form>
-        </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 统一风格的邀请码弹窗 -->
+    <div id="inviteMentorModal" class="modal">
+      <div class="modal-content" style="max-width:400px;">
+        <span class="close-modal">&times;</span>
+        <h3 id="inviteMentorTitle" data-en="Invite Code Verification" data-zh="邀请码验证">邀请码验证</h3>
+        <form id="inviteMentorForm">
+          <div class="form-group">
+            <label for="mentorInviteInput" id="inviteMentorLabel" data-en="Please enter your invite code" data-zh="请输入邀请码">请输入邀请码</label>
+            <input type="text" id="mentorInviteInput" name="mentorInviteInput" required autocomplete="off" style="font-size:18px;">
+          </div>
+          <button type="submit" class="submit-button" id="mentorInviteBtn" data-en="Verify" data-zh="验证">验证</button>
+          <div id="mentorInviteMsg" class="submit-message" style="display:none;"></div>
+        </form>
+      </div>
     </div>
 
     <script>
@@ -2447,6 +2480,81 @@
           updatePhonePlaceholder();
         }
         document.addEventListener('DOMContentLoaded', updatePhonePlaceholder);
+
+        // 监听"查看所有导师详细介绍"卡片点击，弹出标准modal
+        const viewAllMentorsCard = document.getElementById('view-all-mentors-card');
+        const inviteMentorModal = document.getElementById('inviteMentorModal');
+        const inviteMentorForm = document.getElementById('inviteMentorForm');
+        const mentorInviteInput = document.getElementById('mentorInviteInput');
+        const mentorInviteBtn = document.getElementById('mentorInviteBtn');
+        const mentorInviteMsg = document.getElementById('mentorInviteMsg');
+        const inviteMentorTitle = document.getElementById('inviteMentorTitle');
+        const inviteMentorLabel = document.getElementById('inviteMentorLabel');
+
+        if(viewAllMentorsCard) {
+          viewAllMentorsCard.addEventListener('click', function() {
+            inviteMentorModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            mentorInviteInput.value = '';
+            mentorInviteMsg.style.display = 'none';
+            mentorInviteMsg.className = 'submit-message';
+            mentorInviteBtn.disabled = false;
+            mentorInviteBtn.textContent = mentorInviteBtn.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
+            // 切换标题和label语言
+            inviteMentorTitle.textContent = inviteMentorTitle.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
+            inviteMentorLabel.textContent = inviteMentorLabel.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
+          });
+        }
+        // 关闭弹窗
+        inviteMentorModal.querySelector('.close-modal').onclick = function() {
+          inviteMentorModal.style.display = 'none';
+          document.body.style.overflow = '';
+        };
+        // ESC关闭
+        window.addEventListener('keydown', function(e) {
+          if(e.key === 'Escape' && inviteMentorModal.style.display === 'block') {
+            inviteMentorModal.style.display = 'none';
+            document.body.style.overflow = '';
+          }
+        });
+        // 提交表单
+        inviteMentorForm.onsubmit = function(e) {
+          e.preventDefault();
+          mentorInviteBtn.disabled = true;
+          mentorInviteBtn.textContent = currentLang === 'cn' ? '验证中...' : 'Verifying...';
+          mentorInviteMsg.style.display = 'none';
+          mentorInviteMsg.className = 'submit-message';
+          const code = mentorInviteInput.value.trim();
+          setTimeout(function() {
+            if(code === 'BEEVIP') {
+              mentorInviteMsg.textContent = currentLang === 'cn' ? '验证成功，正在跳转...' : 'Verification successful, redirecting...';
+              mentorInviteMsg.className = 'submit-message success';
+              mentorInviteMsg.style.display = 'block';
+              setTimeout(function() {
+                inviteMentorModal.style.display = 'none';
+                document.body.style.overflow = '';
+                localStorage.setItem('beealpha_invite', 'BEEVIP');
+                window.location.href = 'pacer.html';
+              }, 1200);
+            } else {
+              mentorInviteMsg.textContent = currentLang === 'cn' ? '邀请码错误，请联系工作人员获取' : 'Invalid invite code. Please contact our staff.';
+              mentorInviteMsg.className = 'submit-message error';
+              mentorInviteMsg.style.display = 'block';
+              mentorInviteBtn.disabled = false;
+              mentorInviteBtn.textContent = mentorInviteBtn.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
+            }
+          }, 800);
+        };
+        // 语言切换时自动切换弹窗文案
+        const oldSwitchLangForMentor = switchLanguage;
+        switchLanguage = function(lang) {
+          oldSwitchLangForMentor(lang);
+          if(inviteMentorModal.style.display === 'block') {
+            inviteMentorTitle.textContent = inviteMentorTitle.getAttribute(lang === 'cn' ? 'data-zh' : 'data-en');
+            inviteMentorLabel.textContent = inviteMentorLabel.getAttribute(lang === 'cn' ? 'data-zh' : 'data-en');
+            mentorInviteBtn.textContent = mentorInviteBtn.getAttribute(lang === 'cn' ? 'data-zh' : 'data-en');
+          }
+        };
     </script>
 </body>
 </html>
