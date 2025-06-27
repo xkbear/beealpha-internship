@@ -1062,6 +1062,34 @@
             transform: scaleX(1);
         }
         
+        /* 查看所有导师按钮移动端优化 */
+        #view-all-mentors-card {
+            -webkit-tap-highlight-color: rgba(255, 107, 53, 0.2);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        #view-all-mentors-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            #view-all-mentors-card {
+                min-height: 200px;
+                padding: 20px 15px;
+            }
+            
+            #view-all-mentors-card h4 {
+                font-size: 16px !important;
+                line-height: 1.4;
+            }
+        }
+        
         /* 验证弹窗样式 */
         #inviteCodeModal .modal-content {
             background: white;
@@ -2492,7 +2520,10 @@
         const inviteMentorLabel = document.getElementById('inviteMentorLabel');
 
         if(viewAllMentorsCard) {
-          viewAllMentorsCard.addEventListener('click', function() {
+          // 添加多种事件监听器以确保移动端兼容性
+          const handleClick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             inviteMentorModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
             mentorInviteInput.value = '';
@@ -2503,7 +2534,16 @@
             // 切换标题和label语言
             inviteMentorTitle.textContent = inviteMentorTitle.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
             inviteMentorLabel.textContent = inviteMentorLabel.getAttribute(currentLang === 'cn' ? 'data-zh' : 'data-en');
-          });
+          };
+          
+          // 同时监听click和touchstart事件
+          viewAllMentorsCard.addEventListener('click', handleClick);
+          viewAllMentorsCard.addEventListener('touchstart', handleClick, { passive: false });
+          
+          // 添加移动端友好的样式
+          viewAllMentorsCard.style.webkitTapHighlightColor = 'rgba(255, 107, 53, 0.2)';
+          viewAllMentorsCard.style.userSelect = 'none';
+          viewAllMentorsCard.style.webkitUserSelect = 'none';
         }
         // 关闭弹窗
         inviteMentorModal.querySelector('.close-modal').onclick = function() {
@@ -2526,14 +2566,14 @@
           mentorInviteMsg.className = 'submit-message';
           const code = mentorInviteInput.value.trim();
           setTimeout(function() {
-            if(code === 'BEEVIP') {
+            if(code === 'BEEVIP' || code === 'BEE2A3W') {
               mentorInviteMsg.textContent = currentLang === 'cn' ? '验证成功，正在跳转...' : 'Verification successful, redirecting...';
               mentorInviteMsg.className = 'submit-message success';
               mentorInviteMsg.style.display = 'block';
               setTimeout(function() {
                 inviteMentorModal.style.display = 'none';
                 document.body.style.overflow = '';
-                localStorage.setItem('beealpha_invite', 'BEEVIP');
+                localStorage.setItem('beealpha_invite', code);
                 window.location.href = 'pacer.html';
               }, 1200);
             } else {
