@@ -1339,6 +1339,33 @@
         @media (max-width: 600px) {
           .invite-modal { padding: 18px 4vw; min-width: 0; }
         }
+        /* 创始人介绍卡片优化 */
+        .founder-intro p {
+          line-height: 2;
+          margin-bottom: 18px;
+          font-size: 17px;
+          color: #333;
+        }
+        .founder-intro p:last-child {
+          margin-bottom: 0;
+        }
+        @media (max-width: 700px) {
+          .founder-intro {
+            flex-direction: column;
+            align-items: flex-start !important;
+            padding: 24px 10px 18px 10px !important;
+            gap: 18px !important;
+          }
+          .founder-intro img {
+            width: 90px !important;
+            height: 90px !important;
+          }
+          .founder-intro p {
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+          }
+        }
     </style>
 </head>
 <body>
@@ -1755,6 +1782,30 @@
                     <p data-en="The company's mission is to enhance personal and organizational productivity through 'AI × Private Knowledge'. Its core product 2Brain, launched in 2024, allows enterprises to import multimodal content (documents, audio/video, websites, chat logs) to form private knowledge bases, visualized in real-time as dynamic knowledge graphs, enabling deployment of RAG-based chatbots and business flow agents within minutes." data-zh="公司的使命是通过'AI × 私域知识'提升个人与组织的生产力。其核心产品2Brain于2024年推出，可以让企业导入多模态内容（文档、音频/视频、网站、聊天记录）形成私有知识库，并实时可视化为动态知识图谱，几分钟内即可部署基于RAG（检索增强生成）的聊天机器人和各类业务流智能体。">The company's mission is to enhance personal and organizational productivity through 'AI × Private Knowledge'. Its core product 2Brain, launched in 2024, allows enterprises to import multimodal content (documents, audio/video, websites, chat logs) to form private knowledge bases, visualized in real-time as dynamic knowledge graphs, enabling deployment of RAG-based chatbots and business flow agents within minutes.</p>
                     <p data-en="2Brain has provided enterprise-level application implementation services to dozens of global clients, redefining how knowledge is applied in various scenarios from Fortune 500 training programs to key customer support assistants." data-zh="2Brain已经为全球数十家客户提供企业级应用落地服务，正在从世界500强企业的培训项目到关键客户支持助手等多种场景中，重新定义知识的应用方式。">2Brain has provided enterprise-level application implementation services to dozens of global clients, redefining how knowledge is applied in various scenarios from Fortune 500 training programs to key customer support assistants.</p>
                 </div>
+                
+                <!-- 创始人介绍 -->
+                <div class="founder-intro" style="background:#fffbe9;padding:40px 30px 30px 30px;border-radius:20px;display:flex;align-items:center;gap:36px;box-shadow:0 4px 24px rgba(255,107,53,0.06);margin-top:30px;flex-wrap:wrap;">
+                  <div style="flex-shrink:0;text-align:center;">
+                    <img src="project/pin.png" alt="周品" style="width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 2px 12px rgba(255,107,53,0.10);margin-bottom:12px;">
+                    <div style="font-weight:700;font-size:20px;margin-bottom:4px;">周品</div>
+                    <div style="color:#FF6B35;font-size:15px;font-weight:500;">创始人 &amp; CEO</div>
+                  </div>
+                  <div style="flex:1;min-width:220px;">
+                    <p data-zh="周品先生是一位拥有超过20年IT和互联网产品运营创业经验的连续创业者，作为全球第一批GPT时代的创业者，他在人工智能领域拥有8年的相关经验，始终保持着对新技术的强烈好奇心。" data-en="Mr. Pin Zhou is a serial entrepreneur with over 20 years of experience in IT and Internet product operations. As one of the world's first entrepreneurs in the GPT era, he has 8 years of experience in artificial intelligence and a strong curiosity for new technologies.">
+                      周品先生是一位拥有超过20年IT和互联网产品运营创业经验的连续创业者，作为全球第一批GPT时代的创业者，他在人工智能领域拥有8年的相关经验，始终保持着对新技术的强烈好奇心。
+                     </p>
+                     <p data-zh="在职业生涯中，周品先生曾担任猎豹移动董事高级副总裁，负责移动App+AI业务发展。他也是趣玩网的创始人，在垂直电商领域有着丰富的实战经验。此外，他还曾在百度担任联盟+客户端总监，负责搜索引擎相关业务的拓展。" data-en="During his career, Mr. Zhou served as Senior Vice President of Cheetah Mobile, responsible for mobile App + AI business. He is also the founder of Quwan.com, with rich practical experience in vertical e-commerce. In addition, he worked as Director of Alliance & Client at Baidu, leading search engine-related business expansion.">
+                       在职业生涯中，周品先生曾担任猎豹移动董事高级副总裁，负责移动App+AI业务发展。他也是趣玩网的创始人，在垂直电商领域有着丰富的实战经验。此外，他还曾在百度担任联盟+客户端总监，负责搜索引擎相关业务的拓展。
+                     </p>
+                     <p data-zh="早期在托普软件和豪杰超级解霸的经历，让他分别积累了丰富的toB和toC软件产品管理经验。" data-en="His early experience at Topsoft and HJ Super Player gave him extensive toB and toC software product management experience.">
+                       早期在托普软件和豪杰超级解霸的经历，让他分别积累了丰富的toB和toC软件产品管理经验。
+                     </p>
+                     <p data-zh="作为一位充满好奇心的连续创业者，周品先生不断探索技术与商业的边界。同时，他也是一位愿意分享AI教育实践的父亲，致力于将自己在人工智能领域的经验和见解传递给下一代，在技术创新与教育实践之间找到了完美的平衡点。" data-en="As a curious serial entrepreneur, Mr. Zhou constantly explores the boundaries of technology and business. He is also a father willing to share his AI education practice, committed to passing on his experience and insights in AI to the next generation, finding a perfect balance between technological innovation and educational practice.">
+                       作为一位充满好奇心的连续创业者，周品先生不断探索技术与商业的边界。同时，他也是一位愿意分享AI教育实践的父亲，致力于将自己在人工智能领域的经验和见解传递给下一代，在技术创新与教育实践之间找到了完美的平衡点。
+                     </p>
+                  </div>
+                </div>
+                <!-- 创始人介绍 End -->
                 
                 <div class="mission-section">
                     <h3 data-en="Our Practice Philosophy" data-zh="我们的实践宗旨">Our Practice Philosophy</h3>
