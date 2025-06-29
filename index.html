@@ -1382,6 +1382,7 @@
                 <li><a href="#about" data-en="About Us" data-zh="关于我们">About Us</a></li>
                 <li><a href="#faq" data-en="FAQ" data-zh="常见问题">FAQ</a></li>
                 <li><a href="#contact" data-en="Contact" data-zh="联系我们">Contact</a></li>
+                <li><a href="#" id="ceo-letter" data-en="CEO Letter" data-zh="CEO来信">CEO Letter</a></li>
             </ul>
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="en">EN</button>
@@ -2646,6 +2647,19 @@
             mentorInviteBtn.textContent = mentorInviteBtn.getAttribute(lang === 'cn' ? 'data-zh' : 'data-en');
           }
         };
+
+        // CEO来信链接点击事件
+        document.getElementById('ceo-letter').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 根据当前语言跳转到相应页面
+            if (currentLang === 'cn') {
+                window.open('letter.html', '_blank');
+            } else {
+                window.open('letter_en.html', '_blank');
+            }
+        });
     </script>
 </body>
 </html>
