@@ -136,6 +136,9 @@
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             display: flex;
+            /* 增强Safari兼容性 */
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
         }
         
         /* 统一卡片样式 - 橙色渐变 */
@@ -152,6 +155,8 @@
             border: 2px solid #e0a040;
             box-shadow: 0 8px 32px rgba(255, 152, 0, 0.22);
             transform: rotateY(180deg);
+            /* 确保背面完全隐藏正面内容 */
+            -webkit-transform: rotateY(180deg);
         }
         
         /* 导师照片区域 */
@@ -165,6 +170,9 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
+            /* 确保照片区域在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .teacher-photo::before {
@@ -197,6 +205,9 @@
             z-index: 1;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: 3px solid rgba(255, 255, 255, 0.4);
+            /* 确保头像在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .photo-avatar img {
@@ -205,6 +216,9 @@
             object-fit: cover;
             border-radius: 50%;
             border: 3px solid rgba(255, 255, 255, 0.4);
+            /* 确保图片在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         /* 正面内容 */
@@ -216,6 +230,9 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            /* 确保正面内容在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .teacher-name {
@@ -265,6 +282,10 @@
             scrollbar-width: thin;
             scrollbar-color: #fff #ff7730;
             padding: 48px 56px 48px 56px;
+            /* 确保背面内容完全覆盖，防止头像透出 */
+            background: inherit;
+            position: relative;
+            z-index: 1;
         }
         
         .card-content-back::-webkit-scrollbar {
@@ -446,6 +467,8 @@
             color: #fff;
             border: 2px solid #1251a3;
             box-shadow: 0 8px 32px rgba(25, 118, 210, 0.22);
+            /* 确保专家导师卡片背面也完全隐藏正面内容 */
+            -webkit-transform: rotateY(180deg);
         }
         /* 标题与副标题样式优化 */
         .header-title {
