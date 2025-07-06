@@ -19,6 +19,12 @@
             line-height: 1.6;
             color: #333;
             background: #fff;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         /* 导航栏 */
@@ -788,12 +794,34 @@
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             width: 90%;
             max-width: 500px;
             position: relative;
             animation: slideIn 0.3s;
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* 确保弹窗内容可以独立滚动 */
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
         }
         
         @keyframes slideIn {
@@ -824,7 +852,7 @@
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .form-group label {
@@ -883,6 +911,29 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+        }
+        
+        .cancel-button {
+            width: 100%;
+            padding: 15px;
+            background: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .cancel-button:hover {
+            background: #bbb;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
         }
         
         .submit-message {
@@ -1015,6 +1066,59 @@
                 min-width: 90px;
                 text-align: center;
                 margin-bottom: 6px;
+            }
+            
+            /* 咨询表单移动端优化 */
+            .modal-content {
+                margin: 10px;
+                padding: 20px;
+                width: calc(100% - 20px);
+                max-width: none;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .submit-button,
+            .cancel-button {
+                width: 100%;
+                margin: 5px 0;
+                padding: 15px;
+                font-size: 16px;
+                min-height: 50px;
+                display: block;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+                padding: 12px;
+                min-height: 44px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-actions .submit-button,
+            .form-actions .cancel-button {
+                width: 100%;
+                margin: 0;
+            }
+            
+            /* 移动端表单字段垂直排列 */
+            .form-group[style*="display: flex"] {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-group[style*="display: flex"] > div {
+                flex: none;
+                width: 100%;
             }
         }
         /* 默认隐藏移动菜单按钮 */
@@ -1954,14 +2058,10 @@
                 <div class="form-group">
                     <div id="campTypeDisplay" style="font-weight:bold;color:#FF6B35;margin-bottom:10px;"></div>
                 </div>
-                <div class="form-group">
-                    <label data-en="Student's Name *" data-zh="学生姓名 *">Student's Name *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
                 <div class="form-group" style="display: flex; gap: 16px; align-items: flex-end;">
                     <div style="flex:1;">
-                        <label data-en="Country *" data-zh="所在国家 *">Country *</label>
-                        <input type="text" id="country" name="country" required>
+                        <label data-en="Student's Name *" data-zh="学生姓名 *">Student's Name *</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
                     <div style="flex:1;">
                         <label data-en="Student's Age (Optional)" data-zh="学生年龄（选填）">Student's Age (Optional)</label>
@@ -1969,17 +2069,23 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label data-en="Email *" data-zh="电子邮件 *">Email *</label>
-                    <input type="email" id="contact-email" name="contact-email" placeholder="example@email.com" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                <div class="form-group" style="display: flex; gap: 16px; align-items: flex-end;">
+                    <div style="flex:1;">
+                        <label data-en="Country *" data-zh="所在国家 *">Country *</label>
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div style="flex:1;">
+                        <label data-en="Email *" data-zh="电子邮件 *">Email *</label>
+                        <input type="email" id="contact-email" name="contact-email" placeholder="example@email.com" required>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     <label data-en="Message *" data-zh="咨询说明 *">Message *</label>
-                    <textarea id="message" name="message" rows="4" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me." data-zh="我想咨询Bee Alpha暑期实习，请联系我。">I would like to inquire about Bee Alpha summer internship, please contact me.</textarea>
+                    <textarea id="message" name="message" rows="2" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me." data-zh="我想咨询Bee Alpha暑期实习，请联系我。">I would like to inquire about Bee Alpha summer internship, please contact me.</textarea>
                 </div>
                 
-                <div style="display: flex; gap: 16px; margin-top: 10px;">
+                <div class="form-actions" style="display: flex; gap: 16px; margin-top: 5px;">
                     <button type="button" class="cancel-button" data-en="Cancel" data-zh="取消" style="flex:1; background: #ccc; color: #333; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; padding: 15px; cursor: pointer; transition: background 0.3s;">Cancel</button>
                     <button type="submit" class="submit-button" data-en="Submit" data-zh="提交" style="flex:1;">Submit</button>
                 </div>
@@ -2245,6 +2351,8 @@
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 modal.style.display = 'block';
+                // 禁止背景滚动
+                document.body.style.overflow = 'hidden';
                 // 自动识别营类型
                 const card = btn.closest('.course-card');
                 let campType = '';
@@ -2263,12 +2371,14 @@
         // 关闭弹窗
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
+            document.body.style.overflow = '';
             resetForm();
         });
         
         // 取消按钮关闭弹窗
         document.querySelector('.cancel-button').addEventListener('click', () => {
             modal.style.display = 'none';
+            document.body.style.overflow = '';
             resetForm();
         });
         
@@ -2293,7 +2403,7 @@
             // 邮箱格式校验
             const emailInput = document.getElementById('contact-email');
             const emailValue = emailInput.value.trim();
-            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const emailPattern = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(emailValue)) {
                 submitMessage.className = 'submit-message error';
                 submitMessage.textContent = currentLang === 'cn' ? '请输入有效的邮箱地址' : 'Please enter a valid email address.';
@@ -2352,6 +2462,7 @@
                 // 3秒后关闭弹窗
                 setTimeout(() => {
                     modal.style.display = 'none';
+                    document.body.style.overflow = '';
                     resetForm();
                 }, 3000);
                 
@@ -2388,6 +2499,16 @@
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.style.display === 'block') {
                 modal.style.display = 'none';
+                document.body.style.overflow = '';
+                resetForm();
+            }
+        });
+        
+        // 点击弹窗外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
                 resetForm();
             }
         });

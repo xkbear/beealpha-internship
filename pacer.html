@@ -411,28 +411,50 @@
             padding-top: 100px;
             box-shadow: 2px 0 16px rgba(0,0,0,0.04);
             border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
         }
+        
+        .nav-section {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .nav-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .nav-category {
+            font-size: 12px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin: 0 0 12px 20px;
+            padding: 0 12px 5px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+        }
+        
         .side-nav ul {
             list-style: none;
             width: 100%;
             padding: 0 0 0 20px;
         }
         .side-nav li {
-            margin-bottom: 28px;
+            margin-bottom: 8px;
         }
         .side-nav a {
             color: #222;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 500;
             text-decoration: none;
             transition: background 0.2s, color 0.2s;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             border-radius: 6px;
             padding: 4px 12px;
         }
         .side-nav a:hover {
-            background: #f0f0f0;
-            color: #111;
+            background: rgba(255, 107, 53, 0.1);
+            color: #FF6B35;
         }
         @media (max-width: 900px) {
             .side-nav { display: none !important; }
@@ -598,20 +620,37 @@
         <button class="lang-btn" data-lang="cn">中文</button>
     </div>
     <nav class="side-nav">
-        <ul>
-            <li><a href="#mentor-h">Iris</a></li>
-            <li><a href="#mentor-c">Fred</a></li>
-            <li><a href="#mentor-vito">Vito</a></li>
-            <li><a href="#mentor-miles">Miles</a></li>
-            <li><a href="#mentor-ashlynn">Ashlynn</a></li>
-            <li><a href="#mentor-charlie">Charlie</a></li>
-            <li><a href="#mentor-bobby">Bobby</a></li>
-            <li><a href="#expert-yuguo">Hugo</a></li>
-            <li><a href="#expert-william">William</a></li>
-            <li><a href="#expert-henrywang">Henry</a></li>
-            <li><a href="#expert-alexwu">Alex</a></li>
-            <li><a href="#expert-roynee">Roy</a></li>
-        </ul>
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Project Mentors" data-zh="项目导师">项目导师</h3>
+            <ul>
+                <li><a href="#mentor-h">Iris</a></li>
+                <li><a href="#mentor-c">Fred</a></li>
+                <li><a href="#mentor-vito">Vito</a></li>
+                <li><a href="#mentor-miles">Miles</a></li>
+                <li><a href="#mentor-ashlynn">Ashlynn</a></li>
+                <li><a href="#mentor-charlie">Charlie</a></li>
+                <li><a href="#mentor-bobby">Bobby</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Expert Mentors" data-zh="专家导师">专家导师</h3>
+            <ul>
+                <li><a href="#expert-yuguo">Hugo</a></li>
+                <li><a href="#expert-william">William</a></li>
+                <li><a href="#expert-henrywang">Henry</a></li>
+                <li><a href="#expert-alexwu">Alex</a></li>
+                <li><a href="#expert-roynee">Roy</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Operations Management" data-zh="运营管理">运营管理</h3>
+            <ul>
+                <li><a href="#ops-claire">Claire</a></li>
+                <li><a href="#ops-alan">Alan</a></li>
+            </ul>
+        </div>
     </nav>
     <div class="container">
         <div class="header">
@@ -1020,7 +1059,9 @@
                 <div class="card">
                     <div class="card-front">
                         <div class="teacher-photo">
-                            <div class="photo-avatar">W</div>
+                            <div class="photo-avatar">
+                                <img src="project/pros/william.jpg" alt="William">
+                            </div>
                         </div>
                         <div class="card-content-front">
                             <h3 class="teacher-name">William</h3>
@@ -1048,7 +1089,9 @@
                 <div class="card">
                     <div class="card-front">
                         <div class="teacher-photo">
-                            <div class="photo-avatar">H</div>
+                            <div class="photo-avatar">
+                                <img src="project/pros/henry.png" alt="Henry">
+                            </div>
                         </div>
                         <div class="card-content-front">
                             <h3 class="teacher-name">Henry</h3>
@@ -1127,6 +1170,122 @@
                                 <p data-en="15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions." data-zh="15年金融科技领域经验，新西兰居民。曾在顶级金融机构总行担任核心系统架构师，专注大规模金融分布式系统、支付平台和微服务架构设计开发。Roy Nee拥有丰富的金融核心系统架构经验，主导构建了支持2.5亿日请求的信用卡系统和多个获奖的金融科技项目。他在高并发交易处理、分布式架构设计、金融业务系统优化等方面经验丰富，擅长将复杂的金融需求转化为高效安全的技术解决方案。">15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions.</p>
                             </div>
                             <div class="tech-quote" data-en="Payment architecture, connecting global capital flows; trading systems, safeguarding trillion-dollar financial security." data-zh="支付架构，连接全球资金流；交易系统，护航万亿金融安全。">"Payment architecture, connecting global capital flows; trading systems, safeguarding trillion-dollar financial security."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <h2 class="section-title" data-en="Operations Management" data-zh="运营管理">Operations Management</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 运营管理1 - Claire Chen -->
+            <div class="card-container" id="ops-claire">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/service/jin.jpg" alt="Claire Chen">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Claire Chen</h3>
+                            <p class="teacher-title" data-en="UX Designer & Project Manager" data-zh="用户体验设计师 & 项目经理">UX Designer & Project Manager</p>
+                            <p class="teacher-summary" data-en="Professional UX designer and experienced project manager with 8+ years in digital product design and educational program management. Claire combines user-centered design thinking with strategic project coordination to create exceptional learning experiences and ensure seamless program delivery." data-zh="专业的用户体验设计师和经验丰富的项目经理，拥有8年以上数字产品设计和教育项目管理经验。Claire将用户中心设计思维与战略项目协调相结合，创造卓越的学习体验并确保项目无缝交付。">Professional UX designer and experienced project manager with 8+ years in digital product design and educational program management. Claire combines user-centered design thinking with strategic project coordination to create exceptional learning experiences and ensure seamless program delivery.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="UX Design Expertise" data-zh="用户体验设计专长">UX Design Expertise</h4>
+                                    <ul>
+                                        <li data-en="User research and persona development for educational platforms" data-zh="教育平台用户研究和角色开发">User research and persona development for educational platforms</li>
+                                        <li data-en="Information architecture and user journey mapping" data-zh="信息架构和用户旅程映射">Information architecture and user journey mapping</li>
+                                        <li data-en="Interactive prototype design and usability testing" data-zh="交互原型设计和可用性测试">Interactive prototype design and usability testing</li>
+                                        <li data-en="Design system creation and visual identity development" data-zh="设计系统创建和视觉识别开发">Design system creation and visual identity development</li>
+                                        <li data-en="Accessibility and inclusive design implementation" data-zh="无障碍和包容性设计实施">Accessibility and inclusive design implementation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Project Management Skills" data-zh="项目管理技能">Project Management Skills</h4>
+                                    <ul>
+                                        <li data-en="Agile methodology and sprint planning for educational programs" data-zh="教育项目敏捷方法和冲刺规划">Agile methodology and sprint planning for educational programs</li>
+                                        <li data-en="Cross-functional team coordination and stakeholder management" data-zh="跨职能团队协调和利益相关者管理">Cross-functional team coordination and stakeholder management</li>
+                                        <li data-en="Risk assessment and mitigation strategies" data-zh="风险评估和缓解策略">Risk assessment and mitigation strategies</li>
+                                        <li data-en="Quality assurance and continuous improvement processes" data-zh="质量保证和持续改进流程">Quality assurance and continuous improvement processes</li>
+                                        <li data-en="Performance metrics and success measurement frameworks" data-zh="绩效指标和成功衡量框架">Performance metrics and success measurement frameworks</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Great design is invisible. Great project management is seamless. When both come together, we create experiences that not only meet needs but exceed expectations." data-zh="优秀的设计是无形的。优秀的项目管理是无缝的。当两者结合时，我们创造的不只是满足需求，而是超越期望的体验。">
+                                    "Great design is invisible. Great project management is seamless. When both come together, we create experiences that not only meet needs but exceed expectations."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Educational Innovation" data-zh="教育创新">Educational Innovation</h4>
+                                    <p data-en="Pioneers user-centered design approaches in AI education, creating intuitive learning interfaces and streamlined project workflows. Combines UX research insights with educational psychology to develop engaging, accessible, and effective learning experiences that adapt to diverse student needs and learning styles." data-zh="在AI教育中开创以用户为中心的设计方法，创造直观的学习界面和简化的项目工作流程。将UX研究洞察与教育心理学相结合，开发适应不同学生需求和学习风格的引人入胜、易于访问且有效的学习体验。">Pioneers user-centered design approaches in AI education, creating intuitive learning interfaces and streamlined project workflows. Combines UX research insights with educational psychology to develop engaging, accessible, and effective learning experiences that adapt to diverse student needs and learning styles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 运营管理2 - Alan Peng -->
+            <div class="card-container" id="ops-alan">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/service/alan.png" alt="Alan Peng">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Alan Peng</h3>
+                            <p class="teacher-title" data-en="Teaching Assistant" data-zh="助教">Teaching Assistant</p>
+                            <p class="teacher-summary" data-en="Junior student at Augustana University majoring in Mathematics and Physics, serving as BEEBEE test engineer and assistant Pacer. Alan combines strong academic foundation with practical technical experience to provide comprehensive support and guidance for students mastering AI concepts and skills." data-zh="美国奥古斯塔纳大学大三学生，数学和物理专业，担任BEEBEE测试工程师和助理Pacer。Alan将扎实的学术基础与实践技术经验相结合，为学生掌握AI概念和技能提供全面支持和指导。">Junior student at Augustana University majoring in Mathematics and Physics, serving as BEEBEE test engineer and assistant Pacer. Alan combines strong academic foundation with practical technical experience to provide comprehensive support and guidance for students mastering AI concepts and skills.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Academic Background" data-zh="学术背景">Academic Background</h4>
+                                    <ul>
+                                        <li data-en="Junior student at Augustana University, majoring in Mathematics and Physics" data-zh="美国奥古斯塔纳大学大三学生，数学和物理专业">Junior student at Augustana University, majoring in Mathematics and Physics</li>
+                                        <li data-en="Strong foundation in mathematical modeling and computational methods" data-zh="扎实的数学建模和计算方法基础">Strong foundation in mathematical modeling and computational methods</li>
+                                        <li data-en="Experience in applying theoretical concepts to practical problem solving" data-zh="将理论概念应用于实际问题解决的经验">Experience in applying theoretical concepts to practical problem solving</li>
+                                        <li data-en="Active participation in academic research and collaborative projects" data-zh="积极参与学术研究和协作项目">Active participation in academic research and collaborative projects</li>
+                                        <li data-en="Bilingual proficiency in English and Chinese for international communication" data-zh="中英文双语熟练，适合国际交流">Bilingual proficiency in English and Chinese for international communication</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Professional Experience" data-zh="专业经验">Professional Experience</h4>
+                                    <ul>
+                                        <li data-en="BEEBEE AI test engineer, responsible for quality assurance and system validation" data-zh="BEEBEE AI测试工程师，负责质量保证和系统验证">BEEBEE AI test engineer, responsible for quality assurance and system validation</li>
+                                        <li data-en="Assistant Pacer, providing comprehensive support for educational program coordination" data-zh="助理Pacer，为教育项目协调提供全面支持">Assistant Pacer, providing comprehensive support for educational program coordination</li>
+                                        <li data-en="Technical problem solving and debugging expertise" data-zh="技术问题解决与调试专长">Technical problem solving and debugging expertise</li>
+                                        <li data-en="Code review and best practices guidance" data-zh="代码审查与最佳实践指导">Code review and best practices guidance</li>
+                                        <li data-en="One-on-one tutoring and mentoring for students" data-zh="为学生提供一对一辅导与指导">One-on-one tutoring and mentoring for students</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Mathematics teaches us to think logically, physics shows us how the world works, and AI helps us solve real problems. I'm here to bridge these worlds and guide you through your learning journey." data-zh="数学教会我们逻辑思维，物理展示世界如何运作，AI帮助我们解决实际问题。我在这里连接这些世界，指导您的学习之旅。">
+                                    "Mathematics teaches us to think logically, physics shows us how the world works, and AI helps us solve real problems. I'm here to bridge these worlds and guide you through your learning journey."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Philosophy" data-zh="教学理念">Teaching Philosophy</h4>
+                                    <p data-en="Combines academic rigor with practical application, using real-world examples to make complex AI concepts accessible. Adopts a patient and systematic approach, breaking down complex topics into manageable parts while maintaining the mathematical precision essential for AI understanding." data-zh="将学术严谨性与实际应用相结合，使用现实世界的例子使复杂的AI概念易于理解。采用耐心和系统化的方法，将复杂主题分解为可管理的部分，同时保持对AI理解至关重要的数学精度。">Combines academic rigor with practical application, using real-world examples to make complex AI concepts accessible. Adopts a patient and systematic approach, breaking down complex topics into manageable parts while maintaining the mathematical precision essential for AI understanding.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
