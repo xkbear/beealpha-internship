@@ -53,6 +53,7 @@
             font-weight: bold;
             background: linear-gradient(135deg, #FF6B35, #F7931E);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
@@ -1470,9 +1471,105 @@
             margin-bottom: 12px;
           }
         }
+        
+        /* 浏览器提示条 */
+        .browser-tip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        
+        .browser-tip.show {
+            transform: translateY(0);
+            display: block;
+        }
+        
+        .browser-tip-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            max-width: 100%;
+        }
+        
+        .browser-tip-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .browser-tip-text {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .browser-tip-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 12px;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        
+        .browser-tip-close:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .browser-tip {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            
+            .browser-tip-content {
+                gap: 6px;
+            }
+            
+            .browser-tip-icon {
+                font-size: 14px;
+            }
+            
+            .browser-tip-close {
+                font-size: 16px;
+                width: 20px;
+                height: 20px;
+                margin-left: 8px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- 浏览器提示条 -->
+    <div id="browserTip" class="browser-tip">
+        <div class="browser-tip-content">
+            <span class="browser-tip-icon">🌐</span>
+            <span class="browser-tip-text" data-en="For better experience, please open this website in your browser" data-zh="为获得更好的体验，请用浏览器打开此网站">为获得更好的体验，请用浏览器打开此网站</span>
+            <button class="browser-tip-close" aria-label="关闭提示">&times;</button>
+        </div>
+    </div>
+
     <!-- 导航栏 -->
     <nav>
         <div class="nav-container">
@@ -1540,7 +1637,7 @@
             <div class="teaching-feature">
                 <div class="teaching-icon">🎯</div>
                 <h3 data-en="Main Class + Practice: Real-World Project Mode" data-zh="主课+陪练的实战模式课">主课+陪练的实战模式课</h3>
-                <p data-en="3 sessions per week: 1 main class (1.5h) + 2 practice sessions (1h each), flexible scheduling for holidays" data-zh="每周3次课：1次主课（1.5小时）+2次陪练课（每次1小时），可根据假期时间灵活安排">每周3次课：1次主课（1.5小时）+2次陪练课（每次1小时），可根据假期时间灵活安排</p>
+                <p data-en="3 sessions per week: 1 main class + 2 practice sessions, flexible scheduling for holidays" data-zh="每周3次课：1次主课+2次陪练课，可根据假期时间灵活安排">每周3次课：1次主课+2次陪练课，可根据假期时间灵活安排</p>
             </div>
             <div class="teaching-feature">
                 <div class="teaching-icon">🤖</div>
@@ -1564,7 +1661,7 @@
                 <div class="course-header">
                     <span class="course-level" data-en="Recommended: Age 12+" data-zh="建议12岁以上">建议12岁以上</span>
                     <h3 data-en="Embark Camp: Zero-Code AI Product Development" data-zh="启航营：零代码AI产品开发">启航营：零代码AI产品开发</h3>
-                    <div class="course-suit" data-en="Suitable for: Beginners who want to create simple complete AI applications" data-zh="适合学生：想用AI做出简单完整应用的初学者">适合学生：想用AI做出简单完整应用的初学者</div>
+                    <div class="course-suit" data-en="Suitable for: Beginners who want to create complete AI applications" data-zh="适合学生：想用AI做出完整应用的初学者">适合学生：想用AI做出完整应用的初学者</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
@@ -2758,6 +2855,106 @@
             } else {
                 window.open('letter_en.html', '_blank');
             }
+        });
+
+        // 浏览器提示功能
+        function detectInAppBrowser() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // 检测常见的应用内浏览器
+            const inAppBrowsers = [
+                /FBAN|FBAV/i, // Facebook
+                /Instagram/i, // Instagram
+                /Twitter/i, // Twitter
+                /Line/i, // Line
+                /MicroMessenger/i, // WeChat
+                /QQ\//i, // QQ
+                /AlipayClient/i, // Alipay
+                /DingTalk/i, // DingTalk
+                /MQQBrowser/i, // QQ Browser
+                /UCBrowser/i, // UC Browser
+                /baiduboxapp/i, // Baidu
+                /SogouMobileBrowser/i, // Sogou
+                /baidubrowser/i, // Baidu Browser
+                /MiuiBrowser/i, // MIUI Browser
+                /HuaweiBrowser/i, // Huawei Browser
+                /VivoBrowser/i, // Vivo Browser
+                /SamsungBrowser/i, // Samsung Browser (部分情况)
+                /NewsArticle/i, // 新闻应用
+                /com\.tencent/i, // 腾讯系应用
+                /com\.sina/i, // 新浪系应用
+                /TikTok/i, // TikTok
+                /BytedanceWebview/i, // 字节跳动系应用
+                /musical_ly/i, // TikTok早期版本
+                /aweme/i, // 抖音国际版
+                /SnapchatPageView/i, // Snapchat
+                /WhatsApp/i, // WhatsApp
+                /Telegram/i, // Telegram
+                /Pinterest/i, // Pinterest
+                /LinkedIn/i, // LinkedIn
+                /YandexSearch/i, // Yandex
+                /GSA\//i, // Google App
+                /Googlebot/i, // Google Bot
+                /bingbot/i, // Bing Bot
+                /twitterbot/i, // Twitter Bot
+                /facebookexternalhit/i, // Facebook外部访问
+                /LinkedInBot/i, // LinkedIn Bot
+                /PinterestBot/i, // Pinterest Bot
+                /SkypeUriPreview/i, // Skype预览
+                /SlackBot/i, // Slack Bot
+                /WhatsApp/i, // WhatsApp预览
+                /TelegramBot/i, // Telegram Bot
+                /redditbot/i, // Reddit Bot
+                /Applebot/i // Apple Bot
+            ];
+            
+            return inAppBrowsers.some(regex => regex.test(userAgent));
+        }
+        
+        function showBrowserTip() {
+            const browserTip = document.getElementById('browserTip');
+            const tipShown = safeLocalStorage.getItem('browser-tip-shown');
+            
+            // 如果用户已经关闭过提示，则不再显示
+            if (tipShown === 'true') {
+                return;
+            }
+            
+            // 检测是否在应用内浏览器中
+            if (detectInAppBrowser()) {
+                browserTip.classList.add('show');
+                
+                // 3秒后自动显示动画
+                setTimeout(() => {
+                    browserTip.style.display = 'block';
+                }, 1000);
+            }
+        }
+        
+        function hideBrowserTip() {
+            const browserTip = document.getElementById('browserTip');
+            browserTip.classList.remove('show');
+            
+            // 记住用户的选择
+            safeLocalStorage.setItem('browser-tip-shown', 'true');
+            
+            setTimeout(() => {
+                browserTip.style.display = 'none';
+            }, 300);
+        }
+        
+        // 浏览器提示关闭按钮事件
+        document.querySelector('.browser-tip-close').addEventListener('click', hideBrowserTip);
+        
+        // 点击提示条外部不关闭，只有点击关闭按钮才关闭
+        document.getElementById('browserTip').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // 页面加载完成后检测并显示提示
+        document.addEventListener('DOMContentLoaded', () => {
+            // 延迟检测，确保页面完全加载
+            setTimeout(showBrowserTip, 2000);
         });
     </script>
 </body>
