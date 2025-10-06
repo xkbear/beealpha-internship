@@ -224,8 +224,8 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
         
         .course-card {
@@ -244,10 +244,38 @@
             box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2);
         }
         
+        /* 不同课程卡片的hover效果 */
+        .course-card:nth-child(1):hover {
+            box-shadow: 0 20px 50px rgba(74, 144, 226, 0.25);
+        }
+        
+        .course-card:nth-child(2):hover {
+            box-shadow: 0 20px 50px rgba(78, 205, 196, 0.25);
+        }
+        
+        .course-card:nth-child(3):hover {
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.25);
+        }
+        
         .course-header {
             padding: 30px;
             background: linear-gradient(135deg, #FF6B35, #F7931E);
             color: white;
+        }
+        
+        /* Pin公开课 - 浅蓝色 */
+        .course-card:nth-child(1) .course-header {
+            background: linear-gradient(135deg, #5B9BD5, #4A90E2);
+        }
+        
+        /* ZERO启航 - 蓝绿过渡色 */
+        .course-card:nth-child(2) .course-header {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+        }
+        
+        /* Alpha远航 - 橙色（保持原色） */
+        .course-card:nth-child(3) .course-header {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
         }
         
         .course-level {
@@ -266,14 +294,8 @@
         
         /* 英文标题字体大小优化，确保模块高度一致 */
         .course-header h3[data-en] {
-            font-size: 24px;
-            line-height: 1.3;
-        }
-        
-        /* 针对远航营特别长的英文标题进一步优化 */
-        .course-card:nth-child(2) .course-header h3[data-en] {
             font-size: 22px;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         
         .course-price {
@@ -307,10 +329,12 @@
         }
         
         .course-features li {
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #eee;
             position: relative;
             padding-left: 25px;
+            line-height: 1.8;
+            min-height: 45px;
         }
         
         .course-features li:last-child {
@@ -341,6 +365,19 @@
         
         .enroll-button:hover {
             opacity: 0.9;
+        }
+        
+        /* 不同课程卡片的按钮颜色 */
+        .course-card:nth-child(1) .enroll-button {
+            background: linear-gradient(135deg, #5B9BD5, #4A90E2);
+        }
+        
+        .course-card:nth-child(2) .enroll-button {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+        }
+        
+        .course-card:nth-child(3) .enroll-button {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
         }
         
         /* 学生作品展示 */
@@ -1594,8 +1631,8 @@
 
     <!-- 英雄区域 -->
     <section id="home" class="hero">
-        <h1 data-en="Learn to create with AI, not just consume it" data-zh="学习用<span class='highlight'>AI输出生产力</span>，而不只是成为消费者">学习用<span class='highlight'>AI输出生产力</span>，而不只是成为消费者</h1>
-        <p class="subtitle" data-en="Bee Alpha AI Internship  - Learn AI, Shape the Future" data-zh="Bee Alpha 高中AI实习营 - 学AI，创未来">Bee Alpha 高中AI实习营 - 学AI，创未来</p>
+        <h1 data-en="Become an AI Creator, Not Just a Consumer" data-zh="成为<span class='highlight'>AI时代的创造者</span>，而不只是消费者">成为<span class='highlight'>AI时代的创造者</span>，而不只是消费者</h1>
+        <p class="subtitle" data-en="BEE Alpha Three-Stage Course System - Learn AI, Shape the Future" data-zh="BEE Alpha 三阶课程体系 - 学AI，创未来">BEE Alpha 三阶课程体系 - 学AI，创未来</p>
         <a href="#courses" class="cta-button" data-en="Explore Courses" data-zh="了解课程详情">Explore Courses</a>
     </section>
 
@@ -1636,8 +1673,8 @@
         <div class="teaching-features">
             <div class="teaching-feature">
                 <div class="teaching-icon">🎯</div>
-                <h3 data-en="Main Class + Practice: Real-World Project Mode" data-zh="主课+陪练的实战模式课">主课+陪练的实战模式课</h3>
-                <p data-en="3 sessions per week: 1 main class + 2 practice sessions, flexible scheduling for holidays" data-zh="每周3次课：1次主课+2次陪练课，可根据假期时间灵活安排">每周3次课：1次主课+2次陪练课，可根据假期时间灵活安排</p>
+                <h3 data-en="Theory + Practice: Real-World Project Mode" data-zh="理论+实践的实战模式课">理论+实践的实战模式课</h3>
+                <p data-en="2 sessions per week: both theory + practice courses, flexible scheduling for holidays" data-zh="每周2次课：两次均为理论+实践课程，可根据假期时间灵活安排">每周2次课：两次均为理论+实践课程，可根据假期时间灵活安排</p>
             </div>
             <div class="teaching-feature">
                 <div class="teaching-icon">🤖</div>
@@ -1654,43 +1691,67 @@
 
     <!-- 课程介绍 -->
     <section id="courses" class="courses">
-        <h2 data-en="Two Camps to Make AI Toolchain Work for You" data-zh="两大实习营，让AI工具链为你所用">两大实习营，让AI工具链为你所用</h2>
+        <h2 data-en="Three Courses: From Beginner to AI Product Master" data-zh="三门课程：从入门到AI产品大师">三门课程：从入门到AI产品大师</h2>
         <div class="course-container">
-            <!-- 启航营 -->
+            <!-- Pin公开课 -->
             <div class="course-card">
                 <div class="course-header">
-                    <span class="course-level" data-en="Recommended: Age 12+" data-zh="建议12岁以上">建议12岁以上</span>
-                    <h3 data-en="Genesis Camp: Zero-Code AI Product Development" data-zh="启航营：零代码AI产品开发">启航营：零代码AI产品开发</h3>
-                    <div class="course-suit" data-en="Suitable for: Beginners who want to create complete AI applications" data-zh="适合学生：想用AI做出完整应用的初学者">适合学生：想用AI做出完整应用的初学者</div>
+                    <span class="course-level" data-en="No Age Limit" data-zh="不限年龄">不限年龄</span>
+                    <h3 data-en="Pin's AI Ten Questions" data-zh="Pin的AI十问">Pin的AI十问</h3>
+                    <div class="course-suit" data-en="Suitable for: Students and parents interested in AI" data-zh="适合学生：对AI感兴趣的中学生及家长">适合学生：对AI感兴趣的中学生及家长</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
-                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="6 weeks, 3 sessions per week: 1 main class (1.5h) + 2 practice sessions (1h each) + 3h intensive Demo Day, flexible scheduling for holidays" data-zh="6周，每周3次课：1次主课（1.5小时）+2次陪练课（每次1小时）+3小时高强度Demo Day，可根据假期时间灵活安排">6周，每周3次课：1次主课（1.5小时）+2次陪练课（每次1小时）+3小时高强度Demo Day，可根据假期时间灵活安排</span></p>
-                        <p class="course-req" data-en="Admission: Good math and language skills, basic coding preferred." data-zh="招生要求：数学和语言能力良好，会简单编程更优。">招生要求：数学和语言能力良好，会简单编程更优。</p>
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="1 session, 1.5 hours, flexible scheduling" data-zh="1次课，1.5小时，可灵活安排时间">1次课，1.5小时，可灵活安排时间</span></p>
+                        <p class="course-req" data-en="Admission: Open to all, no prerequisites." data-zh="招生要求：无门槛，所有人均可参加。">招生要求：无门槛，所有人均可参加。</p>
+                        <p style="margin-top:10px;"><strong data-en="Website: " data-zh="课程网站：">Website: </strong><a href="https://bee-zero.org" target="_blank" style="color:#4A90E2;text-decoration:none;">bee-zero.org</a></p>
                     </div>
                     <ul class="course-features">
-                        <li data-en="Zero-code creation of intelligent agents and knowledge bases" data-zh="零代码制作智能体和知识库">✓ 零代码制作智能体和知识库</li>
-                        <li data-en="Use Claude to automatically generate various programs" data-zh="用Claude自动生成各种程序">✓ 用Claude自动生成各种程序</li>
-                        <li data-en="Master Prompt engineering and AI conversation techniques" data-zh="掌握Prompt工程和AI对话技巧">✓ 掌握Prompt工程和AI对话技巧</li>
-                        <li data-en="Create intelligent agents with built-in APIs" data-zh="创建内置API的智能体">✓ 创建内置API的智能体</li>
-                        <li data-en="Connect MCP to implement more functions" data-zh="连接MCP实现更多功能">✓ 连接MCP实现更多功能</li>
-                        <li data-en="Own a publicly released AI product" data-zh="拥有公开发布的AI产品">✓ 拥有公开发布的AI产品</li>
-                        <li data-en="Complete intensive Demo Day presentation (3h)" data-zh="完成高强度Demo Day路演（3小时）">✓ 完成高强度Demo Day路演（3小时）</li>
+                        <li data-en="Is AI a threat or a superpower?" data-zh="AI是威胁还是超能力？">✅ AI是威胁还是超能力？<br><span style="font-size:13px;color:#666;margin-left:20px;">——打碎认知边界，理解AI真正的力量。</span></li>
+                        <li data-en="Why is 'asking questions' more important than 'having answers'?" data-zh="为什么&ldquo;会提问&rdquo;比&ldquo;有答案&rdquo;更重要？">✅ 为什么&ldquo;会提问&rdquo;比&ldquo;有答案&rdquo;更重要？<br><span style="font-size:13px;color:#666;margin-left:20px;">——掌握AI时代的核心学习能力。</span></li>
+                        <li data-en="Has the meaning of programming changed?" data-zh="编程的意义是否改变了？">✅ 编程的意义是否改变了？<br><span style="font-size:13px;color:#666;margin-left:20px;">——从写代码到让计算机理解人类语言。</span></li>
+                        <li data-en="How can AI help us turn interests into creation?" data-zh="AI如何帮助我们把兴趣变成创造？">✅ AI如何帮助我们把兴趣变成创造？<br><span style="font-size:13px;color:#666;margin-left:20px;">——从学习者走向创作者。</span></li>
+                        <li data-en="How should we coexist with AI for the future?" data-zh="面向未来，我们该如何与AI共生？">✅ 面向未来，我们该如何与AI共生？<br><span style="font-size:13px;color:#666;margin-left:20px;">——看清职业、教育与人生的全新坐标。</span></li>
                     </ul>
                     <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
                 </div>
             </div>
 
-            <!-- 远航营 -->
+            <!-- ZERO 启航 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <span class="course-level" data-en="No Age Limit" data-zh="不限年龄">不限年龄</span>
+                    <h3 data-en="ZERO Embark: From Idea to Product" data-zh="ZERO 启航：从想法到产品">ZERO 启航：从想法到产品</h3>
+                    <div class="course-suit" data-en="Suitable for: Students who want to turn ideas into real products" data-zh="适合学生：想将创意变成真实产品的中学生">适合学生：想将创意变成真实产品的中学生</div>
+                </div>
+                <div class="course-body">
+                    <div class="course-info">
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="3 sessions (1.5h each): Wen, Wu, He - Question, Practice, Create" data-zh="3次课（每次1.5小时）：文、武、合 - 提问、实践、创造">3次课（每次1.5小时）：文、武、合 - 提问、实践、创造</span></p>
+                        <p class="course-req" data-en="Admission: Good thinking ability, willing to explore and create." data-zh="招生要求：思维能力良好，愿意探索和创造。">招生要求：思维能力良好，愿意探索和创造。</p>
+                    </div>
+                    <ul class="course-features">
+                        <li data-en="Lesson 1 - Wen: Master C.R.A.F.T. questioning framework" data-zh="第一课 - 文：掌握C.R.A.F.T.提问框架">✓ 第一课 - 文：掌握C.R.A.F.T.提问框架</li>
+                        <li data-en="Learn Johari Window model to expand cognition" data-zh="学习乔哈里窗模型扩展认知">✓ 学习乔哈里窗模型扩展认知</li>
+                        <li data-en="Lesson 2 - Wu: JTBD analysis and Story Mapping" data-zh="第二课 - 武：JTBD分析与故事地图">✓ 第二课 - 武：JTBD分析与故事地图</li>
+                        <li data-en="Apply Kano Model for feature prioritization" data-zh="运用卡诺模型进行功能优先级排序">✓ 运用卡诺模型进行功能优先级排序</li>
+                        <li data-en="Lesson 3 - He: Claude + Netlify Build in Public" data-zh="第三课 - 合：Claude + Netlify公开构建">✓ 第三课 - 合：Claude + Netlify公开构建</li>
+                        <li data-en="Create and deploy your first AI product" data-zh="创造并部署你的第一个AI产品">✓ 创造并部署你的第一个AI产品</li>
+                        <li data-en="Complete the cognitive loop: Question → Practice → Create" data-zh="完成认知闭环：提问→实践→创造">✓ 完成认知闭环：提问→实践→创造</li>
+                    </ul>
+                    <a href="#" class="enroll-button inquiry-btn" data-en="Inquire Now" data-zh="立即咨询">Inquire Now</a>
+                </div>
+            </div>
+
+            <!-- Alpha 远航 -->
             <div class="course-card">
                 <div class="course-header">
                     <span class="course-level" data-en="Recommended: Age 15+" data-zh="建议15岁以上">建议15岁以上</span>
-                    <h3 data-en="Odyssey Camp: AI Full-Stack Product Development" data-zh="远航营：AI全栈产品开发">远航营：AI全栈产品开发</h3>
+                    <h3 data-en="Alpha Odyssey: AI Full-Stack Product Development" data-zh="Alpha 远航：AI全栈产品开发">Alpha 远航：AI全栈产品开发</h3>
                     <div class="course-suit" data-en="Suitable for: Aspiring AI developers or entrepreneurs" data-zh="适合学生：目标成为AI开发者或创业者">适合学生：目标成为AI开发者或创业者</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
-                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="8 weeks, 3 sessions per week: 1 main class (1.5h) + 2 practice sessions (1.5h each) + 4h intensive Demo Day, flexible scheduling for holidays" data-zh="8周，每周3次课：1次主课（1.5小时）+2次陪练课（每次1.5小时）+4小时高强度Demo Day，可根据假期时间灵活安排">8周，每周3次课：1次主课（1.5小旲）+2次陪练课（每次1.5小时）+4小时高强度Demo Day，可根据假期时间灵活安排</span></p>
+                        <p><strong data-en="Duration: " data-zh="课程时长：">Duration: </strong><span data-en="8 weeks, 2 sessions per week: both theory + practice courses (1.5h each). Final 4h intensive Demo Day, flexible scheduling for holidays" data-zh="8周，每周2次课：两次均为理论+实践课程（每次1.5小时）。结营4小时高强度Demo Day，可根据假期时间灵活安排">8周，每周2次课：两次均为理论+实践课程（每次1.5小时）。结营4小时高强度Demo Day，可根据假期时间灵活安排</span></p>
                         <p class="course-req" data-en="Admission: Any backend or frontend coding foundation, with code samples preferred." data-zh="招生要求：任意后端或前端语言基础，有相对完整代码展示更优。">招生要求：任意后端或前端语言基础，有相对完整代码展示更优。</p>
                     </div>
                     <ul class="course-features">
@@ -1707,8 +1768,8 @@
             </div>
         </div>
         <div class="course-notes" style="max-width:800px;margin:40px auto 0 auto;text-align:center;color:#888;font-size:15px;line-height:2;">
-            <div data-en="Age & Language: No age limit, recommended for Age 12+ (Embark), 15+ (Horizon), both Chinese and English supported." data-zh="年龄和语言：没有年龄限制，建议启航营12岁以上，远航营15岁以上，中英文均可。">年龄和语言：没有年龄限制，建议启航营12岁以上，远航营15岁以上，中英文均可。</div>
-            <div data-en="Interview: All applicants will be interviewed. If unable to complete the course, remaining tuition will be refunded." data-zh="面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。">面试要求：均会进行面试，通过后如无法顺利结业，会退还剩余时间学费。</div>
+            <div data-en="Age & Language: Pin's Ten Questions (No age limit), ZERO Embark (No age limit), Alpha Odyssey (15+), both Chinese and English supported." data-zh="年龄和语言：Pin的AI十问（不限年龄），ZERO启航（不限年龄），Alpha远航建议15岁以上，中英文均可。">年龄和语言：Pin的AI十问（不限年龄），ZERO启航（不限年龄），Alpha远航建议15岁以上，中英文均可。</div>
+            <div data-en="Course Path: Pin's Ten Questions (Free) → ZERO Embark (3 sessions) → Alpha Odyssey (8 weeks), progressive learning system." data-zh="课程路径：Pin的AI十问（免费）→ ZERO启航（3次课）→ Alpha远航（8周），循序渐进的学习体系。">课程路径：Pin的AI十问（免费）→ ZERO启航（3次课）→ Alpha远航（8周），循序渐进的学习体系。</div>
             <div class="highlight-tip" data-en="For course and mentor details, please consult our staff." data-zh="如需课程及导师详情，请向我们工作人员咨询">如需课程及导师详情，请向我们工作人员咨询</div>
         </div>
     </section>
@@ -2025,7 +2086,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="No worries! Genesis Camp is designed for beginners and will teach you the basics. If you want to get ahead, learning some Python is helpful, but not required. For Odyssey Camp, some coding experience is better, but we'll help you catch up if you're motivated!" data-zh="没关系！启航营专为零基础同学设计，会带你入门。如果想提前预习，学点Python会更顺利。远航营建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！">没关系！启航营专为零基础同学设计，会带你入门。如果想提前预习，学点Python会更顺利。远航营建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！</p>
+                    <p data-en="No worries! Pin's AI Ten Questions and ZERO Embark are designed for beginners with no coding required. ZERO focuses on thinking methodology and using AI tools (Claude + Netlify) to create products. For Alpha Odyssey, some coding experience is better, but we'll help you catch up if you're motivated!" data-zh="没关系！Pin的AI十问和ZERO启航专为零基础设计，不需要编程基础。ZERO课程重点是思维方法论和使用AI工具（Claude + Netlify）创造产品。Alpha远航建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！">没关系！Pin的AI十问和ZERO启航专为零基础设计，不需要编程基础。ZERO课程重点是思维方法论和使用AI工具（Claude + Netlify）创造产品。Alpha远航建议有一定编程基础，但只要你有兴趣，我们会帮你跟上！</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -2034,7 +2095,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="For Genesis Camp, any laptop with 16GB+ RAM is fine. For Odyssey Camp, a computer with an NVIDIA GPU is best, but we also provide cloud environments. We'll help you set up everything before class!" data-zh="启航营用普通笔记本（16G内存以上）就行。远航营建议有NVIDIA显卡的电脑，或者用我们提供的云端环境。开课前我们会帮你全部配置好！">启航营用普通笔记本（16G内存以上）就行。远航营建议有NVIDIA显卡的电脑，或者用我们提供的云端环境。开课前我们会帮你全部配置好！</p>
+                    <p data-en="For Pin's AI Ten Questions and ZERO Embark, any laptop with internet access is fine. ZERO only requires a web browser to use Claude and Netlify. For Alpha Odyssey, a computer with 16GB+ RAM is recommended, and NVIDIA GPU is best, but we also provide cloud environments. We'll help you set up everything before class!" data-zh="Pin的AI十问和ZERO启航只需要能上网的笔记本即可。ZERO课程只需要浏览器使用Claude和Netlify。Alpha远航建议16G内存以上，有NVIDIA显卡更好，或者用我们提供的云端环境。开课前我们会帮你全部配置好！">Pin的AI十问和ZERO启航只需要能上网的笔记本即可。ZERO课程只需要浏览器使用Claude和Netlify。Alpha远航建议16G内存以上，有NVIDIA显卡更好，或者用我们提供的云端环境。开课前我们会帮你全部配置好！</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -2061,7 +2122,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p data-en="Not at all! The schedule is flexible: 3 sessions per week (1 main class + 2 practice sessions), and you can adjust for holidays or your own time. We offer multi-timezone slots, so everyone can find a schedule that fits." data-zh="不会！课程安排灵活，每周只需3次课（1次主课+2次陪练课），可以根据假期和个人时间调整。我们有多时区排课，大家都能找到合适的时间。">不会！课程安排灵活，每周只需3次课（1次主课+2次陪练课），可以根据假期和个人时间调整。我们有多时区排课，大家都能找到合适的时间。</p>
+                    <p data-en="Not at all! The schedule is flexible: 2 sessions per week (both theory + practice courses), and you can adjust for holidays or your own time. We offer multi-timezone slots, so everyone can find a schedule that fits." data-zh="不会！课程安排灵活，每周只需2次课（两次均为理论+实践课程），可以根据假期和个人时间调整。我们有多时区排课，大家都能找到合适的时间。">不会！课程安排灵活，每周只需2次课（两次均为理论+实践课程），可以根据假期和个人时间调整。我们有多时区排课，大家都能找到合适的时间。</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -2097,8 +2158,8 @@
     <!-- 页脚 -->
     <footer id="contact">
         <div class="footer-content">
-            <h3 style="margin-bottom: 20px;" data-en="Join Bee Alpha Internship Now!" data-zh="立即加入 Bee Alpha 实习营！">立即加入 Bee Alpha 实习营！</h3>
-            <p style="margin-bottom: 30px;" data-en="Learn to output productivity with AI, not just be a consumer" data-zh="学习用AI输出生产力，而不只是成为消费者">学习用AI输出生产力，而不只是成为消费者</p>
+            <h3 style="margin-bottom: 20px;" data-en="Join BEE Alpha Three-Stage Course System Now!" data-zh="立即加入 BEE Alpha 三阶课程体系！">立即加入 BEE Alpha 三阶课程体系！</h3>
+            <p style="margin-bottom: 30px;" data-en="Become an AI creator, not just a consumer" data-zh="成为AI时代的创造者，而不只是消费者">成为AI时代的创造者，而不只是消费者</p>
             
             <div class="contact-info">
                 <h4 data-en="Contact Us" data-zh="联系我们">Contact Us</h4>
@@ -2157,7 +2218,7 @@
                 
                 <div class="form-group">
                     <label data-en="Message *" data-zh="咨询说明 *">Message *</label>
-                    <textarea id="message" name="message" rows="2" required data-en="I would like to inquire about Bee Alpha summer internship, please contact me." data-zh="我想咨询Bee Alpha暑期实习，请联系我。">I would like to inquire about Bee Alpha summer internship, please contact me.</textarea>
+                    <textarea id="message" name="message" rows="2" required data-en="I would like to inquire about BEE Alpha courses, please contact me." data-zh="我想咨询BEE Alpha课程，请联系我。">I would like to inquire about BEE Alpha courses, please contact me.</textarea>
                 </div>
                 
                 <div class="form-actions" style="display: flex; gap: 16px; margin-top: 5px;">
