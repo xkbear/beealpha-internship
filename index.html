@@ -257,6 +257,14 @@
             box-shadow: 0 20px 50px rgba(255, 107, 53, 0.25);
         }
         
+        .course-card:nth-child(4):hover {
+            box-shadow: 0 20px 50px rgba(155, 89, 182, 0.25);
+        }
+        
+        .course-card:nth-child(5):hover {
+            box-shadow: 0 20px 50px rgba(52, 73, 94, 0.25);
+        }
+        
         .course-header {
             padding: 30px;
             background: linear-gradient(135deg, #FF6B35, #F7931E);
@@ -276,6 +284,14 @@
         /* Alpha远航 - 橙色（保持原色） */
         .course-card:nth-child(3) .course-header {
             background: linear-gradient(135deg, #FF6B35, #F7931E);
+        }
+        
+        .course-card:nth-child(4) .course-header {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+        }
+        
+        .course-card:nth-child(5) .course-header {
+            background: linear-gradient(135deg, #34495E, #2C3E50);
         }
         
         .course-level {
@@ -378,6 +394,231 @@
         
         .course-card:nth-child(3) .enroll-button {
             background: linear-gradient(135deg, #FF6B35, #F7931E);
+        }
+        
+        .course-card:nth-child(4) .enroll-button {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+        }
+        
+        .course-card:nth-child(5) .enroll-button {
+            background: linear-gradient(135deg, #34495E, #2C3E50);
+        }
+        
+        /* 进阶课程 - 横排卡片 */
+        .advanced-courses {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .advanced-courses h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .horizontal-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .horizontal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+        
+        .horizontal-card-header {
+            padding: 40px;
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+            color: white;
+        }
+        
+        .orbiter-card .horizontal-card-header {
+            background: linear-gradient(135deg, #34495E, #2C3E50);
+        }
+        
+        .card-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .horizontal-card-header h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .card-description {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        
+        .horizontal-card-body {
+            padding: 40px;
+        }
+        
+        .card-info-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .info-label {
+            font-size: 13px;
+            color: #999;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .course-list h4 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .course-grid span {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .starry-card .course-grid span:hover {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .horizontal-button {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .starry-button {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD);
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        }
+        
+        .starry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+        }
+        
+        .orbiter-button {
+            background: linear-gradient(135deg, #34495E, #2C3E50);
+            box-shadow: 0 5px 20px rgba(52, 73, 94, 0.3);
+        }
+        
+        .orbiter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.4);
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .horizontal-card-header {
+                padding: 30px 20px;
+            }
+            
+            .horizontal-card-header h3 {
+                font-size: 24px;
+            }
+            
+            .horizontal-card-body {
+                padding: 25px 20px;
+            }
+            
+            .card-info-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .course-grid span {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
         }
         
         /* 学生作品展示 */
@@ -1691,7 +1932,7 @@
 
     <!-- 课程介绍 -->
     <section id="courses" class="courses">
-        <h2 data-en="Three Courses: From Beginner to AI Product Master" data-zh="三门课程：从入门到AI产品大师">三门课程：从入门到AI产品大师</h2>
+        <h2 data-en="Three-Stage Core Curriculum: From Beginner to AI Product Master" data-zh="三阶核心课程：从入门到AI产品大师">三阶核心课程：从入门到AI产品大师</h2>
         <div class="course-container">
             <!-- Pin公开课 -->
             <div class="course-card">
@@ -1722,7 +1963,7 @@
                 <div class="course-header">
                     <span class="course-level" data-en="No Age Limit" data-zh="不限年龄">不限年龄</span>
                     <h3 data-en="ZERO Embark: From Idea to Product" data-zh="ZERO 启航：从想法到产品">ZERO 启航：从想法到产品</h3>
-                    <div class="course-suit" data-en="Suitable for: Students who want to turn ideas into real products" data-zh="适合学生：想将创意变成真实产品的中学生">适合学生：想将创意变成真实产品的中学生</div>
+                    <div class="course-suit" data-en="Suitable for: Students who want to turn ideas into real products" data-zh="适合学生：想将创意变成真实产品的任何人">适合学生：想将创意变成真实产品的任何人</div>
                 </div>
                 <div class="course-body">
                     <div class="course-info">
@@ -1771,6 +2012,95 @@
             <div data-en="Age & Language: Pin's Ten Questions (No age limit), ZERO Embark (No age limit), Alpha Odyssey (15+), both Chinese and English supported." data-zh="年龄和语言：Pin的AI十问（不限年龄），ZERO启航（不限年龄），Alpha远航建议15岁以上，中英文均可。">年龄和语言：Pin的AI十问（不限年龄），ZERO启航（不限年龄），Alpha远航建议15岁以上，中英文均可。</div>
             <div data-en="Course Path: Pin's Ten Questions (Free) → ZERO Embark (3 sessions) → Alpha Odyssey (8 weeks), progressive learning system." data-zh="课程路径：Pin的AI十问（免费）→ ZERO启航（3次课）→ Alpha远航（8周），循序渐进的学习体系。">课程路径：Pin的AI十问（免费）→ ZERO启航（3次课）→ Alpha远航（8周），循序渐进的学习体系。</div>
             <div class="highlight-tip" data-en="For course and mentor details, please consult our staff." data-zh="如需课程及导师详情，请向我们工作人员咨询">如需课程及导师详情，请向我们工作人员咨询</div>
+        </div>
+    </section>
+
+    <!-- 进阶课程 -->
+    <section class="advanced-courses">
+        <h2 data-en="Advanced & Coaching Programs" data-zh="进阶与陪练课程">进阶与陪练课程</h2>
+        <p class="section-subtitle" data-en="Exclusive programs for Alpha/Beta students to achieve professional excellence" data-zh="专为Alpha/Beta学员打造的专业提升与持续陪伴">专为Alpha/Beta学员打造的专业提升与持续陪伴</p>
+        
+        <!-- Starry 繁星课程 - 横排卡片 -->
+        <div class="horizontal-card starry-card">
+            <div class="horizontal-card-header">
+                <div class="card-badge" data-en="For Alpha/Beta Students" data-zh="面向Alpha/Beta学员">面向Alpha/Beta学员</div>
+                <h3 data-en="Starry: Professional Advanced Courses" data-zh="Starry 繁星：专业进阶课">Starry 繁星：专业进阶课</h3>
+                <p class="card-description" data-en="Complete advanced AI courses from beginner to expert, focusing on professional skills to reach industry mid-to-high level" data-zh="完成从入门到精通的进阶AI课程，着力提升专业能力，达到行业中上水平">完成从入门到精通的进阶AI课程，着力提升专业能力，达到行业中上水平</p>
+            </div>
+            <div class="horizontal-card-body">
+                <div class="card-info-row">
+                    <div class="info-item">
+                        <span class="info-label" data-en="Duration" data-zh="课程时长">课程时长</span>
+                        <span class="info-value" data-en="4 weeks, 1 main + 1 check/week" data-zh="4周，每周1次主课+1次作业检查">4周，每周1次主课+1次作业检查</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Class Size" data-zh="班级规模">班级规模</span>
+                        <span class="info-value" data-en="4-6 students" data-zh="4-6人小班制">4-6人小班制</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Language" data-zh="授课语言">授课语言</span>
+                        <span class="info-value" data-en="Chinese" data-zh="中文">中文</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Instructors" data-zh="讲师团队">讲师团队</span>
+                        <span class="info-value" data-en="Top Industry Engineers" data-zh="顶尖一线工程师">顶尖一线工程师</span>
+                    </div>
+                </div>
+                <div class="course-list">
+                    <h4 data-en="12 Specialized Courses Available:" data-zh="12门专业课程可选：">12门专业课程可选：</h4>
+                    <div class="course-grid">
+                        <span data-en="Browser Performance" data-zh="浏览器性能优化">浏览器性能优化</span>
+                        <span data-en="AI Frontend Workflow" data-zh="AI前端工作流">AI前端工作流</span>
+                        <span data-en="Cross-platform Dev" data-zh="跨平台开发">跨平台开发</span>
+                        <span data-en="Model Fine-tuning" data-zh="模型微调实战">模型微调实战</span>
+                        <span data-en="RAG Architecture" data-zh="RAG架构优化">RAG架构优化</span>
+                        <span data-en="Cursor Advanced" data-zh="Cursor高阶">Cursor高阶</span>
+                        <span data-en="Data Collection" data-zh="数据采集">数据采集</span>
+                        <span data-en="MCP & Agent" data-zh="MCP智能体">MCP智能体</span>
+                        <span data-en="Docker & DevOps" data-zh="Docker运维">Docker运维</span>
+                        <span data-en="Kubernetes" data-zh="K8s集群">K8s集群</span>
+                        <span data-en="Transformer & LLM" data-zh="Transformer架构">Transformer架构</span>
+                        <span data-en="Enterprise AI Bot" data-zh="企业AI Bot">企业AI Bot</span>
+                    </div>
+                </div>
+                <a href="#" class="horizontal-button inquiry-btn starry-button" data-en="Inquire Now" data-zh="立即咨询">立即咨询</a>
+            </div>
+        </div>
+
+        <!-- Orbiter 伴星课程 - 横排卡片 -->
+        <div class="horizontal-card orbiter-card">
+            <div class="horizontal-card-header">
+                <div class="card-badge" data-en="For Graduated Students" data-zh="面向已毕业学员">面向已毕业学员</div>
+                <h3 data-en="Orbiter: 1-on-1 Coaching" data-zh="Orbiter 伴星：1v1陪练课">Orbiter 伴星：1v1陪练课</h3>
+                <p class="card-description" data-en="Personalized coaching for graduated students, leveraging our strong engineering team for 1-on-1 product upgrade support" data-zh="针对已毕业学员，依托强大工程讲师队伍，开展1v1产品升级陪伴式学习">针对已毕业学员，依托强大工程讲师队伍，开展1v1产品升级陪伴式学习</p>
+            </div>
+            <div class="horizontal-card-body">
+                <div class="card-info-row">
+                    <div class="info-item">
+                        <span class="info-label" data-en="Format" data-zh="课程形式">课程形式</span>
+                        <span class="info-value" data-en="Online 1-on-1" data-zh="线上1对1">线上1对1</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Duration" data-zh="每次时长">每次时长</span>
+                        <span class="info-value" data-en="1 hour/session" data-zh="1小时/次">1小时/次</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Mentor" data-zh="指导老师">指导老师</span>
+                        <span class="info-value" data-en="Engineering Mentors" data-zh="工程导师">工程导师</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label" data-en="Eligibility" data-zh="招生对象">招生对象</span>
+                        <span class="info-value" data-en="Alpha/Beta Graduates" data-zh="Alpha/Beta毕业生">Alpha/Beta毕业生</span>
+                    </div>
+                </div>
+                <div class="features-list">
+                    <div class="feature-item">✓ <span data-en="1-on-1 personalized coaching with engineering mentors" data-zh="工程导师1对1个性化指导">工程导师1对1个性化指导</span></div>
+                    <div class="feature-item">✓ <span data-en="Goal-oriented practice, no theoretical lectures" data-zh="目标导向实践，无理论宣讲">目标导向实践，无理论宣讲</span></div>
+                    <div class="feature-item">✓ <span data-en="Product upgrade and enhancement coaching" data-zh="产品升级与优化陪伴式学习">产品升级与优化陪伴式学习</span></div>
+                    <div class="feature-item">✓ <span data-en="Reinforcement of learned course content only" data-zh="仅对已学课程的强化陪练">仅对已学课程的强化陪练</span></div>
+                </div>
+                <a href="#" class="horizontal-button inquiry-btn orbiter-button" data-en="Inquire Now" data-zh="立即咨询">立即咨询</a>
+            </div>
         </div>
     </section>
 
