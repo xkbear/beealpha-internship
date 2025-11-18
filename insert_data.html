@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Invite Code Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div id="status"></div>
+    <script>
+        const supabaseUrl = 'https://hzimjwfaeitpodmlfayn.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6aW1qd2ZhZWl0cG9kbWxmYXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MTEyNTAsImV4cCI6MjA2NDE4NzI1MH0.TXmUC1MCysuhPMtYGMTacgWRptuPunexiqxk1Z1cZJU';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        async function insertData() {
+            const statusDiv = document.getElementById('status');
+            try {
+                // 插入数据
+                const { data, error } = await supabase
+                    .from('invite_codes')
+                    .insert([
+                        { phone_number: '+8618108087089', invite_code: '1q2W' },
+                        { phone_number: '+8618166668888', invite_code: '2w3E' }
+                    ]);
+                
+                if (error) {
+                    statusDiv.textContent = '插入失败: ' + error.message;
+                } else {
+                    statusDiv.textContent = '插入成功!';
+                    console.log('插入的数据：', data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.textContent = '错误：' + error.message;
+            }
+        }
+        
+        // 页面加载时执行插入
+        window.onload = insertData;
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>培训老师介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f7f7fa 0%, #ececec 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 动态背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 119, 48, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 48, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 119, 48, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 20px 0 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .header h1 {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        /* 移动端优化副标题字体大小 */
+        @media (max-width: 768px) {
+            .header p {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 24px 0 16px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            color: #222 !important;
+            font-weight: 700;
+            letter-spacing: 3px;
+            display: inline-block;
+            padding: 0 40px;
+        }
+        
+        .teachers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 100px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 翻转卡片样式 - 简化版 */
+        .card-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        
+        .card-container:hover .card {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            /* 增强Safari兼容性 */
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+        }
+        
+        /* 统一卡片样式 - 橙色渐变 */
+        .card-front {
+            background: linear-gradient(180deg, #ffb74d 0%, #ff9800 100%);
+            color: #222;
+            border: 2px solid #e0a040;
+            box-shadow: 0 8px 32px rgba(255, 152, 0, 0.18);
+        }
+        
+        .card-back {
+            background: linear-gradient(180deg, #ff9800 0%, #ffb74d 100%);
+            color: #222;
+            border: 2px solid #e0a040;
+            box-shadow: 0 8px 32px rgba(255, 152, 0, 0.22);
+            transform: rotateY(180deg);
+            /* 确保背面完全隐藏正面内容 */
+            -webkit-transform: rotateY(180deg);
+        }
+        
+        /* 导师照片区域 */
+        .teacher-photo {
+            width: 250px;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            /* 确保照片区域在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .teacher-photo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 15s linear infinite;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .photo-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            /* 确保头像在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .photo-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            /* 确保图片在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        /* 正面内容 */
+        .card-content-front {
+            flex: 1;
+            padding: 40px 50px;
+            color: inherit;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 确保正面内容在背面完全隐藏 */
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .teacher-name {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-title {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .teacher-summary {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        /* 移除翻转提示按钮样式 */
+        
+        /* 背面内容 */
+        .card-content-back {
+            overflow-y: auto;
+            max-height: 420px;
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 18px;
+            color: inherit;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            direction: ltr;
+            scrollbar-width: thin;
+            scrollbar-color: #fff #ff7730;
+            padding: 48px 56px 48px 56px;
+            /* 确保背面内容完全覆盖，防止头像透出 */
+            background: inherit;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-content-back::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .card-content-back::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 4px;
+        }
+        
+        .card-content-back::-webkit-scrollbar-track {
+            background: #ff7730;
+            border-radius: 4px;
+        }
+        
+        .back-inner {
+            width: 100%;
+            box-sizing: border-box;
+            /* 不设置overflow和height，让外层滚动 */
+        }
+        
+        .back-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .detail-section {
+            margin-bottom: 25px;
+        }
+        
+        .detail-section h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .detail-section p,
+        .detail-section ul {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .detail-section ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+        
+        .detail-section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .tech-quote {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 48px;
+            }
+            
+            .card-container {
+                height: 500px;
+            }
+            
+            .card-front {
+                flex-direction: column;
+            }
+            
+            .teacher-photo {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .photo-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 48px;
+            }
+            
+            .card-content-front {
+                padding: 30px;
+            }
+            
+            .teacher-name {
+                font-size: 28px;
+            }
+            
+            .teacher-title {
+                font-size: 16px;
+            }
+            
+            .teacher-summary {
+                font-size: 14px;
+            }
+        }
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 180px;
+            height: 100vh;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 100px;
+            box-shadow: 2px 0 16px rgba(0,0,0,0.04);
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+        
+        .nav-section {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .nav-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .nav-category {
+            font-size: 12px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin: 0 0 12px 20px;
+            padding: 0 12px 5px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        .side-nav ul {
+            list-style: none;
+            width: 100%;
+            padding: 0 0 0 20px;
+        }
+        .side-nav li {
+            margin-bottom: 8px;
+        }
+        .side-nav a {
+            color: #222;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+            letter-spacing: 0.5px;
+            border-radius: 6px;
+            padding: 4px 12px;
+        }
+        .side-nav a:hover {
+            background: rgba(255, 107, 53, 0.1);
+            color: #FF6B35;
+        }
+        @media (max-width: 900px) {
+            .side-nav { display: none !important; }
+        }
+        .container {
+            margin-left: 200px;
+        }
+        @media (max-width: 900px) {
+            .container {
+                margin-left: 0;
+            }
+        }
+        /* 专家导师卡片蓝色渐变 */
+        .expert-card .card-front {
+            background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
+            color: #fff;
+            border: 2px solid #1251a3;
+            box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
+        }
+        .expert-card .card-back {
+            background: linear-gradient(180deg, #1565c0 0%, #1976d2 100%);
+            color: #fff;
+            border: 2px solid #1251a3;
+            box-shadow: 0 8px 32px rgba(25, 118, 210, 0.22);
+            /* 确保专家导师卡片背面也完全隐藏正面内容 */
+            -webkit-transform: rotateY(180deg);
+        }
+        /* 标题与副标题样式优化 */
+        .header-title {
+            color: #222 !important;
+            font-weight: 800;
+            text-shadow: none !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: unset !important;
+            background-clip: unset !important;
+        }
+        .header-subtitle {
+            color: #444 !important;
+            font-weight: 500;
+            text-shadow: none !important;
+        }
+        .section-title {
+            color: #222 !important;
+            font-weight: 700;
+            text-shadow: none !important;
+        }
+        /* 专家导师卡片内容内边距与项目导师一致 */
+        .expert-card .card-front .card-content-front,
+        .expert-card .card-back .back-inner {
+            padding: 40px 50px !important;
+            box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+            .expert-card .card-front .card-content-front,
+            .expert-card .card-back .back-inner {
+                padding: 30px !important;
+            }
+        }
+        /* 专家导师卡片高度增加，保证内容完整显示且有留白 */
+        .expert-card.card-container {
+            height: 480px !important;
+        }
+        @media (max-width: 768px) {
+            .expert-card.card-container {
+                height: 600px !important;
+            }
+        }
+
+        /* 语言切换器样式 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 8px 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            color: #FF6B35;
+        }
+        
+        .lang-btn.active {
+            color: #FF6B35;
+            background: rgba(255, 107, 53, 0.1);
+            font-weight: 600;
+        }
+        
+        .lang-divider {
+            color: #ddd;
+            margin: 0 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .language-switcher {
+                top: 15px;
+                right: 15px;
+                padding: 6px 10px;
+            }
+            
+            .lang-btn {
+                font-size: 13px;
+                padding: 3px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <!-- 语言切换器 -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-divider">|</span>
+        <button class="lang-btn" data-lang="cn">中文</button>
+    </div>
+    <nav class="side-nav">
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Project Mentors" data-zh="项目导师">项目导师</h3>
+            <ul>
+                <li><a href="#mentor-h">Iris</a></li>
+                <li><a href="#mentor-c">Fred</a></li>
+                <li><a href="#mentor-vito">Vito</a></li>
+                <li><a href="#mentor-miles">Miles</a></li>
+                <li><a href="#mentor-ashlynn">Ashlynn</a></li>
+                <li><a href="#mentor-charlie">Charlie</a></li>
+                <li><a href="#mentor-bobby">Bobby</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Expert Mentors" data-zh="专家导师">专家导师</h3>
+            <ul>
+                                        <li><a href="#expert-hugo">Hugo Yu</a></li>
+                <li><a href="#expert-william">William</a></li>
+                <li><a href="#expert-henrywang">Henry</a></li>
+                <li><a href="#expert-alexwu">Alex</a></li>
+                <li><a href="#expert-roynee">Roy</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <h3 class="nav-category" data-en="Operations Management" data-zh="运营管理">运营管理</h3>
+            <ul>
+                <li><a href="#ops-claire">Claire</a></li>
+                <li><a href="#ops-alan">Alan</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title" data-en="Training Mentor Team" data-zh="培训导师团队">Training Mentor Team</h1>
+            <p class="header-subtitle" data-en="Gathering Top AI Experts, Leading the Path of Exploration and Practice" data-zh="汇聚顶尖AI专家，引领探索实践之路">Gathering Top AI Experts, Leading the Path of Exploration and Practice</p>
+        </div>
+        
+        <div class="section-title">
+            <h2 class="section-title" data-en="Project Mentors" data-zh="项目导师">Project Mentors</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 项目导师1 - H博士 -->
+            <div class="card-container" id="mentor-h">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/H.jpg" alt="H博士">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Iris Hu</h3>
+                            <p class="teacher-title" data-en="PhD, Beijing Normal University Associate Professor, Chief Scientist" data-zh="博士，北京师范大学副教授，首席科学家">PhD, Beijing Normal University Associate Professor, Chief Scientist</p>
+                            <p class="teacher-summary" data-en="Dr. Hu has been deeply engaged in NLP field for many years, leading multiple national-level research projects, perfectly combining cutting-edge academic research with industrial applications. She has published over 40 papers in international top conferences, won Best Paper Award at China Conference on Computational Linguistics three times, and her open source projects have received over 10,000 stars on GitHub." data-zh="胡博士在NLP领域深耕多年，主持多项国家级科研项目，将前沿学术研究与产业应用完美结合。她在国际顶级会议发表论文40余篇，三次获得中国计算语言学大会最佳论文奖，开源项目在GitHub获得超过一万星标。">Dr. Hu has been deeply engaged in NLP field for many years, leading multiple national-level research projects, perfectly combining cutting-edge academic research with industrial applications. She has published over 40 papers in international top conferences, won Best Paper Award at China Conference on Computational Linguistics three times, and her open source projects have received over 10,000 stars on GitHub.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Academic Achievements" data-zh="学术成就">Academic Achievements</h4>
+                                    <ul>
+                                        <li data-en="Over 40 papers in top conferences including ACL, EMNLP, COLING" data-zh="ACL、EMNLP、COLING等顶会论文40余篇">Over 40 papers in top conferences including ACL, EMNLP, COLING</li>
+                                        <li data-en="6 authorized national invention patents" data-zh="国家发明专利授权6项">6 authorized national invention patents</li>
+                                        <li data-en="Led important projects including National Social Science Foundation and Natural Science Foundation" data-zh="主持国家社科基金、自科基金等重要项目">Led important projects including National Social Science Foundation and Natural Science Foundation</li>
+                                        <li data-en="Three-time winner of Best Paper Award at China Conference on Computational Linguistics" data-zh="三次获得中国计算语言学大会最佳论文奖">Three-time winner of Best Paper Award at China Conference on Computational Linguistics</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Research Focus" data-zh="研究方向">Research Focus</h4>
+                                    <p data-en="Dr. Hu focuses on computational linguistics and natural language processing applications, bridging the gap between academic research and industrial applications. She has led multiple important research projects including National Social Science Foundation Youth Project, National Natural Science Foundation Youth Project, and Beijing Social Science Key Project." data-zh="胡博士深耕计算语言学、自然语言处理及其应用领域多年，在学术研究与产业应用之间架起了一座坚实的桥梁。主持过国家社科基金青年项目、国家自然科学基金青年项目、北京市社科重点项目等多项重要课题。">Dr. Hu focuses on computational linguistics and natural language processing applications, bridging the gap between academic research and industrial applications. She has led multiple important research projects including National Social Science Foundation Youth Project, National Natural Science Foundation Youth Project, and Beijing Social Science Key Project.</p>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Open Source Contributions" data-zh="开源贡献">Open Source Contributions</h4>
+                                    <p data-en="Creator of Chinese word vector resource library and other open source projects, receiving over 10,000 stars on GitHub, making significant contributions to the development of the Chinese NLP community. These projects are widely used in academic research and industrial practice." data-zh="主持构建了中文词向量资源库等多项开源项目，在GitHub获得超过一万星标，为整个中文NLP社区的发展做出了重要贡献。这些开源项目被广泛应用于学术研究和工业实践中。">Creator of Chinese word vector resource library and other open source projects, receiving over 10,000 stars on GitHub, making significant contributions to the development of the Chinese NLP community. These projects are widely used in academic research and industrial practice.</p>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="The ultimate goal of natural language processing is not to make machines imitate humans, but to help humans better understand their own thinking patterns." data-zh="自然语言处理的终极目标不是让机器模仿人类，而是帮助人类更好地理解自己的思维方式。">
+                                    "The ultimate goal of natural language processing is not to make machines imitate humans, but to help humans better understand their own thinking patterns."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Style" data-zh="教学特色">Teaching Style</h4>
+                                    <p data-en="Transforms cutting-edge academic achievements into practical skills, skilled at using real cases to help students understand complex NLP concepts. Courses have both rigorous theoretical foundations and close integration with the latest technological development trends." data-zh="将前沿学术成果转化为实用技能，善于用实际案例帮助学生理解复杂的NLP概念。课程既有严谨的理论基础，又紧密结合最新技术发展趋势。">Transforms cutting-edge academic achievements into practical skills, skilled at using real cases to help students understand complex NLP concepts. Courses have both rigorous theoretical foundations and close integration with the latest technological development trends.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师2 - C老师 -->
+            <div class="card-container" id="mentor-c">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/C.png" alt="C老师">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Fred Chi</h3>
+                            <p class="teacher-title" data-en="Chief Programmer" data-zh="首席程序员">Chief Programmer</p>
+                            <p class="teacher-summary" data-en="From legendary DOS-era software to modern AI applications, 25 years of technical career witnessing China's software industry development. Expert in underlying system architecture, skilled in private model deployment, distributed system design and high-performance data processing." data-zh="从DOS时代的传奇软件到现代AI应用，25年技术生涯见证中国软件业发展。精通底层系统架构，擅长私有模型部署、分布式系统设计和高性能数据处理。">
+                                From legendary DOS-era software to modern AI applications, 25 years of technical career witnessing China's software industry development. Expert in underlying system architecture, skilled in private model deployment, distributed system design and high-performance data processing.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Journey" data-zh="技术历程">Technical Journey</h4>
+                                    <p data-en="Core programmer of HJ Super Player, participated in developing classic software that influenced a generation of Chinese users. Deeply involved in underlying audio-video decoding algorithm development, bringing smooth multimedia experience to millions of users." data-zh="HJ超级解霸核心程序员，参与开发影响一代中国用户的经典软件。深度参与底层音视频解码算法研发，为数百万用户带来流畅的多媒体体验。">Core programmer of HJ Super Player, participated in developing classic software that influenced a generation of Chinese users. Deeply involved in underlying audio-video decoding algorithm development, bringing smooth multimedia experience to millions of users.</p>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Core Expertise" data-zh="核心专长">Core Expertise</h4>
+                                    <ul>
+                                        <li data-en="25 years of C/C++ system architecture experience, cross-platform development expert" data-zh="25年C/C++系统架构经验，跨平台开发专家">25 years of C/C++ system architecture experience, cross-platform development expert</li>
+                                        <li data-en="Proficient in Python, Go and other modern backend technology stacks" data-zh="精通Python、Go等现代后端技术栈">Proficient in Python, Go and other modern backend technology stacks</li>
+                                        <li data-en="Private model localization deployment and optimization" data-zh="私有模型本地化部署和优化">Private model localization deployment and optimization</li>
+                                        <li data-en="Audio-video codec, P2P networks, distributed crawlers" data-zh="音视频编解码、P2P网络、分布式爬虫">Audio-video codec, P2P networks, distributed crawlers</li>
+                                        <li data-en="NLP algorithm practice and RAG system design" data-zh="NLP算法实践和RAG系统设计">NLP algorithm practice and RAG system design</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="The essence of technology is solving problems, and solving problems requires solid foundations and open thinking." data-zh="技术的本质是解决问题，而解决问题需要的是扎实的基础和开放的思维。">
+                                    "The essence of technology is solving problems, and solving problems requires solid foundations and open thinking."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="AI Era Pioneer" data-zh="AI时代先锋">AI Era Pioneer</h4>
+                                    <p data-en="Deep understanding of LLM underlying principles, designed distributed crawler clusters processing TB-level data, with unique insights in decentralized network architecture." data-zh="深度理解LLM底层原理，设计过处理TB级数据的分布式爬虫集群，在去中心化网络架构方面有独到见解。">Deep understanding of LLM underlying principles, designed distributed crawler clusters processing TB-level data, with unique insights in decentralized network architecture.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师4 - Vito -->
+            <div class="card-container" id="mentor-vito">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/Vito.jpg" alt="Vito">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Vito Liu</h3>
+                            <p class="teacher-title" data-en="Senior AI Engineer" data-zh="高级AI工程师">Senior AI Engineer</p>
+                            <p class="teacher-summary" data-en="McGill University Computer Science and Mathematics double degree, Beebee AI core development engineer, focusing on RAG systems and LLM application development. Vito has two years of AI product development experience, leading the construction of multiple enterprise-level knowledge management systems." data-zh="麦吉尔大学计算机科学与数学双学位，Beebee AI核心开发工程师，专注RAG系统和LLM应用开发。Vito拥有两年AI产品开发经验，主导构建多个企业级知识管理系统。">
+                                McGill University Computer Science and Mathematics double degree, Beebee AI core development engineer, focusing on RAG systems and LLM application development. Vito has two years of AI product development experience, leading the construction of multiple enterprise-level knowledge management systems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Expertise" data-zh="技术专长">Technical Expertise</h4>
+                                    <ul>
+                                        <li data-en="RAG system architecture design and optimization" data-zh="RAG系统架构设计与优化">RAG system architecture design and optimization</li>
+                                        <li data-en="Intent engine development, actively understanding user intent and performing gated routing" data-zh="意图引擎开发，主动理解用户意图并进行门控路由">Intent engine development, actively understanding user intent and performing gated routing</li>
+                                        <li data-en="LLM prompt engineering and model tuning" data-zh="LLM提示工程和模型调优">LLM prompt engineering and model tuning</li>
+                                        <li data-en="Python/JavaScript full-stack development" data-zh="Python/JavaScript全栈开发">Python/JavaScript full-stack development</li>
+                                        <li data-en="ElasticSearch, AWS S3 and other technology integration" data-zh="ElasticSearch、AWS S3等技术集成">ElasticSearch, AWS S3 and other technology integration</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Core Achievements" data-zh="核心成就">Core Achievements</h4>
+                                    <p data-en="Designed and implemented intelligent retrieval systems supporting text, images and other data formats. Built intelligent intent understanding systems, ensuring queries are accurately distributed to the most suitable processing modules." data-zh="设计并实现支持文本、图像等多种数据格式的智能检索系统。构建智能意图理解系统，确保查询被精准分发到最适合的处理模块。">Designed and implemented intelligent retrieval systems supporting text, images and other data formats. Built intelligent intent understanding systems, ensuring queries are accurately distributed to the most suitable processing modules.</p>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Code is like powerlifting, every line must be precise; AI is like jiu-jitsu, using skill to overcome strength with minimal effort." data-zh="代码如力量举，每一行都要精准到位；AI如柔术，以巧制胜方能四两拨千斤。">
+                                    "Code is like powerlifting, every line must be precise; AI is like jiu-jitsu, using skill to overcome strength with minimal effort."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Personal Characteristics" data-zh="个人特色">Personal Characteristics</h4>
+                                    <p data-en="Retired McGill University swimming team member, 50m breaststroke 32.5 seconds. Powerlifting total 550kg (squat 215kg, bench press 125kg, deadlift 210kg). Integrates athlete's perseverance into technical challenges." data-zh="McGill大学游泳队退役选手，50米蛙泳32.5秒。力量举总成绩550公斤（深蹲215kg、卧推125kg、硬拉210kg）。将运动员的坚韧精神融入技术攻坚。">Retired McGill University swimming team member, 50m breaststroke 32.5 seconds. Powerlifting total 550kg (squat 215kg, bench press 125kg, deadlift 210kg). Integrates athlete's perseverance into technical challenges.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师5 - Miles -->
+            <div class="card-container" id="mentor-miles">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/Miles.png" alt="Miles">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Miles Chen</h3>
+                            <p class="teacher-title" data-en="AI Data Engineer" data-zh="AI数据工程师">AI Data Engineer</p>
+                            <p class="teacher-summary" data-en="Chongqing University of Foreign Trade and Economics Data Science and Big Data Technology major, BEEBEE AI core data engineer, focusing on large-scale data collection and AI application development. Rich experience in crawler technology and concurrent programming." data-zh="重庆对外经贸学院数据科学与大数据技术专业，BEEBEE AI核心数据工程师，专注大规模数据采集和AI应用开发。在爬虫技术和并发编程方面经验丰富。">
+                                Chongqing University of Foreign Trade and Economics Data Science and Big Data Technology major, BEEBEE AI core data engineer, focusing on large-scale data collection and AI application development. Rich experience in crawler technology and concurrent programming.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Expertise" data-zh="技术专长">Technical Expertise</h4>
+                                    <ul>
+                                        <li data-en="Large-scale asynchronous concurrent crawler systems based on BFS algorithms" data-zh="基于BFS算法的大规模异步并发爬虫系统">Large-scale asynchronous concurrent crawler systems based on BFS algorithms</li>
+                                        <li data-en="Breakpoint resume and incremental update mechanism design" data-zh="断点续传和增量更新机制设计">Breakpoint resume and incremental update mechanism design</li>
+                                        <li data-en="AI-driven natural language data analysis tools" data-zh="AI驱动的自然语言数据分析工具">AI-driven natural language data analysis tools</li>
+                                        <li data-en="Python concurrent programming and system architecture optimization" data-zh="Python并发编程和系统架构优化">Python concurrent programming and system architecture optimization</li>
+                                        <li data-en="Data lifecycle management and quality assurance" data-zh="数据全生命周期管理和质量保障">Data lifecycle management and quality assurance</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Project Achievements" data-zh="项目成果">Project Achievements</h4>
+                                    <p data-en="Universal crawler system successfully deployed in production environment, AI Excel parsing tools significantly improved user work efficiency. Led development of multiple production-level data processing systems." data-zh="通用爬虫系统成功部署生产环境，AI Excel解析工具显著提升用户工作效率。主导开发了多个生产级数据处理系统。">Universal crawler system successfully deployed in production environment, AI Excel parsing tools significantly improved user work efficiency. Led development of multiple production-level data processing systems.</p>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Asynchronous concurrency makes systems faster, breakpoint resume makes data safer, incremental updates make resources more efficient—this is the art of engineering optimization." data-zh="异步并发让系统更快，断点续传让数据更安全，增量更新让资源更省——这就是工程优化的艺术。">
+                                    "Asynchronous concurrency makes systems faster, breakpoint resume makes data safer, incremental updates make resources more efficient—this is the art of engineering optimization."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Style" data-zh="教学特色">Teaching Style</h4>
+                                    <p data-en="Combines rich project practical experience, focuses on cultivating engineering thinking and productization capabilities. Skilled at using real cases to help students understand complex algorithm principles and system architecture." data-zh="结合丰富项目实战经验，注重培养工程思维和产品化能力。善于用实际案例帮助学生理解复杂的算法原理和系统架构。">Combines rich project practical experience, focuses on cultivating engineering thinking and productization capabilities. Skilled at using real cases to help students understand complex algorithm principles and system architecture.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师6 - Ashlynn -->
+            <div class="card-container" id="mentor-ashlynn">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/ashlynn.jpg" alt="Ashlynn">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Ashlynn Lu</h3>
+                            <p class="teacher-title" data-en="AI Data Engineer" data-zh="AI数据工程师">AI Data Engineer</p>
+                            <p class="teacher-summary" data-en="University of Edinburgh Mathematics and Statistics Bachelor (First Class Honours), Imperial College London Statistics Department Data Science Master (Distinction), BEEBEE AI backend software engineer. Focused on large language model-based productivity tool development." data-zh="爱丁堡大学数学与统计学士（一等荣誉），帝国理工学院统计系数据科学硕士（卓越级），BEEBEE AI后端软件工程师。专注于基于大语言模型的生产力工具研发。">
+                                University of Edinburgh Mathematics and Statistics Bachelor (First Class Honours), Imperial College London Statistics Department Data Science Master (Distinction), BEEBEE AI backend software engineer. Focused on large language model-based productivity tool development.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Academic Achievements" data-zh="学术成就">Academic Achievements</h4>
+                                    <ul>
+                                        <li data-en="Lawley Prize winner at University of Edinburgh (most outstanding performance in joint honours degree in statistics)" data-zh="爱丁堡大学Lawley奖获得者（统计学联合荣誉学位最杰出表现）">Lawley Prize winner at University of Edinburgh (most outstanding performance in joint honours degree in statistics)</li>
+                                        <li data-en="Imperial College London Statistics Department Data Science Master (Distinction)" data-zh="帝国理工学院统计系数据科学硕士（卓越级）">Imperial College London Statistics Department Data Science Master (Distinction)</li>
+                                        <li data-en="University of Edinburgh Mathematics and Statistics Bachelor (First Class Honours)" data-zh="爱丁堡大学数学与统计学士（一等荣誉学位）">University of Edinburgh Mathematics and Statistics Bachelor (First Class Honours)</li>
+                                        <li data-en="College vacation scholarship recipient" data-zh="学院假期奖学金获得者">College vacation scholarship recipient</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Expertise" data-zh="技术专长">Technical Expertise</h4>
+                                    <ul>
+                                        <li data-en="Large-scale asynchronous crawler system design and implementation" data-zh="大规模异步爬虫系统设计与实现">Large-scale asynchronous crawler system design and implementation</li>
+                                        <li data-en="LLM semantic keyword extraction and data optimization" data-zh="LLM语义关键词提取和数据优化">LLM semantic keyword extraction and data optimization</li>
+                                        <li data-en="MySQL, Elasticsearch multi-storage system integration" data-zh="MySQL、Elasticsearch多存储系统集成">MySQL, Elasticsearch multi-storage system integration</li>
+                                        <li data-en="Bayesian optimization and high-dimensional constraint problem solving" data-zh="贝叶斯优化和高维约束问题求解">Bayesian optimization and high-dimensional constraint problem solving</li>
+                                        <li data-en="Python/R data analysis and statistical modeling" data-zh="Python/R数据分析和统计建模">Python/R data analysis and statistical modeling</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="The beauty of data science lies in using mathematical rigor to master the complexity of the real world, giving every algorithm a solid statistical foundation." data-zh="数据科学的美妙之处在于用数学的严谨性去驾驭现实世界的复杂性，让每一个算法都有坚实的统计学根基。">
+                                    "The beauty of data science lies in using mathematical rigor to master the complexity of the real world, giving every algorithm a solid statistical foundation."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Style" data-zh="教学特色">Teaching Style</h4>
+                                    <p data-en="Uses statistical thinking to interpret the essence of AI algorithms, focuses on balancing mathematical foundations with engineering practice. Combines rigorous mathematical thinking with practical engineering skills." data-zh="用统计学思维解读AI算法本质，注重数学基础与工程实践的平衡。将严谨的数学思维与实用的工程技能相结合。">Uses statistical thinking to interpret the essence of AI algorithms, focuses on balancing mathematical foundations with engineering practice. Combines rigorous mathematical thinking with practical engineering skills.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师7 - Charlie -->
+            <div class="card-container" id="mentor-charlie">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/charlie.png" alt="Charlie">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Charlie Chen</h3>
+                            <p class="teacher-title" data-en="AI Algorithm Engineer" data-zh="AI算法工程师">AI Algorithm Engineer</p>
+                            <p class="teacher-summary" data-en="Focusing on NLP algorithm development and AI productization, with two years of AI algorithm development experience. Deeply involved in Second Brain exam/writing intelligent agent development, responsible for WeChat, Feishu and other external application integration." data-zh="专注NLP算法开发和AI产品化，拥有两年AI算法开发经验。深度参与第二大脑考试/写作智能体开发，负责微信、飞书等外部应用对接。">
+                                Focusing on NLP algorithm development and AI productization, with two years of AI algorithm development experience. Deeply involved in Second Brain exam/writing intelligent agent development, responsible for WeChat, Feishu and other external application integration.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Expertise" data-zh="技术专长">Technical Expertise</h4>
+                                    <ul>
+                                        <li data-en="Transformer architecture deep optimization and NLP model construction" data-zh="Transformer架构深度优化和NLP模型构建">Transformer architecture deep optimization and NLP model construction</li>
+                                        <li data-en="Prompt engineering and large model tuning" data-zh="提示词工程和大模型调优">Prompt engineering and large model tuning</li>
+                                        <li data-en="Multimodal RAG systems and Elasticsearch vector retrieval" data-zh="多模态RAG系统和Elasticsearch向量检索">Multimodal RAG systems and Elasticsearch vector retrieval</li>
+                                        <li data-en="Python full-stack development (Flask/FastAPI/WebSocket)" data-zh="Python全栈开发（Flask/FastAPI/WebSocket）">Python full-stack development (Flask/FastAPI/WebSocket)</li>
+                                        <li data-en="Docker containerized deployment and system architecture design" data-zh="Docker容器化部署和系统架构设计">Docker containerized deployment and system architecture design</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Project Achievements" data-zh="项目成果">Project Achievements</h4>
+                                    <p data-en="Led development of exam/writing intelligent agents, successfully integrated with WeChat, Feishu and other mainstream platforms. Rich practical experience in API integration and third-party service integration." data-zh="主导开发考试/写作智能体，成功对接微信、飞书等主流平台。在API集成和第三方服务对接方面有着丰富实战经验。">Led development of exam/writing intelligent agents, successfully integrated with WeChat, Feishu and other mainstream platforms. Rich practical experience in API integration and third-party service integration.</p>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Transformer's self-attention mechanism taught me: true intelligence is not remembering all information, but knowing when to focus on what." data-zh="Transformer的自注意力机制教会我：真正的智能不是记住所有信息，而是知道在什么时候关注什么。">
+                                    "Transformer's self-attention mechanism taught me: true intelligence is not remembering all information, but knowing when to focus on what."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Style" data-zh="教学特色">Teaching Style</h4>
+                                    <p data-en="Balances theory and practice, skilled at simplifying complexity, provides personalized technical guidance. Focuses on deep integration of theory and practice, creating relaxed and active learning atmosphere." data-zh="理论实践并重，善于化繁为简，提供个性化技术指导。注重理论与实践的深度结合，营造轻松活跃的学习氛围。">Balances theory and practice, skilled at simplifying complexity, provides personalized technical guidance. Focuses on deep integration of theory and practice, creating relaxed and active learning atmosphere.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目导师8 - Bobby -->
+            <div class="card-container" id="mentor-bobby">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/mentor/bobby.png" alt="Bobby">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Bobby Wang</h3>
+                            <p class="teacher-title" data-en="Senior Frontend Engineer" data-zh="高级前端工程师">Senior Frontend Engineer</p>
+                            <p class="teacher-summary" data-en="8 years of frontend development experience, proficient in multi-platform development and modern frontend technology stack. Comprehensive project development capabilities, skilled in WeChat Mini Program, H5, PC, App and other multi-platform development." data-zh="拥有8年前端开发经验，精通多端开发和现代前端技术栈。具备全面的项目开发能力，熟练掌握微信小程序、H5、PC、App等多平台开发。">
+                                8 years of frontend development experience, proficient in multi-platform development and modern frontend technology stack. Comprehensive project development capabilities, skilled in WeChat Mini Program, H5, PC, App and other multi-platform development.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Technical Expertise" data-zh="技术专长">Technical Expertise</h4>
+                                    <ul>
+                                        <li data-en="Uniapp cross-platform development, one codebase for multiple platforms" data-zh="Uniapp跨平台开发，一套代码多端运行">Uniapp cross-platform development, one codebase for multiple platforms</li>
+                                        <li data-en="Vue ecosystem technology stack (Vue2/Vue3 + Nuxt SSR)" data-zh="Vue全家桶技术栈（Vue2/Vue3 + Nuxt SSR）">Vue ecosystem technology stack (Vue2/Vue3 + Nuxt SSR)</li>
+                                        <li data-en="JavaScript core principles and reactive development" data-zh="JavaScript核心原理和响应式开发">JavaScript core principles and reactive development</li>
+                                        <li data-en="WebSocket real-time communication and data interaction" data-zh="WebSocket实时通信和数据交互">WebSocket real-time communication and data interaction</li>
+                                        <li data-en="Frontend project architecture design and component encapsulation" data-zh="前端项目架构设计和组件封装">Frontend project architecture design and component encapsulation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Project Experience" data-zh="项目经验">Project Experience</h4>
+                                    <p data-en="Online malls, backend management systems, SaaS tools, data dashboards and other complete commercial projects. Deeply involved in development of multiple complete projects, accumulated rich commercial project experience." data-zh="在线商城、后台管理系统、SaaS工具、数据大屏等多个完整商业项目。深度参与多个完整项目的开发，积累了丰富的商业项目经验。">Online malls, backend management systems, SaaS tools, data dashboards and other complete commercial projects. Deeply involved in development of multiple complete projects, accumulated rich commercial project experience.</p>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Good frontend should not only make interfaces beautiful and user-friendly, but also make code elegant and maintainable, only then can it support long-term product development." data-zh="好的前端不仅要让界面美观易用，更要让代码优雅可维护，这样才能支撑产品的长期发展。">
+                                    "Good frontend should not only make interfaces beautiful and user-friendly, but also make code elegant and maintainable, only then can it support long-term product development."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Style" data-zh="教学特色">Teaching Style</h4>
+                                    <p data-en="Combines rich commercial project experience, focuses on practical application and code quality cultivation. Skilled at using real cases to help students understand core concepts and best practices of frontend development." data-zh="结合丰富商业项目经验，注重实战应用和代码质量培养。善于用实际案例帮助学生理解前端开发的核心概念和最佳实践。">Combines rich commercial project experience, focuses on practical application and code quality cultivation. Skilled at using real cases to help students understand core concepts and best practices of frontend development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <h2 class="section-title" data-en="Expert Mentors" data-zh="专家导师">Expert Mentors</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 专家导师1 - Hugo Yu -->
+            <div class="card-container expert-card" id="expert-hugo">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/pros/yuguo.png" alt="Hugo Yu">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Hugo Yu</h3>
+                            <p class="teacher-title" data-en="Senior Speech Algorithm Expert, PhD" data-zh="资深语音算法专家，博士">Senior Speech Algorithm Expert, PhD</p>
+                            <p class="teacher-summary" data-en="From Kuaishou to Zhipu AI, focusing on speech synthesis, speech interaction large models and speech enhancement technology research and industrialization, with over 20 top conference papers published. Core projects include multimodal interactive large models with 0.75s end-to-end latency, zero-shot TTS achieving 95%+ human-level quality, and deep audio quality restoration algorithms." data-zh="从快手到智谱，专注语音合成、语音交互大模型和语音增强技术研究与产业化，发表顶会论文20余篇。核心项目包括端到端延时0.75秒内的多模态互动大模型、音质达真人水平95%+的zero-shot TTS、深度音质修复算法等。">From Kuaishou to Zhipu AI, focusing on speech synthesis, speech interaction large models and speech enhancement technology research and industrialization, with over 20 top conference papers published. Core projects include multimodal interactive large models with 0.75s end-to-end latency, zero-shot TTS achieving 95%+ human-level quality, and deep audio quality restoration algorithms.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-inner">
+                            <div class="detail-section">
+                                <h4 data-en="Academic Background" data-zh="学术背景">Academic Background</h4>
+                                <p data-en="PhD from Communication University of China, joint training at Chinese Academy of Sciences Institute of Acoustics, academic exchange experience at CUHK MMLab. Published over 20 papers in top conferences (ICASSP, INTERSPEECH, IJCAI) and SCI journals, with solid theoretical foundation and innovation capability in speech signal processing." data-zh="中国传媒大学通信与信息系统博士，中国科学院声学研究所联合培养，香港中文大学MMLab学术交流经历。发表顶会（ICASSP、INTERSPEECH、IJCAI）、SCI期刊论文20余篇，在语音信号处理领域具有深厚的理论基础和创新能力。">PhD from Communication University of China, joint training at Chinese Academy of Sciences Institute of Acoustics, academic exchange experience at CUHK MMLab. Published over 20 papers in top conferences (ICASSP, INTERSPEECH, IJCAI) and SCI journals, with solid theoretical foundation and innovation capability in speech signal processing.</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Core Achievements" data-zh="核心成就">Core Achievements</h4>
+                                <ul>
+                                    <li data-en="Speech Interaction Large Model: Built multimodal interactive large model (MILM) solution, achieving 0.75s end-to-end latency, deployed in Kuaishou live streaming scenarios" data-zh="语音交互大模型：建设多模态互动大模型(MILM)方案，端到端延时0.75秒内，已上线快手直播连麦">Speech Interaction Large Model: Built multimodal interactive large model (MILM) solution, achieving 0.75s end-to-end latency, deployed in Kuaishou live streaming scenarios</li>
+                                    <li data-en="Speech Synthesis Large Model: Built Kuaishou's zero-shot TTS from scratch, achieving 95%+ human-level quality, surpassing competitors like Jianying" data-zh="语音合成大模型：从0到1搭建快手自研zero-shot TTS，音质达真人水平95%+，超越剪映等竞品">Speech Synthesis Large Model: Built Kuaishou's zero-shot TTS from scratch, achieving 95%+ human-level quality, surpassing competitors like Jianying</li>
+                                    <li data-en="Deep Audio Quality Restoration: Developed comprehensive audio restoration system, improving effective bandwidth by 15.03%" data-zh="深度音质修复算法：研发包含去噪去混响、人声均衡、自适应音频超分的音质修复系统，全量上线快手直播，大盘有效带宽提升15.03%">Deep Audio Quality Restoration: Developed comprehensive audio restoration system, improving effective bandwidth by 15.03%</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Competition Achievements" data-zh="竞赛成就">Competition Achievements</h4>
+                                <p data-en="Multiple international top competition championships: ICASSP 2024 SSI-Challenge dual-track champion, Audio Deep PLC Challenge champion, Interspeech 2021 DNS Challenge champion, demonstrating top-level strength in speech signal processing." data-zh="获得多项国际顶级竞赛冠军：ICASSP 2024 SSI-Challenge双赛道冠军、Audio Deep PLC Challenge冠军、Interspeech 2021 DNS Challenge冠军等，展现了在语音信号处理领域的顶尖实力。">Multiple international top competition championships: ICASSP 2024 SSI-Challenge dual-track champion, Audio Deep PLC Challenge champion, Interspeech 2021 DNS Challenge champion, demonstrating top-level strength in speech signal processing.</p>
+                            </div>
+                            <div class="tech-quote" style="margin-top:18px;" data-en="Speech is humanity's most natural way of interaction, I am committed to making every sound that AI understands and generates full of human warmth and the power of intelligence." data-zh="语音是人类最自然的交互方式，我致力于让AI理解和生成的每一个声音都充满人性的温度与智慧的力量。">"Speech is humanity's most natural way of interaction, I am committed to making every sound that AI understands and generates full of human warmth and the power of intelligence."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 专家导师2 - William -->
+            <div class="card-container expert-card" id="expert-william">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/pros/william.jpg" alt="William">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">William</h3>
+                            <p class="teacher-title" data-en="AI Evangelist, Content Creator" data-zh="AI布道者，内容创作者">AI Evangelist, Content Creator</p>
+                            <p class="teacher-summary" data-en="AI technology popularization content creator, University of Electronic Science and Technology Computer Science Master, Nokia senior software engineer for 7 years, currently living in Ireland. Focuses on transforming cutting-edge AI technology into easily understandable knowledge content, gaining widespread attention. Multi-platform matrix: Bilibili 'Wulidun Tea House', WeChat '01 Muggle Society', Knowledge Planet 'Little Wood's AI Planet', YouTube '01Coder' and other platform content creators." data-zh="AI技术科普自媒体人，电子科技大学计算机硕士，Nokia高级软件工程师7年，现居爱尔兰。专注将前沿AI技术转化为通俗易懂的知识内容，获得广泛关注。多平台矩阵 B站「五里墩茶社」、微信「01麻瓜社」、知识星球「小木头的AI星球」、YouTube「01Coder」等平台内容创作者。">AI technology popularization content creator, University of Electronic Science and Technology Computer Science Master, Nokia senior software engineer for 7 years, currently living in Ireland. Focuses on transforming cutting-edge AI technology into easily understandable knowledge content, gaining widespread attention. Multi-platform matrix: Bilibili 'Wulidun Tea House', WeChat '01 Muggle Society', Knowledge Planet 'Little Wood's AI Planet', YouTube '01Coder' and other platform content creators.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-inner">
+                            <div class="detail-section">
+                                <h4 data-en="Title" data-zh="职称">Title</h4>
+                                <p data-en="AI Evangelist, Technology Minimalist, Video + Text Dual Creator" data-zh="AI布道者，技术极简主义者，视频+文字双栖创作者">AI Evangelist, Technology Minimalist, Video + Text Dual Creator</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Introduction" data-zh="简介">Introduction</h4>
+                                <p data-en="AI technology popularization content creator, University of Electronic Science and Technology Computer Science Master, Nokia senior software engineer for 7 years, currently living in Ireland. Focuses on transforming cutting-edge AI technology into easily understandable knowledge content, gaining widespread attention. Multi-platform matrix: Bilibili 'Wulidun Tea House', WeChat '01 Muggle Society', Knowledge Planet 'Little Wood's AI Planet', YouTube '01Coder' and other platform content creators." data-zh="AI技术科普自媒体人，电子科技大学计算机硕士，Nokia高级软件工程师7年，现居爱尔兰。专注将前沿AI技术转化为通俗易懂的知识内容，获得广泛关注。多平台矩阵 B站「五里墩茶社」、微信「01麻瓜社」、知识星球「小木头的AI星球」、YouTube「01Coder」等平台内容创作者。">AI technology popularization content creator, University of Electronic Science and Technology Computer Science Master, Nokia senior software engineer for 7 years, currently living in Ireland. Focuses on transforming cutting-edge AI technology into easily understandable knowledge content, gaining widespread attention. Multi-platform matrix: Bilibili 'Wulidun Tea House', WeChat '01 Muggle Society', Knowledge Planet 'Little Wood's AI Planet', YouTube '01Coder' and other platform content creators.</p>
+                            </div>
+                            <div class="tech-quote" data-en="Build applications with LangChain, connect the world with MCP, use the most minimal code and most vivid tutorials to make AI a creative tool in everyone's hands." data-zh="用LangChain搭建应用，用MCP连接世界，用最极简的代码和最生动的教程，让AI成为每个人手中的创作利器。">"Build applications with LangChain, connect the world with MCP, use the most minimal code and most vivid tutorials to make AI a creative tool in everyone's hands."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 专家导师3 - Henry Wang -->
+            <div class="card-container expert-card" id="expert-henrywang">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/pros/henry.png" alt="Henry">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Henry</h3>
+                            <p class="teacher-title" data-en="Core Algorithm Engineer" data-zh="核心算法工程师">Core Algorithm Engineer</p>
+                            <p class="teacher-summary" data-en="Technical expert with 6 years of AI algorithm engineering experience. CVPR 2020 facial expression competition champion, focusing on multimodal large models, video understanding, OCR algorithm development. Henry has rich AI algorithm industrialization experience, has served as core algorithm engineer at K, N, H and other well-known companies. He has rich experience in deep learning model training, algorithm optimization, edge deployment and other aspects, skilled at transforming cutting-edge AI technology into practical commercial solutions." data-zh="6年AI算法工程经验的技术专家。CVPR 2020人脸表情比赛冠军，专注多模态大模型、视频理解、OCR算法开发。Henry拥有丰富的AI算法产业化经验，曾在K、N、H等知名企业担任核心算法工程师。他在深度学习模型训练、算法优化、端侧部署等方面经验丰富，擅长将前沿AI技术转化为实用的商业解决方案。">Technical expert with 6 years of AI algorithm engineering experience. CVPR 2020 facial expression competition champion, focusing on multimodal large models, video understanding, OCR algorithm development. Henry has rich AI algorithm industrialization experience, has served as core algorithm engineer at K, N, H and other well-known companies. He has rich experience in deep learning model training, algorithm optimization, edge deployment and other aspects, skilled at transforming cutting-edge AI technology into practical commercial solutions.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-inner">
+                            <div class="detail-section">
+                                <h4 data-en="Title" data-zh="职称">Title</h4>
+                                <p data-en="Beijing University of Technology Software Engineering Master, Global Top Video Social Media Core Algorithm Engineer" data-zh="北京工业大学软件工程硕士 全球顶尖视频社交媒体核心算法工程师">Beijing University of Technology Software Engineering Master, Global Top Video Social Media Core Algorithm Engineer</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Introduction" data-zh="简介">Introduction</h4>
+                                <p data-en="Technical expert with 6 years of AI algorithm engineering experience. CVPR 2020 facial expression competition champion, focusing on multimodal large models, video understanding, OCR algorithm development. Henry has rich AI algorithm industrialization experience, has served as core algorithm engineer at K, N, H and other well-known companies. He has rich experience in deep learning model training, algorithm optimization, edge deployment and other aspects, skilled at transforming cutting-edge AI technology into practical commercial solutions." data-zh="6年AI算法工程经验的技术专家。CVPR 2020人脸表情比赛冠军，专注多模态大模型、视频理解、OCR算法开发。Henry拥有丰富的AI算法产业化经验，曾在K、N、H等知名企业担任核心算法工程师。他在深度学习模型训练、算法优化、端侧部署等方面经验丰富，擅长将前沿AI技术转化为实用的商业解决方案。">Technical expert with 6 years of AI algorithm engineering experience. CVPR 2020 facial expression competition champion, focusing on multimodal large models, video understanding, OCR algorithm development. Henry has rich AI algorithm industrialization experience, has served as core algorithm engineer at K, N, H and other well-known companies. He has rich experience in deep learning model training, algorithm optimization, edge deployment and other aspects, skilled at transforming cutting-edge AI technology into practical commercial solutions.</p>
+                            </div>
+                            <div class="tech-quote" data-en="Let machines understand the world, use algorithms to depict intelligence." data-zh="让机器看懂世界，用算法描绘智能。">"Let machines understand the world, use algorithms to depict intelligence."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 专家导师4 - Alex Wu -->
+            <div class="card-container expert-card" id="expert-alexwu">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/pros/alexwu.png" alt="Alex Wu">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Alex</h3>
+                            <p class="teacher-title" data-en="Backend Engineer, MSc" data-zh="后端工程师，硕士">Backend Engineer, MSc</p>
+                            <p class="teacher-summary" data-en="13 years of software engineering and technical leadership experience, has led 20-person engineering teams, focusing on large-scale distributed system architecture, cloud-native technology and AI solution development. Alex Wu has rich experience in large internet company technical architecture, led construction of search engine systems supporting billion-level indexes and multiple AI-driven product solutions. He has rich experience in system architecture design, DevOps automation, cloud infrastructure optimization and other aspects, skilled at transforming cutting-edge technology into stable and efficient product-level solutions." data-zh="13年软件工程与技术领导经验，曾领导20人工程团队，专注大规模分布式系统架构、云原生技术和AI解决方案开发。吴子豪拥有丰富的大型互联网公司技术架构经验，主导构建了支持十亿级索引的搜索引擎系统和多个AI驱动的产品解决方案。他在系统架构设计、DevOps自动化、云基础设施优化等方面经验丰富，擅长将前沿技术转化为稳定高效的产品级方案。">13 years of software engineering and technical leadership experience, has led 20-person engineering teams, focusing on large-scale distributed system architecture, cloud-native technology and AI solution development. Alex Wu has rich experience in large internet company technical architecture, led construction of search engine systems supporting billion-level indexes and multiple AI-driven product solutions. He has rich experience in system architecture design, DevOps automation, cloud infrastructure optimization and other aspects, skilled at transforming cutting-edge technology into stable and efficient product-level solutions.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-inner">
+                            <div class="detail-section">
+                                <h4 data-en="Title" data-zh="职称">Title</h4>
+                                <p data-en="University of St Andrews UK Software Engineering Master, Global Top Game Studio Backend Engineer" data-zh="英国圣安德鲁斯大学软件工程硕士 全球顶尖游戏工作室后端工程师">University of St Andrews UK Software Engineering Master, Global Top Game Studio Backend Engineer</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Introduction" data-zh="简介">Introduction</h4>
+                                <p data-en="13 years of software engineering and technical leadership experience, has led 20-person engineering teams, focusing on large-scale distributed system architecture, cloud-native technology and AI solution development. Alex Wu has rich experience in large internet company technical architecture, led construction of search engine systems supporting billion-level indexes and multiple AI-driven product solutions. He has rich experience in system architecture design, DevOps automation, cloud infrastructure optimization and other aspects, skilled at transforming cutting-edge technology into stable and efficient product-level solutions." data-zh="13年软件工程与技术领导经验，曾领导20人工程团队，专注大规模分布式系统架构、云原生技术和AI解决方案开发。吴子豪拥有丰富的大型互联网公司技术架构经验，主导构建了支持十亿级索引的搜索引擎系统和多个AI驱动的产品解决方案。他在系统架构设计、DevOps自动化、云基础设施优化等方面经验丰富，擅长将前沿技术转化为稳定高效的产品级方案。">13 years of software engineering and technical leadership experience, has led 20-person engineering teams, focusing on large-scale distributed system architecture, cloud-native technology and AI solution development. Alex Wu has rich experience in large internet company technical architecture, led construction of search engine systems supporting billion-level indexes and multiple AI-driven product solutions. He has rich experience in system architecture design, DevOps automation, cloud infrastructure optimization and other aspects, skilled at transforming cutting-edge technology into stable and efficient product-level solutions.</p>
+                            </div>
+                            <div class="tech-quote" data-en="System architecture, carrying trillions of traffic; code optimization, releasing unlimited performance." data-zh="系统架构，承载万亿流量；代码优化，释放无限性能。">"System architecture, carrying trillions of traffic; code optimization, releasing unlimited performance."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 专家导师5 - Roy Nee -->
+            <div class="card-container expert-card" id="expert-roynee">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/pros/roynee.png" alt="Roy Nee">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Roy</h3>
+                            <p class="teacher-title" data-en="Fintech Architect, MSc" data-zh="金融科技架构师，硕士">Fintech Architect, MSc</p>
+                            <p class="teacher-summary" data-en="15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions." data-zh="15年金融科技领域经验，新西兰居民。曾在顶级金融机构总行担任核心系统架构师，专注大规模金融分布式系统、支付平台和微服务架构设计开发。Roy Nee拥有丰富的金融核心系统架构经验，主导构建了支持2.5亿日请求的信用卡系统和多个获奖的金融科技项目。他在高并发交易处理、分布式架构设计、金融业务系统优化等方面经验丰富，擅长将复杂的金融需求转化为高效安全的技术解决方案。">15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-inner">
+                            <div class="detail-section">
+                                <h4 data-en="Title" data-zh="职称">Title</h4>
+                                <p data-en="Beijing University of Posts and Telecommunications Computer Science Master, Australian Fintech Listed Company Architect" data-zh="北京邮电大学计算机硕士 澳洲Fintech上市公司架构师">Beijing University of Posts and Telecommunications Computer Science Master, Australian Fintech Listed Company Architect</p>
+                            </div>
+                            <div class="detail-section">
+                                <h4 data-en="Introduction" data-zh="简介">Introduction</h4>
+                                <p data-en="15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions." data-zh="15年金融科技领域经验，新西兰居民。曾在顶级金融机构总行担任核心系统架构师，专注大规模金融分布式系统、支付平台和微服务架构设计开发。Roy Nee拥有丰富的金融核心系统架构经验，主导构建了支持2.5亿日请求的信用卡系统和多个获奖的金融科技项目。他在高并发交易处理、分布式架构设计、金融业务系统优化等方面经验丰富，擅长将复杂的金融需求转化为高效安全的技术解决方案。">15 years of fintech experience, New Zealand resident. Has served as core system architect at top financial institutions headquarters, focusing on large-scale financial distributed systems, payment platforms and microservice architecture design and development. Roy Nee has rich experience in financial core system architecture, led construction of credit card systems supporting 250 million daily requests and multiple award-winning fintech projects. He has rich experience in high-concurrency transaction processing, distributed architecture design, financial business system optimization and other aspects, skilled at transforming complex financial requirements into efficient and secure technical solutions.</p>
+                            </div>
+                            <div class="tech-quote" data-en="Payment architecture, connecting global capital flows; trading systems, safeguarding trillion-dollar financial security." data-zh="支付架构，连接全球资金流；交易系统，护航万亿金融安全。">"Payment architecture, connecting global capital flows; trading systems, safeguarding trillion-dollar financial security."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <h2 class="section-title" data-en="Operations Management" data-zh="运营管理">Operations Management</h2>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- 运营管理1 - Claire Chen -->
+            <div class="card-container" id="ops-claire">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/service/jin.jpg" alt="Claire Chen">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Claire Chen</h3>
+                            <p class="teacher-title" data-en="UX Designer & Project Manager" data-zh="用户体验设计师 & 项目经理">UX Designer & Project Manager</p>
+                            <p class="teacher-summary" data-en="Professional UX designer and experienced project manager with 8+ years in digital product design and educational program management. Claire combines user-centered design thinking with strategic project coordination to create exceptional learning experiences and ensure seamless program delivery." data-zh="专业的用户体验设计师和经验丰富的项目经理，拥有8年以上数字产品设计和教育项目管理经验。Claire将用户中心设计思维与战略项目协调相结合，创造卓越的学习体验并确保项目无缝交付。">Professional UX designer and experienced project manager with 8+ years in digital product design and educational program management. Claire combines user-centered design thinking with strategic project coordination to create exceptional learning experiences and ensure seamless program delivery.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="UX Design Expertise" data-zh="用户体验设计专长">UX Design Expertise</h4>
+                                    <ul>
+                                        <li data-en="User research and persona development for educational platforms" data-zh="教育平台用户研究和角色开发">User research and persona development for educational platforms</li>
+                                        <li data-en="Information architecture and user journey mapping" data-zh="信息架构和用户旅程映射">Information architecture and user journey mapping</li>
+                                        <li data-en="Interactive prototype design and usability testing" data-zh="交互原型设计和可用性测试">Interactive prototype design and usability testing</li>
+                                        <li data-en="Design system creation and visual identity development" data-zh="设计系统创建和视觉识别开发">Design system creation and visual identity development</li>
+                                        <li data-en="Accessibility and inclusive design implementation" data-zh="无障碍和包容性设计实施">Accessibility and inclusive design implementation</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Project Management Skills" data-zh="项目管理技能">Project Management Skills</h4>
+                                    <ul>
+                                        <li data-en="Agile methodology and sprint planning for educational programs" data-zh="教育项目敏捷方法和冲刺规划">Agile methodology and sprint planning for educational programs</li>
+                                        <li data-en="Cross-functional team coordination and stakeholder management" data-zh="跨职能团队协调和利益相关者管理">Cross-functional team coordination and stakeholder management</li>
+                                        <li data-en="Risk assessment and mitigation strategies" data-zh="风险评估和缓解策略">Risk assessment and mitigation strategies</li>
+                                        <li data-en="Quality assurance and continuous improvement processes" data-zh="质量保证和持续改进流程">Quality assurance and continuous improvement processes</li>
+                                        <li data-en="Performance metrics and success measurement frameworks" data-zh="绩效指标和成功衡量框架">Performance metrics and success measurement frameworks</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Great design is invisible. Great project management is seamless. When both come together, we create experiences that not only meet needs but exceed expectations." data-zh="优秀的设计是无形的。优秀的项目管理是无缝的。当两者结合时，我们创造的不只是满足需求，而是超越期望的体验。">
+                                    "Great design is invisible. Great project management is seamless. When both come together, we create experiences that not only meet needs but exceed expectations."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Educational Innovation" data-zh="教育创新">Educational Innovation</h4>
+                                    <p data-en="Pioneers user-centered design approaches in AI education, creating intuitive learning interfaces and streamlined project workflows. Combines UX research insights with educational psychology to develop engaging, accessible, and effective learning experiences that adapt to diverse student needs and learning styles." data-zh="在AI教育中开创以用户为中心的设计方法，创造直观的学习界面和简化的项目工作流程。将UX研究洞察与教育心理学相结合，开发适应不同学生需求和学习风格的引人入胜、易于访问且有效的学习体验。">Pioneers user-centered design approaches in AI education, creating intuitive learning interfaces and streamlined project workflows. Combines UX research insights with educational psychology to develop engaging, accessible, and effective learning experiences that adapt to diverse student needs and learning styles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 运营管理2 - Alan Peng -->
+            <div class="card-container" id="ops-alan">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="teacher-photo">
+                            <div class="photo-avatar">
+                                <img src="project/service/alan.png" alt="Alan Peng">
+                            </div>
+                        </div>
+                        <div class="card-content-front">
+                            <h3 class="teacher-name">Alan Peng</h3>
+                            <p class="teacher-title" data-en="Teaching Assistant" data-zh="助教">Teaching Assistant</p>
+                            <p class="teacher-summary" data-en="Junior student at Augustana University majoring in Mathematics and Physics, serving as BEEBEE test engineer and assistant Pacer. Alan combines strong academic foundation with practical technical experience to provide comprehensive support and guidance for students mastering AI concepts and skills." data-zh="美国奥古斯塔纳大学大三学生，数学和物理专业，担任BEEBEE测试工程师和助理Pacer。Alan将扎实的学术基础与实践技术经验相结合，为学生掌握AI概念和技能提供全面支持和指导。">Junior student at Augustana University majoring in Mathematics and Physics, serving as BEEBEE test engineer and assistant Pacer. Alan combines strong academic foundation with practical technical experience to provide comprehensive support and guidance for students mastering AI concepts and skills.</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content-back">
+                            <div class="back-inner">
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Academic Background" data-zh="学术背景">Academic Background</h4>
+                                    <ul>
+                                        <li data-en="Junior student at Augustana University, majoring in Mathematics and Physics" data-zh="美国奥古斯塔纳大学大三学生，数学和物理专业">Junior student at Augustana University, majoring in Mathematics and Physics</li>
+                                        <li data-en="Strong foundation in mathematical modeling and computational methods" data-zh="扎实的数学建模和计算方法基础">Strong foundation in mathematical modeling and computational methods</li>
+                                        <li data-en="Experience in applying theoretical concepts to practical problem solving" data-zh="将理论概念应用于实际问题解决的经验">Experience in applying theoretical concepts to practical problem solving</li>
+                                        <li data-en="Active participation in academic research and collaborative projects" data-zh="积极参与学术研究和协作项目">Active participation in academic research and collaborative projects</li>
+                                        <li data-en="Bilingual proficiency in English and Chinese for international communication" data-zh="中英文双语熟练，适合国际交流">Bilingual proficiency in English and Chinese for international communication</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Professional Experience" data-zh="专业经验">Professional Experience</h4>
+                                    <ul>
+                                        <li data-en="BEEBEE AI test engineer, responsible for quality assurance and system validation" data-zh="BEEBEE AI测试工程师，负责质量保证和系统验证">BEEBEE AI test engineer, responsible for quality assurance and system validation</li>
+                                        <li data-en="Assistant Pacer, providing comprehensive support for educational program coordination" data-zh="助理Pacer，为教育项目协调提供全面支持">Assistant Pacer, providing comprehensive support for educational program coordination</li>
+                                        <li data-en="Technical problem solving and debugging expertise" data-zh="技术问题解决与调试专长">Technical problem solving and debugging expertise</li>
+                                        <li data-en="Code review and best practices guidance" data-zh="代码审查与最佳实践指导">Code review and best practices guidance</li>
+                                        <li data-en="One-on-one tutoring and mentoring for students" data-zh="为学生提供一对一辅导与指导">One-on-one tutoring and mentoring for students</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tech-quote" data-en="Mathematics teaches us to think logically, physics shows us how the world works, and AI helps us solve real problems. I'm here to bridge these worlds and guide you through your learning journey." data-zh="数学教会我们逻辑思维，物理展示世界如何运作，AI帮助我们解决实际问题。我在这里连接这些世界，指导您的学习之旅。">
+                                    "Mathematics teaches us to think logically, physics shows us how the world works, and AI helps us solve real problems. I'm here to bridge these worlds and guide you through your learning journey."
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4 data-en="Teaching Philosophy" data-zh="教学理念">Teaching Philosophy</h4>
+                                    <p data-en="Combines academic rigor with practical application, using real-world examples to make complex AI concepts accessible. Adopts a patient and systematic approach, breaking down complex topics into manageable parts while maintaining the mathematical precision essential for AI understanding." data-zh="将学术严谨性与实际应用相结合，使用现实世界的例子使复杂的AI概念易于理解。采用耐心和系统化的方法，将复杂主题分解为可管理的部分，同时保持对AI理解至关重要的数学精度。">Combines academic rigor with practical application, using real-world examples to make complex AI concepts accessible. Adopts a patient and systematic approach, breaking down complex topics into manageable parts while maintaining the mathematical precision essential for AI understanding.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 语言切换功能
+        let currentLang = 'en';
+        
+        // 安全的 localStorage 操作
+        const safeLocalStorage = {
+            setItem: (key, value) => {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {
+                    // 忽略 localStorage 错误
+                }
+            },
+            getItem: (key) => {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    return null;
+                }
+            }
+        };
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // 更新语言按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            
+            // 更新所有带有双语属性的元素
+            document.querySelectorAll('[data-en], [data-zh]').forEach(element => {
+                if (lang === 'cn') {
+                    const zhText = element.getAttribute('data-zh');
+                    if (zhText) {
+                        if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4') {
+                            element.innerHTML = zhText;
+                        } else {
+                            element.textContent = zhText;
+                        }
+                    }
+                } else {
+                    const enText = element.getAttribute('data-en');
+                    if (enText) {
+                        if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4') {
+                            element.innerHTML = enText;
+                        } else {
+                            element.textContent = enText;
+                        }
+                    }
+                }
+            });
+            
+            // 保存语言偏好
+            safeLocalStorage.setItem('preferred-language', lang);
+        }
+        
+        // 语言切换按钮事件
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+        
+        // 页面加载时检查语言偏好
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = safeLocalStorage.getItem('preferred-language');
+            if (savedLang) {
+                switchLanguage(savedLang);
+            } else {
+                switchLanguage('en'); // 默认英文
+            }
+        });
+    </script>
+</body>
+</html>
